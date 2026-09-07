@@ -11,6 +11,7 @@ import {
   shortFighterName,
 } from '../engine/universe'
 import type { Fighter, GameState, Gender, Rarity } from '../types'
+import FighterPortrait from './FighterPortrait'
 
 interface DraftScreenProps {
   game: GameState
@@ -19,6 +20,7 @@ interface DraftScreenProps {
 }
 
 const rarityRank: Record<Rarity, number> = {
+  Generational: 6,
   Legend: 5,
   Epic: 4,
   Rare: 3,
@@ -146,7 +148,7 @@ export default function DraftScreen({ game, onChange, onExit }: DraftScreenProps
 
           {selected && currentPromotion && (
             <article className={`draft-selection-preview rarity-${selected.rarity.toLowerCase()}`}>
-              <div className="selection-portrait">{shortFighterName(selected).slice(0, 2).toUpperCase()}</div>
+              <FighterPortrait fighter={selected} size="lg" accent={currentPromotion.color} className="selection-portrait" />
               <div className="selection-copy">
                 <div className="selection-tags">
                   <span className={`rarity-badge ${selected.rarity.toLowerCase()}`}>{selected.rarity}</span>
@@ -205,6 +207,7 @@ export default function DraftScreen({ game, onChange, onExit }: DraftScreenProps
               </select>
               <select className="select-input" aria-label="Rarity" value={rarity} onChange={(event) => setRarity(event.target.value as 'All' | Rarity)}>
                 <option value="All">All rarities</option>
+                <option value="Generational">Generational</option>
                 <option value="Legend">Legend</option>
                 <option value="Epic">Epic</option>
               </select>
@@ -227,7 +230,7 @@ export default function DraftScreen({ game, onChange, onExit }: DraftScreenProps
               >
                 <span className={`rarity-line ${fighter.rarity.toLowerCase()}`} />
                 <span className="star-card-top">
-                  <span className="star-avatar">{shortFighterName(fighter).slice(0, 2).toUpperCase()}</span>
+                  <FighterPortrait fighter={fighter} size="sm" accent={currentPromotion?.color} className="star-avatar" />
                   <span className={`rarity-badge ${fighter.rarity.toLowerCase()}`}>{fighter.rarity}</span>
                 </span>
                 <strong>{shortFighterName(fighter)}</strong>

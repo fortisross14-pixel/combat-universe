@@ -1,4 +1,4 @@
-import { createFighterPool, mulberry32, PROMOTION_SEEDS } from '../data/seed'
+import { createFighterPool, hydrateFighterData, mulberry32, PROMOTION_SEEDS } from '../data/seed'
 import type {
   ChronicleEntry,
   DraftPick,
@@ -46,6 +46,7 @@ export function createPromotions(): Promotion[] {
     totalViewers: 0,
     revenue: 0,
     currentChampions: { Male: null, Female: null },
+    divisionChampions: {},
     titleHistory: [],
     yearStats: {},
   }))
@@ -70,7 +71,7 @@ export function createUniverse(slotId: number, universeName?: string): GameState
   )
 
   return {
-    version: 1,
+    version: 3,
     id: `universe-${seed}-${slotId}`,
     slotId,
     universeName: universeName?.trim() || `Combat Universe ${slotId}`,
@@ -78,6 +79,7 @@ export function createUniverse(slotId: number, universeName?: string): GameState
     phase: 'draft',
     currentYear: 2026,
     currentMonth: 0,
+    currentWeek: 1,
     seed,
     promotions,
     fighters: createFighterPool(seed + 101),
@@ -88,8 +90,65 @@ export function createUniverse(slotId: number, universeName?: string): GameState
       picks: [],
     },
     chronicles: [],
+    rivalries: [],
+    events: [],
+    awards: [],
+    yearSummaries: [],
     totalEvents: 0,
   }
+}
+
+
+export function upgradeGameState(input: GameState): GameState {
+  const state = structuredClone(input)
+  state.version = 3
+  state.rivalries = state.rivalries ?? []
+  state.events = state.events ?? []
+  state.awards = state.awards ?? []
+  state.yearSummaries = state.yearSummaries ?? []
+  state.currentWeek = state.currentWeek ?? Math.min(52, Math.max(1, Math.round((state.currentMonth ?? 0) * 4.333) + 1))
+  state.fighters = state.fighters.map((fighter) => ({ ...hydrateFighterData(fighter), lastFightWeek: fighter.lastFightWeek ?? null, retiredYear: fighter.retiredYear ?? null }))
+  state.events = state.events.map((event) => ({
+    ...event,
+    week: event.week ?? Math.min(52, Math.max(1, Math.round((event.month ?? 0) * 4.333) + 1)),
+    qualityRating: event.qualityRating ?? event.eventRating ?? 50,
+    eventRating: event.eventRating ?? event.qualityRating ?? 50,
+    audience: event.audience ?? 0,
+    ppvBuys: event.ppvBuys ?? 0,
+    bouts: (event.bouts ?? []).map((bout) => ({
+      ...bout,
+      fightRating: bout.fightRating ?? bout.importance ?? 50,
+      audience: bout.audience ?? 0,
+      ppvBuys: bout.ppvBuys ?? 0,
+    })),
+  }))
+  state.promotions.forEach((promotion) => {
+    promotion.divisionChampions = promotion.divisionChampions ?? {}
+    promotion.titleHistory = (promotion.titleHistory ?? []).map((title) => ({
+      ...title,
+      weightClass: title.weightClass ?? state.fighters.find((fighter) => fighter.id === title.fighterId)?.weightClass ?? 'Openweight',
+      week: title.week ?? Math.min(52, Math.max(1, Math.round((title.month ?? 0) * 4.333) + 1)),
+      defenses: title.defenses ?? 0,
+      reignEndYear: title.reignEndYear ?? null,
+      reignEndWeek: title.reignEndWeek ?? null,
+    }))
+    const lineageGroups = new Map<string, typeof promotion.titleHistory>()
+    promotion.titleHistory.forEach((title) => {
+      const key = `${title.gender}:${title.weightClass}`
+      lineageGroups.set(key, [...(lineageGroups.get(key) ?? []), title])
+    })
+    lineageGroups.forEach((reigns) => {
+      const chronological = [...reigns].sort((a, b) => a.year - b.year || (a.week ?? 1) - (b.week ?? 1))
+      chronological.forEach((reign, index) => {
+        const nextReign = chronological[index + 1]
+        if (nextReign && reign.reignEndYear == null) {
+          reign.reignEndYear = nextReign.year
+          reign.reignEndWeek = nextReign.week ?? 1
+        }
+      })
+    })
+  })
+  return state
 }
 
 export function getDraftSequence(state: GameState): string[] {
@@ -162,6 +221,7 @@ export function draftFighter(state: GameState, fighterId: string): GameState {
 
 function rarityValue(rarity: Rarity): number {
   const values: Record<Rarity, number> = {
+    Generational: 24,
     Legend: 16,
     Epic: 10,
     Rare: 5,
@@ -241,8 +301,11 @@ export function moveFighter(state: GameState, fighterId: string, targetPromotion
   const target = next.promotions.find((promotion) => promotion.id === targetPromotionId)
   if (!fighter || !target) return state
   const previous = next.promotions.find((promotion) => promotion.id === fighter.promotionId)
-  if (previous?.currentChampions[fighter.gender] === fighter.id) {
-    previous.currentChampions[fighter.gender] = null
+  if (previous) {
+    Object.keys(previous.divisionChampions).forEach((key) => {
+      if (previous.divisionChampions[key] === fighter.id) previous.divisionChampions[key] = null
+    })
+    if (previous.currentChampions[fighter.gender] === fighter.id) previous.currentChampions[fighter.gender] = null
   }
   fighter.promotionId = target.id
   next.chronicles.unshift(
@@ -252,7 +315,7 @@ export function moveFighter(state: GameState, fighterId: string, targetPromotion
       body: `${shortFighterName(fighter)} leaves ${previous?.name ?? 'free agency'} for ${target.name}. The move creates a new career chapter without rewriting any prior results.`,
       promotionIds: [previous?.id, target.id].filter((value): value is string => Boolean(value)),
       fighterIds: [fighter.id],
-      importance: fighter.rarity === 'Legend' ? 88 : fighter.rarity === 'Epic' ? 74 : 55,
+      importance: fighter.rarity === 'Generational' ? 96 : fighter.rarity === 'Legend' ? 88 : fighter.rarity === 'Epic' ? 74 : 55,
     }),
   )
   return next
@@ -335,15 +398,19 @@ export function mergePromotions(
     totalViewers: first.totalViewers + second.totalViewers,
     revenue: first.revenue + second.revenue,
     currentChampions: { Male: null, Female: null },
+    divisionChampions: { ...first.divisionChampions, ...second.divisionChampions },
     titleHistory: [...first.titleHistory, ...second.titleHistory],
     yearStats: {},
   }
 
   ;(['Male', 'Female'] as Gender[]).forEach((gender) => {
-    const candidates = [first.currentChampions[gender], second.currentChampions[gender]]
+    const championIds = Object.entries(merged.divisionChampions)
+      .filter(([key, fighterId]) => key.startsWith(`${gender}:`) && Boolean(fighterId))
+      .map(([, fighterId]) => fighterId as string)
+    const candidates = championIds
       .map((fighterId) => next.fighters.find((fighter) => fighter.id === fighterId))
       .filter((fighter): fighter is Fighter => Boolean(fighter))
-      .sort((a, b) => b.fame - a.fame || b.overall - a.overall)
+      .sort((a, b) => b.fame - a.fame || b.legacy - a.legacy)
     merged.currentChampions[gender] = candidates[0]?.id ?? null
   })
 
@@ -389,6 +456,7 @@ export function splitPromotion(state: GameState, sourceId: string, newName: stri
     totalViewers: 0,
     revenue: 0,
     currentChampions: { Male: null, Female: null },
+    divisionChampions: {},
     titleHistory: [],
     yearStats: {},
   }
@@ -397,10 +465,13 @@ export function splitPromotion(state: GameState, sourceId: string, newName: stri
   next.fighters.forEach((fighter) => {
     if (movingIds.has(fighter.id)) fighter.promotionId = id
   })
+  Object.keys(source.divisionChampions).forEach((key) => {
+    const fighterId = source.divisionChampions[key]
+    if (fighterId && movingIds.has(fighterId)) source.divisionChampions[key] = null
+  })
   ;(['Male', 'Female'] as Gender[]).forEach((gender) => {
-    if (source.currentChampions[gender] && movingIds.has(source.currentChampions[gender]!)) {
-      source.currentChampions[gender] = null
-    }
+    const currentId = source.currentChampions[gender]
+    if (currentId && movingIds.has(currentId)) source.currentChampions[gender] = null
   })
   next.promotions.push(splinter)
   next.chronicles.unshift(

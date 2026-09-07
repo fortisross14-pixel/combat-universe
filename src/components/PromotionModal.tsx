@@ -1,5 +1,6 @@
 import { shortFighterName } from '../engine/universe'
-import type { GameState, Gender, Promotion } from '../types'
+import type { GameState, Promotion } from '../types'
+import FighterPortrait from './FighterPortrait'
 
 interface PromotionModalProps {
   promotion: Promotion
@@ -12,23 +13,45 @@ function formatMillions(value: number): string {
   return `${value.toFixed(value >= 100 ? 0 : 2)}M`
 }
 
+
+function promotionIdentityTag(promotion: Promotion): string {
+  if (promotion.entertainment - promotion.competition >= 16) return 'Spectacle-first'
+  if (promotion.competition - promotion.entertainment >= 16) return 'Competition-first'
+  if (promotion.risk >= 75) return 'High risk'
+  return 'Balanced prestige'
+}
+
+function promotionFlavorClass(promotion: Promotion): string {
+  if (promotion.tone.toLowerCase().includes('chaotic') || promotion.entertainment >= 82) return 'flavor-spectacle'
+  if (promotion.tone.toLowerCase().includes('prestige') || promotion.competition >= 82) return 'flavor-prestige'
+  if (promotion.risk >= 75) return 'flavor-volatile'
+  return 'flavor-classic'
+}
+
 export default function PromotionModal({ promotion, game, onClose, onFighterOpen }: PromotionModalProps) {
   const roster = game.fighters
     .filter((fighter) => fighter.promotionId === promotion.id && !fighter.isRetired)
     .sort((a, b) => b.fame - a.fame || b.overall - a.overall)
   const years = Object.values(promotion.yearStats).sort((a, b) => b.year - a.year)
 
-  const championFor = (gender: Gender) =>
-    game.fighters.find((fighter) => fighter.id === promotion.currentChampions[gender]) ?? null
-
-  const maleChampion = championFor('Male')
-  const femaleChampion = championFor('Female')
+  const divisionChampions = Object.entries(promotion.divisionChampions)
+    .map(([key, fighterId]) => {
+      const [gender, division] = key.split(':')
+      const fighter = fighterId ? game.fighters.find((candidate) => candidate.id === fighterId) ?? null : null
+      return { key, gender, division, fighter }
+    })
+    .filter((entry) => entry.fighter)
+    .sort((a, b) => a.gender.localeCompare(b.gender) || a.division.localeCompare(b.division))
   const totalTitles = promotion.titleHistory.length
+  const promotionEvents = game.events.filter((event) => event.promotionId === promotion.id)
+  const bestQualityEvent = [...promotionEvents].sort((a, b) => b.qualityRating - a.qualityRating)[0] ?? null
+  const biggestEvent = [...promotionEvents].sort((a, b) => b.audience - a.audience)[0] ?? null
+  const peakYear = [...years].sort((a, b) => (b.revenue * 5 + b.viewers * 2 + b.fame * 3) - (a.revenue * 5 + a.viewers * 2 + a.fame * 3))[0] ?? null
 
   return (
     <div className="modal-backdrop" role="presentation" onMouseDown={onClose}>
       <section
-        className="modal-panel promotion-modal"
+        className={`modal-panel promotion-modal ${promotionFlavorClass(promotion)}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="promotion-modal-name"
@@ -40,6 +63,7 @@ export default function PromotionModal({ promotion, game, onClose, onFighterOpen
             <p className="eyebrow">{promotion.region}</p>
             <h2 id="promotion-modal-name">{promotion.name}</h2>
             <p>{promotion.archetype} · {promotion.tone}</p>
+            <em className="promotion-identity-tag">{promotionIdentityTag(promotion)}</em>
           </div>
           <button className="icon-button" type="button" aria-label="Close promotion details" onClick={onClose}>
             ×
@@ -63,41 +87,32 @@ export default function PromotionModal({ promotion, game, onClose, onFighterOpen
             <small>Fresh-universe cumulative revenue</small>
           </article>
           <article className="metric-card">
-            <span>Title changes</span>
-            <strong>{totalTitles}</strong>
-            <small>{roster.length} active fighters</small>
+            <span>Historical peak</span>
+            <strong>{peakYear ? `Y${peakYear.year}` : '—'}</strong>
+            <small>{peakYear ? `${peakYear.fame} fame · $${formatMillions(peakYear.revenue)} revenue` : `${roster.length} active fighters`}</small>
           </article>
         </div>
 
-        <section className="champion-showcase">
-          <article>
-            <p className="eyebrow">Men’s championship</p>
-            {maleChampion ? (
-              <button className="champion-card" type="button" onClick={() => onFighterOpen(maleChampion.id)}>
-                <span className="champion-crown">M</span>
-                <span>
-                  <strong>{shortFighterName(maleChampion)}</strong>
-                  <small>{maleChampion.stats.wins}-{maleChampion.stats.losses} · {maleChampion.fame} fame</small>
-                </span>
+        <section className="modal-section promotion-history-highlight">
+          <div className="section-heading"><div><p className="eyebrow">Historical record</p><h3>Promotion peaks</h3></div><span>{promotionEvents.length} events preserved</span></div>
+          <div className="career-legacy-grid">
+            <article><span>Title reigns</span><strong>{totalTitles}</strong><small>Across every division</small></article>
+            <article><span>Best event quality</span><strong>{bestQualityEvent?.qualityRating ?? '—'}</strong><small>{bestQualityEvent?.name ?? 'No events yet'}</small></article>
+            <article><span>Largest audience</span><strong>{biggestEvent ? `${biggestEvent.audience.toFixed(2)}M` : '—'}</strong><small>{biggestEvent ? `${biggestEvent.ppvBuys.toFixed(2)}M PPV` : 'No events yet'}</small></article>
+            <article><span>Peak year</span><strong>{peakYear?.year ?? '—'}</strong><small>{peakYear ? `${formatMillions(peakYear.viewers)} viewers · ${peakYear.fame} fame` : 'No completed year'}</small></article>
+          </div>
+        </section>
+
+        <section className="modal-section">
+          <div className="section-heading"><div><p className="eyebrow">Championship structure</p><h3>Division champions</h3></div><span>{divisionChampions.length} active belts</span></div>
+          <div className="division-champion-grid">
+            {divisionChampions.length === 0 ? <div className="vacant-champion">All titles are vacant. Rankings will create the first championship fights.</div> : divisionChampions.map((entry) => entry.fighter ? (
+              <button className="champion-card division-champion-card" type="button" key={entry.key} onClick={() => onFighterOpen(entry.fighter!.id)}>
+                <FighterPortrait fighter={entry.fighter} size="sm" accent={promotion.color} champion />
+                <span><small>{entry.gender} · {entry.division}</small><strong>{shortFighterName(entry.fighter)}</strong><small>{entry.fighter.stats.wins}-{entry.fighter.stats.losses} · {entry.fighter.legacy.toFixed(0)} legacy</small></span>
               </button>
-            ) : (
-              <div className="vacant-champion">Vacant — the next title event will crown a champion.</div>
-            )}
-          </article>
-          <article>
-            <p className="eyebrow">Women’s championship</p>
-            {femaleChampion ? (
-              <button className="champion-card" type="button" onClick={() => onFighterOpen(femaleChampion.id)}>
-                <span className="champion-crown">W</span>
-                <span>
-                  <strong>{shortFighterName(femaleChampion)}</strong>
-                  <small>{femaleChampion.stats.wins}-{femaleChampion.stats.losses} · {femaleChampion.fame} fame</small>
-                </span>
-              </button>
-            ) : (
-              <div className="vacant-champion">Vacant — the next title event will crown a champion.</div>
-            )}
-          </article>
+            ) : null)}
+          </div>
         </section>
 
         <section className="modal-section">
@@ -133,10 +148,11 @@ export default function PromotionModal({ promotion, game, onClose, onFighterOpen
           <div className="modal-roster-grid">
             {roster.slice(0, 24).map((fighter) => (
               <button className="modal-roster-card" type="button" key={fighter.id} onClick={() => onFighterOpen(fighter.id)}>
-                <span className={`rarity-badge ${fighter.rarity.toLowerCase()}`}>{fighter.rarity}</span>
+                <div className="modal-roster-top"><FighterPortrait fighter={fighter} size="sm" accent={promotion.color} /><span className={`rarity-badge ${fighter.rarity.toLowerCase()}`}>{fighter.rarity}</span></div>
                 <strong>{shortFighterName(fighter)}</strong>
-                <small>{fighter.gender} · {fighter.style}</small>
-                <b>{fighter.fame} fame · {fighter.stats.wins} wins</b>
+                <small>{fighter.gender} · {fighter.weightClass} · {fighter.style}</small>
+                <b>{fighter.socialPersonality} · {fighter.competitivePersonality}</b>
+                <small>{fighter.fame} fame · {fighter.legacy.toFixed(0)} legacy · {fighter.stats.wins} wins</small>
               </button>
             ))}
           </div>
@@ -195,9 +211,9 @@ export default function PromotionModal({ promotion, game, onClose, onFighterOpen
               <p>No champions have been crowned yet.</p>
             ) : promotion.titleHistory.slice(0, 16).map((title) => (
               <button className="title-history-item" type="button" key={title.id} onClick={() => onFighterOpen(title.fighterId)}>
-                <span>{title.month + 1}/{title.year}</span>
+                <span>W{title.week ?? '—'} · {title.year}</span>
                 <strong>{title.fighterName}</strong>
-                <small>{title.gender} champion {title.defeatedFighterName ? `after defeating ${title.defeatedFighterName}` : 'in a vacant-title fight'}</small>
+                <small>{title.gender} {title.weightClass} · {title.defenses ?? 0} defenses · {title.reignEndYear ? `ended W${title.reignEndWeek ?? 1} ${title.reignEndYear}` : 'current reign'}{title.defeatedFighterName ? ` · beat ${title.defeatedFighterName}` : ''}</small>
               </button>
             ))}
           </div>

@@ -1,4 +1,5 @@
 import type { GameState, SaveSummary } from './types'
+import { upgradeGameState } from './engine/universe'
 
 const DATABASE_NAME = 'combat-universe-database'
 const DATABASE_VERSION = 1
@@ -92,6 +93,7 @@ function createSummary(state: GameState): SaveSummary {
     phase: state.phase,
     year: state.currentYear,
     month: state.currentMonth,
+    week: state.currentWeek,
     promotions: state.promotions.length,
     fighters: state.fighters.filter(
       (fighter) => fighter.promotionId && !fighter.isRetired,
@@ -143,7 +145,7 @@ export async function loadGame(
       store.get(slotId),
     )
 
-    return storedSave?.state ?? null
+    return storedSave?.state ? upgradeGameState(storedSave.state) : null
   } finally {
     database.close()
   }

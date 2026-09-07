@@ -1,4 +1,4 @@
-import type { Fighter, Gender, Promotion, Rarity } from '../types'
+import type { CareerArc, CompetitivePersonality, Discipline, Fighter, Gender, Promotion, Rarity, SocialPersonality } from '../types'
 
 export const PROMOTION_SEEDS: Omit<
   Promotion,
@@ -7,6 +7,7 @@ export const PROMOTION_SEEDS: Omit<
   | 'totalViewers'
   | 'revenue'
   | 'currentChampions'
+  | 'divisionChampions'
   | 'titleHistory'
   | 'yearStats'
 >[] = [
@@ -116,7 +117,7 @@ type StarSeed = {
   nationality: string
   style: string
   age: number
-  rarity: 'Legend' | 'Epic'
+  rarity: 'Generational' | 'Legend' | 'Epic'
   overall: number
   charisma: number
   potential: number
@@ -126,13 +127,13 @@ const SIGNATURE_STARS: StarSeed[] = [
   { firstName: 'Paul', lastName: 'Levesque', ringName: 'Triple H', gender: 'Male', nationality: 'United States', style: 'Powerhouse Wrestler', age: 28, rarity: 'Legend', overall: 91, charisma: 99, potential: 96 },
   { firstName: 'Daniel', lastName: 'Cormier', ringName: 'DC', gender: 'Male', nationality: 'United States', style: 'Olympic Wrestling', age: 29, rarity: 'Legend', overall: 97, charisma: 91, potential: 97 },
   { firstName: 'Ronda', lastName: 'Rousey', ringName: 'Rowdy', gender: 'Female', nationality: 'United States', style: 'Judo & Armbars', age: 27, rarity: 'Legend', overall: 95, charisma: 94, potential: 96 },
-  { firstName: 'Amanda', lastName: 'Nunes', ringName: 'The Lioness', gender: 'Female', nationality: 'Brazil', style: 'MMA All-Rounder', age: 28, rarity: 'Legend', overall: 98, charisma: 84, potential: 97 },
+  { firstName: 'Amanda', lastName: 'Nunes', ringName: 'The Lioness', gender: 'Female', nationality: 'Brazil', style: 'MMA All-Rounder', age: 28, rarity: 'Generational', overall: 98, charisma: 84, potential: 97 },
   { firstName: 'Conor', lastName: 'McGregor', ringName: 'The Notorious', gender: 'Male', nationality: 'Ireland', style: 'Counter Striker', age: 27, rarity: 'Legend', overall: 93, charisma: 100, potential: 96 },
-  { firstName: 'Jon', lastName: 'Jones', ringName: 'Bones', gender: 'Male', nationality: 'United States', style: 'Creative MMA', age: 27, rarity: 'Legend', overall: 99, charisma: 88, potential: 99 },
-  { firstName: 'Georges', lastName: 'St-Pierre', ringName: 'GSP', gender: 'Male', nationality: 'Canada', style: 'MMA All-Rounder', age: 28, rarity: 'Legend', overall: 99, charisma: 91, potential: 99 },
+  { firstName: 'Jon', lastName: 'Jones', ringName: 'Bones', gender: 'Male', nationality: 'United States', style: 'Creative MMA', age: 27, rarity: 'Generational', overall: 99, charisma: 88, potential: 99 },
+  { firstName: 'Georges', lastName: 'St-Pierre', ringName: 'GSP', gender: 'Male', nationality: 'Canada', style: 'MMA All-Rounder', age: 28, rarity: 'Generational', overall: 99, charisma: 91, potential: 99 },
   { firstName: 'Khabib', lastName: 'Nurmagomedov', ringName: 'The Eagle', gender: 'Male', nationality: 'Russia', style: 'Sambo Pressure', age: 27, rarity: 'Legend', overall: 98, charisma: 87, potential: 98 },
   { firstName: 'Anderson', lastName: 'Silva', ringName: 'The Spider', gender: 'Male', nationality: 'Brazil', style: 'Muay Thai Countering', age: 29, rarity: 'Legend', overall: 98, charisma: 92, potential: 98 },
-  { firstName: 'Fedor', lastName: 'Emelianenko', ringName: 'The Last Emperor', gender: 'Male', nationality: 'Russia', style: 'Combat Sambo', age: 28, rarity: 'Legend', overall: 98, charisma: 83, potential: 98 },
+  { firstName: 'Fedor', lastName: 'Emelianenko', ringName: 'The Last Emperor', gender: 'Male', nationality: 'Russia', style: 'Combat Sambo', age: 28, rarity: 'Generational', overall: 98, charisma: 83, potential: 98 },
   { firstName: 'Israel', lastName: 'Adesanya', ringName: 'The Last Stylebender', gender: 'Male', nationality: 'Nigeria / New Zealand', style: 'Kickboxing', age: 27, rarity: 'Epic', overall: 94, charisma: 97, potential: 97 },
   { firstName: 'Francis', lastName: 'Ngannou', ringName: 'The Predator', gender: 'Male', nationality: 'Cameroon', style: 'Knockout Power', age: 29, rarity: 'Epic', overall: 95, charisma: 90, potential: 96 },
   { firstName: 'Max', lastName: 'Holloway', ringName: 'Blessed', gender: 'Male', nationality: 'United States', style: 'Volume Boxing', age: 26, rarity: 'Epic', overall: 93, charisma: 91, potential: 96 },
@@ -150,7 +151,7 @@ const SIGNATURE_STARS: StarSeed[] = [
   { firstName: 'Phil', lastName: 'Brooks', ringName: 'CM Punk', gender: 'Male', nationality: 'United States', style: 'Submission Showman', age: 28, rarity: 'Epic', overall: 84, charisma: 99, potential: 93 },
   { firstName: 'Kazuchika', lastName: 'Okada', ringName: 'The Rainmaker', gender: 'Male', nationality: 'Japan', style: 'Strong Style', age: 27, rarity: 'Legend', overall: 95, charisma: 94, potential: 97 },
   { firstName: 'Tetsuya', lastName: 'Naito', ringName: 'El Ingobernable', gender: 'Male', nationality: 'Japan', style: 'Strong Style Showman', age: 28, rarity: 'Epic', overall: 91, charisma: 96, potential: 95 },
-  { firstName: 'Saúl', lastName: 'Álvarez', ringName: 'Canelo', gender: 'Male', nationality: 'Mexico', style: 'Counter Boxing', age: 27, rarity: 'Legend', overall: 98, charisma: 94, potential: 98 },
+  { firstName: 'Saúl', lastName: 'Álvarez', ringName: 'Canelo', gender: 'Male', nationality: 'Mexico', style: 'Counter Boxing', age: 27, rarity: 'Generational', overall: 98, charisma: 94, potential: 98 },
   { firstName: 'Oleksandr', lastName: 'Usyk', ringName: 'The Cat', gender: 'Male', nationality: 'Ukraine', style: 'Technical Boxing', age: 28, rarity: 'Legend', overall: 98, charisma: 86, potential: 98 },
   { firstName: 'Tyson', lastName: 'Fury', ringName: 'The Gypsy King', gender: 'Male', nationality: 'United Kingdom', style: 'Heavyweight Boxing', age: 28, rarity: 'Legend', overall: 96, charisma: 99, potential: 97 },
   { firstName: 'Anthony', lastName: 'Joshua', ringName: 'AJ', gender: 'Male', nationality: 'United Kingdom', style: 'Power Boxing', age: 27, rarity: 'Epic', overall: 93, charisma: 95, potential: 96 },
@@ -263,6 +264,107 @@ function slug(value: string): string {
     .replace(/(^-|-$)/g, '')
 }
 
+const SOCIAL_PERSONALITIES: SocialPersonality[] = ['Fighter', 'Rebel', 'Classy', 'Villain', 'Showman', 'Humble']
+const COMPETITIVE_PERSONALITIES: CompetitivePersonality[] = ['Fearless', 'Calculated', 'Opportunist', 'Loyal', 'Money-Driven', 'Legacy-Driven']
+const CAREER_ARCS: CareerArc[] = ['Prodigy', 'Early Peak', 'Balanced', 'Late Bloomer', 'Evergreen']
+
+function hashText(value: string): number {
+  let hash = 2166136261
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index)
+    hash = Math.imul(hash, 16777619)
+  }
+  return Math.abs(hash >>> 0)
+}
+
+function clampRating(value: number): number {
+  return Math.max(35, Math.min(100, Math.round(value)))
+}
+
+function inferDiscipline(style: string): Discipline {
+  const text = style.toLowerCase()
+  if (text.includes('wrestler') || text.includes('showman') || text === 'strong style' || text === 'brawler') return 'Wrestling'
+  if (text.includes('box')) return 'Boxing'
+  if (text.includes('kick') || text.includes('muay') || text.includes('karate') || text.includes('striking')) return 'Kickboxing'
+  return 'MMA'
+}
+
+function inferWeightClass(gender: Gender, key: string, style: string): string {
+  const text = `${key} ${style}`.toLowerCase()
+  if (gender === 'Female') {
+    const classes = ['Flyweight', 'Bantamweight', 'Featherweight']
+    return classes[hashText(key) % classes.length]
+  }
+  if (/(heavyweight|powerhouse|ngannou|lesnar|fury|joshua)/.test(text)) return 'Heavyweight'
+  const classes = ['Lightweight', 'Welterweight', 'Middleweight', 'Light Heavyweight', 'Heavyweight']
+  return classes[hashText(key) % classes.length]
+}
+
+function inferSocialPersonality(key: string, style: string, charisma: number): SocialPersonality {
+  const text = `${key} ${style}`.toLowerCase()
+  if (/(mcgregor|punk|naito|rebel)/.test(text)) return 'Rebel'
+  if (/(mjf|villain)/.test(text)) return 'Villain'
+  if (/(rock|cena|reigns|lynch|showman|stratton|cargill)/.test(text)) return 'Showman'
+  if (/(st-pierre|canelo|usyk|inoue|nunes|aldo|taylor|class)/.test(text)) return 'Classy'
+  if (/(khabib|fedor|holloway|humble)/.test(text)) return 'Humble'
+  if (charisma >= 95) return hashText(key) % 2 ? 'Showman' : 'Rebel'
+  return SOCIAL_PERSONALITIES[hashText(`${key}-social`) % SOCIAL_PERSONALITIES.length]
+}
+
+function inferCompetitivePersonality(key: string, style: string): CompetitivePersonality {
+  const text = `${key} ${style}`.toLowerCase()
+  if (/(jones|silva|ngannou|cyborg|power|pressure)/.test(text)) return 'Fearless'
+  if (/(st-pierre|canelo|counter|technical|defensive)/.test(text)) return 'Calculated'
+  if (/(mcgregor|rock|cena|showman)/.test(text)) return 'Money-Driven'
+  if (/(khabib|fedor|nunes|inoue|usyk|legacy)/.test(text)) return 'Legacy-Driven'
+  return COMPETITIVE_PERSONALITIES[hashText(`${key}-competitive`) % COMPETITIVE_PERSONALITIES.length]
+}
+
+function inferCareerArc(key: string): { careerArc: CareerArc; primeAge: number } {
+  const careerArc = CAREER_ARCS[hashText(`${key}-arc`) % CAREER_ARCS.length]
+  const primeAgeByArc: Record<CareerArc, number> = {
+    Prodigy: 25,
+    'Early Peak': 27,
+    Balanced: 29,
+    'Late Bloomer': 32,
+    Evergreen: 31,
+  }
+  return { careerArc, primeAge: primeAgeByArc[careerArc] + (hashText(`${key}-prime`) % 3 - 1) }
+}
+
+function buildAttributes(overall: number, style: string, key: string) {
+  const text = style.toLowerCase()
+  const jitter = (suffix: string) => (hashText(`${key}-${suffix}`) % 9) - 4
+  const striking = text.includes('box') || text.includes('kick') || text.includes('muay') || text.includes('strik') || text.includes('karate')
+  const grappling = text.includes('wrestl') || text.includes('sambo') || text.includes('grappl') || text.includes('judo') || text.includes('submission')
+  const powerStyle = text.includes('power') || text.includes('knockout') || text.includes('brawler') || text.includes('heavyweight')
+  const technical = text.includes('technical') || text.includes('counter') || text.includes('all-rounder') || text.includes('precision')
+  return {
+    power: clampRating(overall + jitter('power') + (powerStyle ? 7 : 0)),
+    speed: clampRating(overall + jitter('speed') + (striking ? 3 : 0) - (text.includes('heavyweight') ? 5 : 0)),
+    technique: clampRating(overall + jitter('technique') + (technical ? 7 : 0)),
+    wrestling: clampRating(overall - 11 + jitter('wrestling') + (grappling ? 15 : 0)),
+    submissions: clampRating(overall - 14 + jitter('submissions') + (text.includes('submission') ? 18 : grappling ? 9 : 0)),
+    chin: clampRating(overall + jitter('chin') + (powerStyle ? 3 : 0)),
+    cardio: clampRating(overall + jitter('cardio') + (text.includes('volume') || text.includes('pressure') ? 7 : 0)),
+    athleticism: clampRating(overall + jitter('athleticism') + (text.includes('athletic') || text.includes('aerial') ? 8 : 0)),
+  }
+}
+
+function enrichFighterBase<T extends Pick<Fighter, 'firstName' | 'lastName' | 'ringName' | 'gender' | 'style' | 'overall' | 'charisma'>>(base: T) {
+  const key = `${base.firstName}-${base.lastName}-${base.ringName ?? ''}`
+  const { careerArc, primeAge } = inferCareerArc(key)
+  return {
+    discipline: inferDiscipline(base.style),
+    weightClass: inferWeightClass(base.gender, key, base.style),
+    socialPersonality: inferSocialPersonality(key, base.style, base.charisma),
+    competitivePersonality: inferCompetitivePersonality(key, base.style),
+    careerArc,
+    primeAge,
+    attributes: buildAttributes(base.overall, base.style, key),
+  }
+}
+
 function seedToFighter(seed: StarSeed, index: number): Fighter {
   return {
     id: `star-${slug(`${seed.firstName}-${seed.lastName}-${seed.ringName ?? index}`)}`,
@@ -279,12 +381,18 @@ function seedToFighter(seed: StarSeed, index: number): Fighter {
     potential: seed.potential,
     form: 50,
     fame: 0,
+    legacy: 0,
+    ...enrichFighterBase(seed),
     promotionId: null,
     isDraftEligible: true,
     isRetired: false,
+    lastFightYear: null,
+    lastFightMonth: null,
+    currentStreak: 0,
     stats: emptyStats(),
     brandStats: {},
     yearStats: {},
+    fightHistory: [],
   }
 }
 
@@ -310,6 +418,7 @@ function createGeneratedFighter(
   usedNames.add(nameKey)
 
   const rarityRanges: Record<Rarity, [number, number, number, number]> = {
+    Generational: [95, 100, 88, 100],
     Legend: [90, 97, 86, 99],
     Epic: [82, 91, 76, 98],
     Rare: [73, 83, 63, 92],
@@ -319,9 +428,10 @@ function createGeneratedFighter(
   const [overallMin, overallMax, charismaMin, charismaMax] = rarityRanges[rarity]
   const overall = between(random, overallMin, overallMax)
   const charisma = between(random, charismaMin, charismaMax)
-  const potential = Math.min(99, Math.max(overall, overall + between(random, 2, 11)))
+  const potential = Math.min(100, Math.max(overall, overall + between(random, 2, 11)))
   const shouldHaveRingName = random() > 0.48
   const ringName = shouldHaveRingName ? `${pick(random, RING_PREFIX)} ${pick(random, RING_NOUN)}` : undefined
+  const style = pick(random, STYLES)
 
   return {
     id: `${isDraftEligible ? 'star' : 'free'}-${index}-${slug(`${firstName}-${lastName}`)}`,
@@ -331,19 +441,25 @@ function createGeneratedFighter(
     gender,
     age: between(random, isDraftEligible ? 21 : 19, isDraftEligible ? 33 : 36),
     nationality: pick(random, NATIONALITIES),
-    style: pick(random, STYLES),
+    style,
     rarity,
     overall,
     charisma,
     potential,
     form: between(random, 43, 57),
     fame: 0,
+    legacy: 0,
+    ...enrichFighterBase({ firstName, lastName, ringName, gender, style, overall, charisma }),
     promotionId: null,
     isDraftEligible,
     isRetired: false,
+    lastFightYear: null,
+    lastFightMonth: null,
+    currentStreak: 0,
     stats: emptyStats(),
     brandStats: {},
     yearStats: {},
+    fightHistory: [],
   }
 }
 
@@ -369,4 +485,42 @@ export function createFighterPool(seed: number): Fighter[] {
   }
 
   return [...premium, ...freeAgents]
+}
+
+export function hydrateFighterData(fighter: Fighter): Fighter {
+  const enriched = enrichFighterBase(fighter)
+  return {
+    ...fighter,
+    discipline: fighter.discipline ?? enriched.discipline,
+    weightClass: fighter.weightClass ?? enriched.weightClass,
+    socialPersonality: fighter.socialPersonality ?? enriched.socialPersonality,
+    competitivePersonality: fighter.competitivePersonality ?? enriched.competitivePersonality,
+    careerArc: fighter.careerArc ?? enriched.careerArc,
+    primeAge: fighter.primeAge ?? enriched.primeAge,
+    attributes: fighter.attributes ?? enriched.attributes,
+    legacy: fighter.legacy ?? 0,
+    lastFightYear: fighter.lastFightYear ?? null,
+    lastFightMonth: fighter.lastFightMonth ?? null,
+    currentStreak: fighter.currentStreak ?? 0,
+    fightHistory: fighter.fightHistory ?? [],
+  }
+}
+
+export function createProspectClass(seed: number, year: number, existing: Fighter[], count = 12): Fighter[] {
+  const random = mulberry32(seed + year * 104729)
+  const usedNames = new Set(existing.map((fighter) => `${fighter.firstName}-${fighter.lastName}`))
+  const prospects: Fighter[] = []
+  for (let index = 0; index < count; index += 1) {
+    const gender: Gender = random() < 0.48 ? 'Female' : 'Male'
+    const roll = random()
+    const rarity: Rarity = roll < 0.003 ? 'Generational' : roll < 0.025 ? 'Legend' : roll < 0.11 ? 'Epic' : roll < 0.34 ? 'Rare' : roll < 0.68 ? 'Uncommon' : 'Common'
+    const fighter = createGeneratedFighter(random, year * 1000 + index, gender, rarity, false, usedNames)
+    fighter.id = `prospect-${year}-${index}-${slug(`${fighter.firstName}-${fighter.lastName}`)}`
+    fighter.age = between(random, 18, 22)
+    fighter.overall = Math.max(45, fighter.overall - between(random, 3, 9))
+    fighter.potential = Math.max(fighter.overall + 2, fighter.potential)
+    fighter.attributes = buildAttributes(fighter.overall, fighter.style, fighter.id)
+    prospects.push(fighter)
+  }
+  return prospects
 }
