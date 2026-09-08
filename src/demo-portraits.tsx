@@ -74,7 +74,7 @@ function App() {
     <div style={{ minHeight: '100vh', background: 'radial-gradient(circle at top, #162135 0%, #081019 55%, #05080d 100%)', color: 'white', padding: '34px 28px 44px' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
-          <div style={{ color: '#9fb5d7', fontSize: 14, letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 8 }}>Combat Universe Chronicle v0.9.1</div>
+          <div style={{ color: '#9fb5d7', fontSize: 14, letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 8 }}>Combat Universe Chronicle v0.9.2</div>
           <h1 style={{ margin: 0, fontSize: 44, lineHeight: 1.1 }}>Portrait engine examples</h1>
           <p style={{ margin: '10px 0 0', fontSize: 18, color: '#c8d1df' }}>Rendered directly from the in-game modular portrait engine</p>
         </div>

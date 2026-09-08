@@ -1,11 +1,11 @@
 {
-  "version": "2.0-realistic-starter",
+  "version": "2.1-realistic-expanded",
   "canvas": [
     120,
     120
   ],
   "format": "png-layers",
-  "notes": "Starter realistic portrait asset library derived from painted roster portraits; rarity styling handled separately by FighterPortrait.",
+  "notes": "Expanded realistic portrait asset library with cleaner bases, stronger region-linked skin variety, more hair colors, and stricter gender-linked beard usage.",
   "bases": [
     {
       "id": "ea-m-rect",
@@ -378,13 +378,28 @@
     },
     {
       "style": "buzz",
+      "color": "dark-brown",
+      "file": "hair/buzz-dark-brown.png"
+    },
+    {
+      "style": "buzz",
       "color": "brown",
       "file": "hair/buzz-brown.png"
     },
     {
       "style": "buzz",
+      "color": "light-brown",
+      "file": "hair/buzz-light-brown.png"
+    },
+    {
+      "style": "buzz",
       "color": "blonde",
       "file": "hair/buzz-blonde.png"
+    },
+    {
+      "style": "buzz",
+      "color": "auburn",
+      "file": "hair/buzz-auburn.png"
     },
     {
       "style": "crop",
@@ -393,13 +408,58 @@
     },
     {
       "style": "crop",
+      "color": "dark-brown",
+      "file": "hair/crop-dark-brown.png"
+    },
+    {
+      "style": "crop",
       "color": "brown",
       "file": "hair/crop-brown.png"
     },
     {
       "style": "crop",
+      "color": "light-brown",
+      "file": "hair/crop-light-brown.png"
+    },
+    {
+      "style": "crop",
       "color": "blonde",
       "file": "hair/crop-blonde.png"
+    },
+    {
+      "style": "crop",
+      "color": "auburn",
+      "file": "hair/crop-auburn.png"
+    },
+    {
+      "style": "quiff",
+      "color": "black",
+      "file": "hair/quiff-black.png"
+    },
+    {
+      "style": "quiff",
+      "color": "dark-brown",
+      "file": "hair/quiff-dark-brown.png"
+    },
+    {
+      "style": "quiff",
+      "color": "brown",
+      "file": "hair/quiff-brown.png"
+    },
+    {
+      "style": "quiff",
+      "color": "light-brown",
+      "file": "hair/quiff-light-brown.png"
+    },
+    {
+      "style": "quiff",
+      "color": "blonde",
+      "file": "hair/quiff-blonde.png"
+    },
+    {
+      "style": "quiff",
+      "color": "auburn",
+      "file": "hair/quiff-auburn.png"
     },
     {
       "style": "side-part",
@@ -408,13 +468,28 @@
     },
     {
       "style": "side-part",
+      "color": "dark-brown",
+      "file": "hair/side-part-dark-brown.png"
+    },
+    {
+      "style": "side-part",
       "color": "brown",
       "file": "hair/side-part-brown.png"
     },
     {
       "style": "side-part",
+      "color": "light-brown",
+      "file": "hair/side-part-light-brown.png"
+    },
+    {
+      "style": "side-part",
       "color": "blonde",
       "file": "hair/side-part-blonde.png"
+    },
+    {
+      "style": "side-part",
+      "color": "auburn",
+      "file": "hair/side-part-auburn.png"
     },
     {
       "style": "messy",
@@ -423,13 +498,28 @@
     },
     {
       "style": "messy",
+      "color": "dark-brown",
+      "file": "hair/messy-dark-brown.png"
+    },
+    {
+      "style": "messy",
       "color": "brown",
       "file": "hair/messy-brown.png"
     },
     {
       "style": "messy",
+      "color": "light-brown",
+      "file": "hair/messy-light-brown.png"
+    },
+    {
+      "style": "messy",
       "color": "blonde",
       "file": "hair/messy-blonde.png"
+    },
+    {
+      "style": "messy",
+      "color": "auburn",
+      "file": "hair/messy-auburn.png"
     },
     {
       "style": "curly-top",
@@ -438,13 +528,28 @@
     },
     {
       "style": "curly-top",
+      "color": "dark-brown",
+      "file": "hair/curly-top-dark-brown.png"
+    },
+    {
+      "style": "curly-top",
       "color": "brown",
       "file": "hair/curly-top-brown.png"
     },
     {
       "style": "curly-top",
+      "color": "light-brown",
+      "file": "hair/curly-top-light-brown.png"
+    },
+    {
+      "style": "curly-top",
       "color": "blonde",
       "file": "hair/curly-top-blonde.png"
+    },
+    {
+      "style": "curly-top",
+      "color": "auburn",
+      "file": "hair/curly-top-auburn.png"
     },
     {
       "style": "afro-short",
@@ -453,13 +558,28 @@
     },
     {
       "style": "afro-short",
+      "color": "dark-brown",
+      "file": "hair/afro-short-dark-brown.png"
+    },
+    {
+      "style": "afro-short",
       "color": "brown",
       "file": "hair/afro-short-brown.png"
     },
     {
       "style": "afro-short",
+      "color": "light-brown",
+      "file": "hair/afro-short-light-brown.png"
+    },
+    {
+      "style": "afro-short",
       "color": "blonde",
       "file": "hair/afro-short-blonde.png"
+    },
+    {
+      "style": "afro-short",
+      "color": "auburn",
+      "file": "hair/afro-short-auburn.png"
     },
     {
       "style": "bob",
@@ -468,13 +588,28 @@
     },
     {
       "style": "bob",
+      "color": "dark-brown",
+      "file": "hair/bob-dark-brown.png"
+    },
+    {
+      "style": "bob",
       "color": "brown",
       "file": "hair/bob-brown.png"
     },
     {
       "style": "bob",
+      "color": "light-brown",
+      "file": "hair/bob-light-brown.png"
+    },
+    {
+      "style": "bob",
       "color": "blonde",
       "file": "hair/bob-blonde.png"
+    },
+    {
+      "style": "bob",
+      "color": "auburn",
+      "file": "hair/bob-auburn.png"
     },
     {
       "style": "ponytail",
@@ -483,13 +618,118 @@
     },
     {
       "style": "ponytail",
+      "color": "dark-brown",
+      "file": "hair/ponytail-dark-brown.png"
+    },
+    {
+      "style": "ponytail",
       "color": "brown",
       "file": "hair/ponytail-brown.png"
     },
     {
       "style": "ponytail",
+      "color": "light-brown",
+      "file": "hair/ponytail-light-brown.png"
+    },
+    {
+      "style": "ponytail",
       "color": "blonde",
       "file": "hair/ponytail-blonde.png"
+    },
+    {
+      "style": "ponytail",
+      "color": "auburn",
+      "file": "hair/ponytail-auburn.png"
+    },
+    {
+      "style": "waves",
+      "color": "black",
+      "file": "hair/waves-black.png"
+    },
+    {
+      "style": "waves",
+      "color": "dark-brown",
+      "file": "hair/waves-dark-brown.png"
+    },
+    {
+      "style": "waves",
+      "color": "brown",
+      "file": "hair/waves-brown.png"
+    },
+    {
+      "style": "waves",
+      "color": "light-brown",
+      "file": "hair/waves-light-brown.png"
+    },
+    {
+      "style": "waves",
+      "color": "blonde",
+      "file": "hair/waves-blonde.png"
+    },
+    {
+      "style": "waves",
+      "color": "auburn",
+      "file": "hair/waves-auburn.png"
+    },
+    {
+      "style": "updo",
+      "color": "black",
+      "file": "hair/updo-black.png"
+    },
+    {
+      "style": "updo",
+      "color": "dark-brown",
+      "file": "hair/updo-dark-brown.png"
+    },
+    {
+      "style": "updo",
+      "color": "brown",
+      "file": "hair/updo-brown.png"
+    },
+    {
+      "style": "updo",
+      "color": "light-brown",
+      "file": "hair/updo-light-brown.png"
+    },
+    {
+      "style": "updo",
+      "color": "blonde",
+      "file": "hair/updo-blonde.png"
+    },
+    {
+      "style": "updo",
+      "color": "auburn",
+      "file": "hair/updo-auburn.png"
+    },
+    {
+      "style": "braids",
+      "color": "black",
+      "file": "hair/braids-black.png"
+    },
+    {
+      "style": "braids",
+      "color": "dark-brown",
+      "file": "hair/braids-dark-brown.png"
+    },
+    {
+      "style": "braids",
+      "color": "brown",
+      "file": "hair/braids-brown.png"
+    },
+    {
+      "style": "braids",
+      "color": "light-brown",
+      "file": "hair/braids-light-brown.png"
+    },
+    {
+      "style": "braids",
+      "color": "blonde",
+      "file": "hair/braids-blonde.png"
+    },
+    {
+      "style": "braids",
+      "color": "auburn",
+      "file": "hair/braids-auburn.png"
     }
   ],
   "beards": [
@@ -500,13 +740,28 @@
     },
     {
       "style": "stubble",
+      "color": "dark-brown",
+      "file": "beards/stubble-dark-brown.png"
+    },
+    {
+      "style": "stubble",
       "color": "brown",
       "file": "beards/stubble-brown.png"
     },
     {
       "style": "stubble",
+      "color": "light-brown",
+      "file": "beards/stubble-light-brown.png"
+    },
+    {
+      "style": "stubble",
       "color": "blonde",
       "file": "beards/stubble-blonde.png"
+    },
+    {
+      "style": "stubble",
+      "color": "auburn",
+      "file": "beards/stubble-auburn.png"
     },
     {
       "style": "short",
@@ -515,13 +770,58 @@
     },
     {
       "style": "short",
+      "color": "dark-brown",
+      "file": "beards/short-dark-brown.png"
+    },
+    {
+      "style": "short",
       "color": "brown",
       "file": "beards/short-brown.png"
     },
     {
       "style": "short",
+      "color": "light-brown",
+      "file": "beards/short-light-brown.png"
+    },
+    {
+      "style": "short",
       "color": "blonde",
       "file": "beards/short-blonde.png"
+    },
+    {
+      "style": "short",
+      "color": "auburn",
+      "file": "beards/short-auburn.png"
+    },
+    {
+      "style": "full",
+      "color": "black",
+      "file": "beards/full-black.png"
+    },
+    {
+      "style": "full",
+      "color": "dark-brown",
+      "file": "beards/full-dark-brown.png"
+    },
+    {
+      "style": "full",
+      "color": "brown",
+      "file": "beards/full-brown.png"
+    },
+    {
+      "style": "full",
+      "color": "light-brown",
+      "file": "beards/full-light-brown.png"
+    },
+    {
+      "style": "full",
+      "color": "blonde",
+      "file": "beards/full-blonde.png"
+    },
+    {
+      "style": "full",
+      "color": "auburn",
+      "file": "beards/full-auburn.png"
     },
     {
       "style": "goatee",
@@ -530,13 +830,28 @@
     },
     {
       "style": "goatee",
+      "color": "dark-brown",
+      "file": "beards/goatee-dark-brown.png"
+    },
+    {
+      "style": "goatee",
       "color": "brown",
       "file": "beards/goatee-brown.png"
     },
     {
       "style": "goatee",
+      "color": "light-brown",
+      "file": "beards/goatee-light-brown.png"
+    },
+    {
+      "style": "goatee",
       "color": "blonde",
       "file": "beards/goatee-blonde.png"
+    },
+    {
+      "style": "goatee",
+      "color": "auburn",
+      "file": "beards/goatee-auburn.png"
     },
     {
       "style": "moustache",
@@ -545,13 +860,28 @@
     },
     {
       "style": "moustache",
+      "color": "dark-brown",
+      "file": "beards/moustache-dark-brown.png"
+    },
+    {
+      "style": "moustache",
       "color": "brown",
       "file": "beards/moustache-brown.png"
     },
     {
       "style": "moustache",
+      "color": "light-brown",
+      "file": "beards/moustache-light-brown.png"
+    },
+    {
+      "style": "moustache",
       "color": "blonde",
       "file": "beards/moustache-blonde.png"
+    },
+    {
+      "style": "moustache",
+      "color": "auburn",
+      "file": "beards/moustache-auburn.png"
     }
   ]
 }

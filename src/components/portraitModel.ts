@@ -8,7 +8,7 @@ export type MouthShape = 'firm' | 'neutral' | 'full' | 'smirk' | 'thin'
 export type BrowShape = 'straight' | 'arched' | 'heavy' | 'sharp'
 export type HairTexture = 'straight' | 'wavy' | 'curly' | 'coily'
 export type HairStyle = 'shaved' | 'buzz' | 'crop' | 'quiff' | 'side-part' | 'messy' | 'curly-top' | 'afro-short' | 'braids' | 'locs' | 'bun' | 'ponytail' | 'bob' | 'pixie' | 'waves' | 'updo' | 'long'
-export type HairColorName = 'black' | 'brown' | 'blonde'
+export type HairColorName = 'black' | 'dark-brown' | 'brown' | 'light-brown' | 'blonde' | 'auburn'
 export type BeardStyle = 'none' | 'stubble' | 'short' | 'full' | 'goatee' | 'moustache'
 export type Accessory = 'none' | 'scar' | 'brow-scar' | 'earring' | 'headband' | 'glasses' | 'tattoo'
 export type ExpressionPreset = 'stoic' | 'focused' | 'calm' | 'proud' | 'sly' | 'friendly' | 'intense'
@@ -192,9 +192,12 @@ const SKIN_FAMILIES: Record<AppearanceFamily, SkinPalette[]> = {
 }
 
 const HAIR_PALETTES: Record<HairColorName, HairPalette> = {
-  black: { base: '#17171B', highlight: '#3B3842' },
-  brown: { base: '#57392A', highlight: '#81604C' },
-  blonde: { base: '#B8925D', highlight: '#DFC18A' },
+  black: { base: '#141419', highlight: '#43414A' },
+  'dark-brown': { base: '#2B1C18', highlight: '#5B3D33' },
+  brown: { base: '#55382B', highlight: '#856355' },
+  'light-brown': { base: '#7A5A42', highlight: '#B38D72' },
+  blonde: { base: '#AB8757', highlight: '#E0C58E' },
+  auburn: { base: '#66352A', highlight: '#A76553' },
 }
 
 const EYE_COLORS = ['#2D2521', '#4A3527', '#6A523E', '#314C59', '#48603B']
@@ -384,14 +387,29 @@ function selectHairTexture(seed: string, family: AppearanceFamily): HairTexture 
 
 function selectHairColor(seed: string, family: AppearanceFamily, nationality: string): HairColorName {
   const weightsByFamily: Record<AppearanceFamily, Array<[HairColorName, number]>> = {
-    'east-asian': [['black', 94], ['brown', 6], ['blonde', 0]],
-    'west-african': [['black', 92], ['brown', 8], ['blonde', 0]],
-    european: [['brown', 48], ['black', 27], ['blonde', 25]],
-    'south-asian': [['black', 82], ['brown', 18], ['blonde', 0]],
-    'latin-american': [['black', 45], ['brown', 45], ['blonde', 10]],
-    mixed: [['black', 44], ['brown', 40], ['blonde', 16]],
+    'east-asian': [['black', 90], ['dark-brown', 8], ['brown', 2], ['light-brown', 0], ['blonde', 0], ['auburn', 0]],
+    'west-african': [['black', 92], ['dark-brown', 7], ['brown', 1], ['light-brown', 0], ['blonde', 0], ['auburn', 0]],
+    european: [['brown', 28], ['dark-brown', 24], ['light-brown', 18], ['blonde', 22], ['black', 5], ['auburn', 3]],
+    'south-asian': [['black', 76], ['dark-brown', 18], ['brown', 6], ['light-brown', 0], ['blonde', 0], ['auburn', 0]],
+    'latin-american': [['black', 36], ['dark-brown', 24], ['brown', 24], ['light-brown', 8], ['blonde', 5], ['auburn', 3]],
+    mixed: [['black', 26], ['dark-brown', 22], ['brown', 22], ['light-brown', 12], ['blonde', 12], ['auburn', 6]],
   }
-  if (countryParts(nationality).includes('Ireland')) return weightedPick(seed, 'hair-color-ire', [['brown', 50], ['blonde', 35], ['black', 15]])
+  const parts = countryParts(nationality)
+  if (parts.includes('Japan') || parts.includes('China') || parts.includes('South Korea')) {
+    return weightedPick(seed, 'hair-color-ea-country', [['black', 95], ['dark-brown', 5]])
+  }
+  if (parts.includes('Nigeria') || parts.includes('Ghana') || parts.includes('Cameroon')) {
+    return weightedPick(seed, 'hair-color-wa-country', [['black', 94], ['dark-brown', 6]])
+  }
+  if (parts.includes('Ireland')) {
+    return weightedPick(seed, 'hair-color-ireland', [['brown', 32], ['blonde', 32], ['light-brown', 22], ['auburn', 10], ['black', 4]])
+  }
+  if (parts.includes('Spain') || parts.includes('Italy') || parts.includes('Mexico')) {
+    return weightedPick(seed, 'hair-color-southern', [['black', 34], ['dark-brown', 28], ['brown', 24], ['light-brown', 8], ['blonde', 4], ['auburn', 2]])
+  }
+  if (parts.includes('Brazil') || parts.includes('United States') || parts.includes('Canada')) {
+    return weightedPick(seed, 'hair-color-mixed-country', [['black', 24], ['dark-brown', 23], ['brown', 22], ['light-brown', 13], ['blonde', 13], ['auburn', 5]])
+  }
   return weightedPick(seed, 'hair-color', weightsByFamily[family].filter(([, weight]) => weight > 0))
 }
 
@@ -399,26 +417,34 @@ function selectHairStyle(seed: string, fighter: Fighter, family: AppearanceFamil
   const male = fighter.gender === 'Male'
   if (male) {
     const weights: Array<[HairStyle, number]> = [
-      ['buzz', fighter.age > 34 ? 16 : 10],
+      ['buzz', fighter.age > 34 ? 14 : 8],
       ['crop', 18],
+      ['quiff', 14],
       ['side-part', 14],
-      ['messy', fighter.socialPersonality === 'Showman' || fighter.socialPersonality === 'Rebel' ? 18 : 11],
-      ['curly-top', texture === 'curly' || texture === 'coily' ? 16 : 5],
-      ['afro-short', family === 'west-african' ? 18 : texture === 'coily' ? 10 : 0],
+      ['messy', fighter.socialPersonality === 'Showman' || fighter.socialPersonality === 'Rebel' ? 17 : 11],
+      ['curly-top', texture === 'curly' || texture === 'coily' ? 15 : 5],
+      ['afro-short', family === 'west-african' ? 17 : texture === 'coily' ? 8 : 0],
+      ['waves', texture === 'wavy' ? 9 : 2],
+      ['braids', fighter.socialPersonality === 'Showman' || fighter.socialPersonality === 'Rebel' ? (family === 'west-african' ? 7 : 3) : (family === 'west-african' ? 3 : 0)],
       ['bob', 0],
-      ['ponytail', fighter.socialPersonality === 'Showman' ? 3 : 1],
+      ['ponytail', fighter.socialPersonality === 'Showman' ? 2 : 1],
+      ['updo', 0],
     ]
     return weightedPick(seed, 'hair-style', weights.filter(([, weight]) => weight > 0))
   }
   const femaleWeights: Array<[HairStyle, number]> = [
-    ['buzz', fighter.socialPersonality === 'Rebel' ? 4 : 1],
-    ['crop', 5],
-    ['side-part', 4],
-    ['messy', 8],
-    ['curly-top', texture === 'curly' || texture === 'coily' ? 10 : 4],
-    ['afro-short', family === 'west-african' ? 9 : texture === 'coily' ? 5 : 0],
-    ['bob', 23],
-    ['ponytail', 36],
+    ['buzz', fighter.socialPersonality === 'Rebel' ? 3 : 1],
+    ['crop', 4],
+    ['quiff', 0],
+    ['side-part', 5],
+    ['messy', 7],
+    ['curly-top', texture === 'curly' || texture === 'coily' ? 8 : 3],
+    ['afro-short', family === 'west-african' ? 7 : texture === 'coily' ? 3 : 0],
+    ['bob', 18],
+    ['ponytail', 24],
+    ['waves', 16],
+    ['updo', 10],
+    ['braids', family === 'west-african' ? 15 : 6],
   ]
   return weightedPick(seed, 'hair-style', femaleWeights.filter(([, weight]) => weight > 0))
 }
