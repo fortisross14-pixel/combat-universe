@@ -54,9 +54,6 @@ export default function FighterPortrait({ fighter, size = 'md', accent, classNam
     : (profile.hairColorName === 'blonde' ? '#5B4336' : profile.hairColorName === 'brown' ? '#3A271F' : '#221717')
   const lipColor = fighter.gender === 'Female' ? 'rgba(122,66,70,0.52)' : 'rgba(92,60,52,0.32)'
   const noseColor = fighter.gender === 'Female' ? 'rgba(88,54,46,0.22)' : 'rgba(78,46,38,0.28)'
-  const skinWash = profile.skin
-  const skinHighlightWash = profile.skinHighlight
-  const skinShadowWash = profile.skinShadow
 
   const eyeY = profile.eyeY
   const leftX = 60 - profile.eyeGap / 2 - profile.eyeWidth * 0.75
@@ -66,9 +63,6 @@ export default function FighterPortrait({ fighter, size = 'md', accent, classNam
   const browWeight = fighter.gender === 'Female' ? Math.max(1.2, profile.browWeight * 0.72) : profile.browWeight * 0.92
   const lipHeight = Math.max(1.4, profile.lipFullness * (fighter.gender === 'Female' ? 1.7 : 1.18))
   const lipCurve = profile.mouthCurve * 1.2 + profile.smileLift * 0.35
-  const faceTintOpacity = fighter.gender === 'Female' ? 0.22 : 0.18
-  const cheekTintOpacity = fighter.gender === 'Female' ? 0.18 : 0.08
-  const lipCoverOpacity = fighter.gender === 'Female' ? 0.34 : 0.0
 
   const renderEye = (x: number, side: 'left' | 'right') => {
     const flip = side === 'left' ? -1 : 1
@@ -116,7 +110,7 @@ export default function FighterPortrait({ fighter, size = 'md', accent, classNam
         '--portrait-rarity-halo': rarityTheme.halo,
       } as React.CSSProperties}
       aria-hidden="true"
-      data-portrait-engine="v10-vector-face-overlay"
+      data-portrait-engine="v10-base-tone-assignment"
       data-portrait-family={profile.family}
       data-portrait-base={profile.baseId}
       data-portrait-skin={profile.skinToneId}
@@ -147,9 +141,6 @@ export default function FighterPortrait({ fighter, size = 'md', accent, classNam
           <filter id={`${svgId}-portrait-depth`} x="-20%" y="-20%" width="140%" height="150%">
             <feDropShadow dx="0" dy="1.9" stdDeviation="1.5" floodColor="#000000" floodOpacity="0.28" />
           </filter>
-          <filter id={`${svgId}-soft-blur`} x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2.2" />
-          </filter>
           <clipPath id={`${svgId}-clip`}>
             <rect x="0" y="0" width="120" height="120" rx="22" />
           </clipPath>
@@ -161,28 +152,6 @@ export default function FighterPortrait({ fighter, size = 'md', accent, classNam
           <ellipse cx="60" cy="109" rx="39" ry="10" fill="#000" opacity="0.12" />
 
           <g filter={`url(#${svgId}-portrait-depth)`}>{faceLayers}</g>
-
-          <g opacity={faceTintOpacity}>
-            <ellipse cx="60" cy="57" rx="26" ry="33" fill={skinWash} />
-            <rect x="47" y="77" width="26" height="25" rx="10" fill={skinWash} />
-            <ellipse cx="35" cy="104" rx="16" ry="10" fill={skinWash} />
-            <ellipse cx="85" cy="104" rx="16" ry="10" fill={skinWash} />
-          </g>
-          <g opacity={0.12}>
-            <ellipse cx="60" cy="43" rx="19" ry="12" fill={skinHighlightWash} />
-          </g>
-          <g opacity={0.08}>
-            <ellipse cx="60" cy="88" rx="23" ry="14" fill={skinShadowWash} />
-          </g>
-
-          {fighter.gender === 'Female' ? (
-            <g>
-              <ellipse cx="48" cy="69" rx="7.8" ry="5.1" fill={skinHighlightWash} opacity={cheekTintOpacity} filter={`url(#${svgId}-soft-blur)`} />
-              <ellipse cx="72" cy="69" rx="7.8" ry="5.1" fill={skinHighlightWash} opacity={cheekTintOpacity} filter={`url(#${svgId}-soft-blur)`} />
-              <ellipse cx="60" cy="74" rx="14" ry="5.6" fill={skinWash} opacity={lipCoverOpacity} filter={`url(#${svgId}-soft-blur)`} />
-              <ellipse cx="60" cy="28" rx="24" ry="6" fill={skinWash} opacity={0.08} filter={`url(#${svgId}-soft-blur)`} />
-            </g>
-          ) : null}
 
           <g opacity="0.94">
             <path
