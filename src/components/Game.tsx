@@ -611,15 +611,15 @@ export default function Game({ game, onChange, onExit }: GameProps) {
           return (
             <button className="fighter-card" type="button" key={fighter.id} onClick={() => openFighter(fighter.id)}>
               <span className={`fighter-rarity-stripe ${fighter.rarity.toLowerCase()}`} />
-              <FighterPortrait fighter={fighter} size="sm" accent={promotion?.color} className="fighter-card-avatar" />
+              <FighterPortrait fighter={fighter} size="md" accent={promotion?.color} className="fighter-card-avatar" />
               <span className="fighter-card-content">
                 <span className="fighter-card-tags">
                   <b className={`rarity-badge ${fighter.rarity.toLowerCase()}`}>{fighter.rarity}</b>
                   <small>{fighter.gender}</small>
                   {isChampion && <small className="champion-badge">Champion</small>}
                 </span>
-                <strong>{shortFighterName(fighter)}</strong>
-                <small>{fighter.ringName ? `${fighter.firstName} ${fighter.lastName}` : fighter.nationality}</small>
+                <strong className="fighter-real-name">{fighter.firstName} {fighter.lastName}</strong>
+                <small className="fighter-nickname">{fighter.ringName ? `“${fighter.ringName}”` : fighter.nationality}</small>
                 <span className="fighter-style-line">{fighter.style} · {fighter.weightClass} · Age {fighter.age}</span>
                 <span className="fighter-personality-line">{fighter.socialPersonality} · {fighter.competitivePersonality}</span>
               </span>

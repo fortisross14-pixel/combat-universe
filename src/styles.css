@@ -5429,3 +5429,50 @@ body::after {
     inset 0 1px 0 rgba(255,255,255,0.12);
 }
 
+
+/* v0.11.1 portrait identity / fighter-list emphasis */
+.fighter-card-grid .fighter-card {
+  grid-template-columns: 4px 84px minmax(0, 1fr) auto;
+  min-height: 118px;
+  gap: 15px;
+  align-items: center;
+}
+
+.fighter-card-grid .fighter-card-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 18px;
+}
+
+.fighter-card-grid .fighter-card-content > strong.fighter-real-name {
+  font-size: 15px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.fighter-card-grid .fighter-card-content > small.fighter-nickname {
+  margin-top: 3px;
+  color: #c2c6d0;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.fighter-card-grid .fighter-style-line,
+.fighter-card-grid .fighter-personality-line {
+  font-size: 9px;
+}
+
+@media (max-width: 820px) {
+  .fighter-card-grid .fighter-card {
+    grid-template-columns: 4px 74px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .fighter-card-grid .fighter-card-avatar {
+    width: 74px;
+    height: 74px;
+  }
+  .fighter-card-grid .fighter-card-stats {
+    grid-column: 2 / -1;
+    width: 100%;
+  }
+}

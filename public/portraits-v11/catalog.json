@@ -1,0 +1,28 @@
+{
+  "version": "0.11.1",
+  "strategy": "hybrid-curated-library",
+  "rules": {
+    "eliteRarities": [
+      "Generational",
+      "Legend",
+      "Epic"
+    ],
+    "standardRarities": [
+      "Rare",
+      "Uncommon",
+      "Common"
+    ],
+    "skinToneRule": "Skin tone and ethnicity are baked into each portrait asset. Never recolor skin at render time.",
+    "genderRule": "Portrait assets are gender-specific. Female fighters never use beard overlays.",
+    "safeOverlaysOnly": true,
+    "identityRule": "Elite portraits are personality-weighted finished faces; lower tiers share one same-art-style base portrait per family and gender.",
+    "hairColorRule": "Hair color is baked into curated faces; unusual elite looks such as pink, platinum and white hair are allowed."
+  },
+  "starter": {
+    "elitePortraits": 29,
+    "standardPortraits": 12,
+    "accessories": 7,
+    "firstExpansionEliteTarget": 48,
+    "longTermEliteTarget": 96
+  }
+}

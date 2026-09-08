@@ -119,6 +119,129 @@ const NATIONALITIES = [
   'India', 'Pakistan', 'Canada', 'Australia', 'New Zealand', 'Argentina', 'Chile', 'Colombia', 'Puerto Rico', 'Dominican Republic',
 ]
 
+
+type ProceduralNamePool = { male: string[]; female: string[]; last: string[] }
+
+const PROCEDURAL_NAME_POOLS: Record<string, ProceduralNamePool> = {
+  anglo: {
+    male: ['Evan','Marcus','Dylan','Tyler','Jamal','Andre','Cole','Mason','Jordan','Caleb','Miles','Darius'],
+    female: ['Maya','Chloe','Naomi','Aaliyah','Morgan','Taylor','Sienna','Brooke','Jade','Leah','Mia','Tessa'],
+    last: ['Bennett','Hayes','Carter','Brooks','Reed','Parker','Collins','Foster','Mitchell','Ward','Price','Morris'],
+  },
+  irish: {
+    male: ['Cian','Declan','Ronan','Oisín','Darragh','Conall','Fionn','Eoin'],
+    female: ['Aoife','Niamh','Saoirse','Orla','Ciara','Maeve','Aisling','Róisín'],
+    last: ['Murphy','Walsh','O’Connor','Byrne','Doyle','Kelly','Ryan','Gallagher'],
+  },
+  spanish: {
+    male: ['Mateo','Javier','Adrián','Sergio','Álvaro','Diego','Raúl','Nicolás'],
+    female: ['Lucía','Marta','Elena','Marina','Sofía','Claudia','Natalia','Paula'],
+    last: ['Navarro','Romero','Mendoza','Serrano','Vega','Torres','Ortega','Castillo'],
+  },
+  portuguese: {
+    male: ['Thiago','Rafael','Caio','Bruno','Matheus','Lucas','João','Renato'],
+    female: ['Camila','Mariana','Renata','Beatriz','Larissa','Ana','Gabriela','Luana'],
+    last: ['Silva','Santos','Ferreira','Costa','Pereira','Oliveira','Almeida','Rocha'],
+  },
+  latin: {
+    male: ['Santiago','Emiliano','Mateo','Diego','Alejandro','Joaquín','Sebastián','Gabriel'],
+    female: ['Daniela','Valeria','Camila','Catalina','Mariana','Paula','Lucía','Gabriela'],
+    last: ['Cruz','Vega','Morales','Reyes','Castillo','Figueroa','Torres','Alvarez'],
+  },
+  italian: {
+    male: ['Luca','Marco','Matteo','Alessio','Davide','Enzo','Riccardo','Paolo'],
+    female: ['Giulia','Chiara','Isabella','Elena','Alessia','Francesca','Sofia','Bianca'],
+    last: ['Bianchi','Romano','Conti','Moretti','Rossi','Gallo','Ricci','Marino'],
+  },
+  french: {
+    male: ['Hugo','Louis','Théo','Julien','Antoine','Maxime','Romain','Yanis'],
+    female: ['Camille','Manon','Léa','Inès','Chloé','Amélie','Élodie','Nina'],
+    last: ['Martin','Bernard','Dubois','Laurent','Moreau','Girard','Mercier','Roux'],
+  },
+  german: {
+    male: ['Lukas','Felix','Jonas','Leon','Niklas','Florian','Max','Tobias'],
+    female: ['Lena','Leonie','Anna','Mia','Clara','Nina','Sophie','Johanna'],
+    last: ['Müller','Schneider','Fischer','Weber','Wagner','Becker','Hoffmann','Koch'],
+  },
+  polish: {
+    male: ['Tomasz','Jakub','Kacper','Mateusz','Piotr','Marek','Bartosz','Filip'],
+    female: ['Zofia','Maja','Julia','Natalia','Katarzyna','Ola','Milena','Magda'],
+    last: ['Nowak','Kowalski','Wiśniewski','Wójcik','Kamiński','Lewandowski','Zieliński','Szymański'],
+  },
+  slavic: {
+    male: ['Viktor','Mikhail','Artem','Dmitri','Ivan','Nikolai','Andrei','Sergei'],
+    female: ['Vera','Anya','Katya','Milena','Irina','Svetlana','Alina','Daria'],
+    last: ['Petrov','Volkov','Sokolov','Morozov','Orlov','Kuznetsov','Romanov','Belov'],
+  },
+  georgian: {
+    male: ['Giorgi','Levan','Nika','Lasha','Tornike','Beka'],
+    female: ['Nino','Mariam','Tamar','Ana','Salome','Ketevan'],
+    last: ['Beridze','Kapanadze','Maisuradze','Gelashvili','Lomidze','Chikovani'],
+  },
+  westAfrican: {
+    male: ['Chidi','Emeka','Tunde','Kelechi','Kwame','Kofi','Kojo','Yaw','Ikenna','Femi'],
+    female: ['Nia','Imani','Zuri','Ama','Adwoa','Chiamaka','Ngozi','Abena','Efua','Ada'],
+    last: ['Okafor','Adeyemi','Mensah','Boateng','Nwosu','Adebayo','Osei','Eze','Owusu','Afolayan'],
+  },
+  southernAfrican: {
+    male: ['Tendai','Thabo','Sibusiso','Kabelo','Mandla','Tinashe'],
+    female: ['Thandi','Naledi','Amahle','Lerato','Zanele','Rudo'],
+    last: ['Ndlovu','Moyo','Dlamini','Khumalo','Mbeki','Maseko'],
+  },
+  japanese: {
+    male: ['Kenji','Haruto','Ren','Daichi','Kaito','Sota','Riku','Takumi'],
+    female: ['Haruka','Aiko','Yuna','Sora','Mio','Akari','Rin','Hana'],
+    last: ['Tanaka','Sato','Nakamura','Kobayashi','Yamamoto','Ito','Mori','Fujita'],
+  },
+  korean: {
+    male: ['Min-jun','Ji-hoon','Hyun-woo','Jun-seo','Tae-hyun','Dong-hyun'],
+    female: ['Ji-woo','Min-seo','Seo-yeon','Hye-jin','Soo-jin','Yuna'],
+    last: ['Kim','Park','Lee','Choi','Jung','Kang'],
+  },
+  chinese: {
+    male: ['Wei','Hao','Jun','Ming','Tao','Lei','Chen','Bo'],
+    female: ['Mei','Xinyi','Lian','Jing','Yue','Lin','Xia','An'],
+    last: ['Zhang','Wang','Chen','Liu','Li','Zhao','Wu','Sun'],
+  },
+  thai: {
+    male: ['Niran','Kiet','Arthit','Chai','Thanawat','Preecha','Anan','Krit'],
+    female: ['Mali','Pim','Kanya','Nok','Araya','Siriporn','Dao','Mayuree'],
+    last: ['Srisai','Chantarangsu','Wattanakul','Phromsri','Sae-Tang','Boonmee','Kittikul','Rattanakorn'],
+  },
+  filipino: {
+    male: ['Miguel','Paolo','Enzo','Carlo','Jomar','Nico','Rafael','Luis'],
+    female: ['Mika','Angelica','Bianca','Isabel','Mariel','Sofia','Camille','Rina'],
+    last: ['Reyes','Santos','Cruz','Garcia','Mendoza','Flores','Castillo','Navarro'],
+  },
+  southAsian: {
+    male: ['Arjun','Rohan','Vikram','Aarav','Karan','Kabir','Dev','Ishaan'],
+    female: ['Priya','Anika','Maya','Diya','Kavya','Meera','Riya','Isha'],
+    last: ['Patel','Singh','Sharma','Khan','Mehta','Kapoor','Malik','Rao'],
+  },
+}
+
+function namePoolForNationality(nationality: string): ProceduralNamePool {
+  if (nationality === 'Ireland') return PROCEDURAL_NAME_POOLS.irish
+  if (nationality === 'Spain') return PROCEDURAL_NAME_POOLS.spanish
+  if (nationality === 'Brazil') return PROCEDURAL_NAME_POOLS.portuguese
+  if (['Mexico','Argentina','Chile','Colombia','Puerto Rico','Dominican Republic'].includes(nationality)) return PROCEDURAL_NAME_POOLS.latin
+  if (nationality === 'Italy') return PROCEDURAL_NAME_POOLS.italian
+  if (nationality === 'France') return PROCEDURAL_NAME_POOLS.french
+  if (nationality === 'Germany') return PROCEDURAL_NAME_POOLS.german
+  if (nationality === 'Poland') return PROCEDURAL_NAME_POOLS.polish
+  if (['Ukraine','Russia'].includes(nationality)) return PROCEDURAL_NAME_POOLS.slavic
+  if (nationality === 'Georgia') return PROCEDURAL_NAME_POOLS.georgian
+  if (['Nigeria','Ghana','Cameroon'].includes(nationality)) return PROCEDURAL_NAME_POOLS.westAfrican
+  if (nationality === 'South Africa') return PROCEDURAL_NAME_POOLS.southernAfrican
+  if (nationality === 'Japan') return PROCEDURAL_NAME_POOLS.japanese
+  if (nationality === 'South Korea') return PROCEDURAL_NAME_POOLS.korean
+  if (nationality === 'China') return PROCEDURAL_NAME_POOLS.chinese
+  if (nationality === 'Thailand') return PROCEDURAL_NAME_POOLS.thai
+  if (nationality === 'Philippines') return PROCEDURAL_NAME_POOLS.filipino
+  if (['India','Pakistan'].includes(nationality)) return PROCEDURAL_NAME_POOLS.southAsian
+  return PROCEDURAL_NAME_POOLS.anglo
+}
+
 const STYLES = [
   'MMA All-Rounder', 'Counter Striker', 'Pressure Striker', 'Volume Striker', 'Power Striker', 'Technical Striker', 'Kickboxer',
   'Muay Thai Wrestler', 'Elite Wrestler', 'Olympic Wrestler', 'Pressure Wrestler', 'Sambo Grappler', 'Submission Grappler',
@@ -303,14 +426,16 @@ function createGeneratedFighter(
   isDraftEligible: boolean,
   usedNames: Set<string>,
 ): Fighter {
-  let firstName = pick(random, gender === 'Male' ? MALE_FIRST_NAMES : FEMALE_FIRST_NAMES)
-  let lastName = pick(random, LAST_NAMES)
+  const nationality = pick(random, NATIONALITIES)
+  const pool = namePoolForNationality(nationality)
+  let firstName = pick(random, gender === 'Male' ? pool.male : pool.female)
+  let lastName = pick(random, pool.last)
   let nameKey = `${firstName}-${lastName}`
   let attempts = 0
 
   while (usedNames.has(nameKey) && attempts < 30) {
-    firstName = pick(random, gender === 'Male' ? MALE_FIRST_NAMES : FEMALE_FIRST_NAMES)
-    lastName = pick(random, LAST_NAMES)
+    firstName = pick(random, gender === 'Male' ? pool.male : pool.female)
+    lastName = pick(random, pool.last)
     nameKey = `${firstName}-${lastName}`
     attempts += 1
   }
@@ -339,7 +464,7 @@ function createGeneratedFighter(
     ringName,
     gender,
     age: between(random, isDraftEligible ? 21 : 19, isDraftEligible ? 33 : 36),
-    nationality: pick(random, NATIONALITIES),
+    nationality,
     style,
     rarity,
     overall,
@@ -362,20 +487,59 @@ function createGeneratedFighter(
   }
 }
 
+function selectRealStarSeeds(random: () => number, rarity: 'Generational' | 'Legend' | 'Epic', count: number): StarSeed[] {
+  const pool = SIGNATURE_STARS.filter((star) => star.rarity === rarity)
+  const selected: StarSeed[] = []
+  const remaining = [...pool]
+  while (selected.length < count && remaining.length) {
+    const index = Math.floor(random() * remaining.length)
+    selected.push(remaining.splice(index, 1)[0])
+  }
+  return selected
+}
+
 export function createFighterPool(seed: number): Fighter[] {
   const random = mulberry32(seed)
-  const signatures = SIGNATURE_STARS.map(seedToFighter)
-  const usedNames = new Set(signatures.map((fighter) => `${fighter.firstName}-${fighter.lastName}`))
+
+  // Real fighters are anchors, not the whole universe: 1-2 Generational,
+  // roughly half the Legends, and only a handful of Epics.
+  const realGenCount = random() < 0.58 ? 2 : 1
+  const selectedRealSeeds = [
+    ...selectRealStarSeeds(random, 'Generational', realGenCount),
+    ...selectRealStarSeeds(random, 'Legend', 6),
+    ...selectRealStarSeeds(random, 'Epic', 5),
+  ]
+  const realStars = selectedRealSeeds.map(seedToFighter)
+  const usedNames = new Set(realStars.map((fighter) => `${fighter.firstName}-${fighter.lastName}`))
+
+  const eliteProcedural: Fighter[] = []
+  const eliteTargets: Array<[Rarity, number]> = [
+    ['Generational', 3 - selectedRealSeeds.filter((star) => star.rarity === 'Generational').length],
+    ['Legend', 12 - selectedRealSeeds.filter((star) => star.rarity === 'Legend').length],
+    ['Epic', 24 - selectedRealSeeds.filter((star) => star.rarity === 'Epic').length],
+  ]
+  let index = 500
+  eliteTargets.forEach(([rarity, count]) => {
+    for (let i = 0; i < count; i += 1) {
+      const gender: Gender = random() < 0.30 ? 'Female' : 'Male'
+      const fighter = createGeneratedFighter(random, index++, gender, rarity, true, usedNames)
+      // Elite procedural fighters enter at believable prime/near-prime ages.
+      fighter.age = rarity === 'Generational' ? between(random, 23, 29) : rarity === 'Legend' ? between(random, 24, 31) : between(random, 23, 32)
+      fighter.isDraftEligible = true
+      eliteProcedural.push(fighter)
+    }
+  })
+
   const lowerTier: Fighter[] = []
   const targetCounts: Array<[Rarity, number]> = [['Rare', 34], ['Uncommon', 30], ['Common', 20]]
-  let index = 1000
+  index = 1000
   targetCounts.forEach(([rarity, count]) => {
     for (let i = 0; i < count; i += 1) {
       const gender: Gender = i % 3 === 0 ? 'Female' : 'Male'
       lowerTier.push(createGeneratedFighter(random, index++, gender, rarity, false, usedNames))
     }
   })
-  return [...signatures, ...lowerTier]
+  return [...realStars, ...eliteProcedural, ...lowerTier]
 }
 
 export function hydrateFighterData(fighter: Fighter): Fighter {

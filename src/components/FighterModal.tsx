@@ -66,8 +66,8 @@ export default function FighterModal({ fighter, game, onClose, onPromotionOpen, 
               {isChampion && <span className="champion-badge">Champion</span>}
               {fighter.isRetired && <span>Retired</span>}
             </div>
-            <h2 id="fighter-modal-name">{shortFighterName(fighter)}</h2>
-            <p>{fighterDisplayName(fighter)}</p>
+            <h2 id="fighter-modal-name">{fighter.firstName} {fighter.lastName}</h2>
+            <p>{fighter.ringName ? `“${fighter.ringName}”` : fighter.nationality}</p>
           </div>
           <button className="icon-button" type="button" aria-label="Close fighter details" onClick={onClose}>×</button>
         </header>

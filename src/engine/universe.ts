@@ -29,13 +29,12 @@ export function monthName(month: number): string {
 }
 
 export function fighterDisplayName(fighter: Fighter): string {
-  return fighter.ringName
-    ? `${fighter.ringName} — ${fighter.firstName} ${fighter.lastName}`
-    : `${fighter.firstName} ${fighter.lastName}`
+  const realName = `${fighter.firstName} ${fighter.lastName}`
+  return fighter.ringName ? `${realName} — ${fighter.ringName}` : realName
 }
 
 export function shortFighterName(fighter: Fighter): string {
-  return fighter.ringName ?? `${fighter.firstName} ${fighter.lastName}`
+  return `${fighter.firstName} ${fighter.lastName}`
 }
 
 export function createPromotions(): Promotion[] {

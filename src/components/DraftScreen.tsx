@@ -233,8 +233,8 @@ export default function DraftScreen({ game, onChange, onExit }: DraftScreenProps
                   <FighterPortrait fighter={fighter} size="sm" accent={currentPromotion?.color} className="star-avatar" />
                   <span className={`rarity-badge ${fighter.rarity.toLowerCase()}`}>{fighter.rarity}</span>
                 </span>
-                <strong>{shortFighterName(fighter)}</strong>
-                <small>{fighter.ringName ? `${fighter.firstName} ${fighter.lastName}` : fighter.nationality}</small>
+                <strong>{fighter.firstName} {fighter.lastName}</strong>
+                <small>{fighter.ringName ? `“${fighter.ringName}”` : fighter.nationality}</small>
                 <span className="star-card-style">{fighter.style}</span>
                 <span className="star-card-scores">
                   <b>{fighter.overall} OVR</b>
