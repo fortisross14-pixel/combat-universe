@@ -12,100 +12,20 @@ export const PROMOTION_SEEDS: Omit<
   | 'yearStats'
 >[] = [
   {
-    id: 'ufc',
-    name: 'UFC',
-    shortName: 'UFC',
-    archetype: 'Global MMA leader',
-    region: 'North America',
-    competition: 96,
-    entertainment: 34,
-    risk: 78,
-    tone: 'Serious sport',
-    color: '#c34848',
+    id: 'ufc', name: 'UFC', shortName: 'UFC', archetype: 'Global MMA apex', region: 'Global',
+    competition: 98, entertainment: 82, risk: 78, tone: 'Global championship sport', color: '#c34848',
   },
   {
-    id: 'pfl',
-    name: 'PFL',
-    shortName: 'PFL',
-    archetype: 'Seasonal MMA league',
-    region: 'North America',
-    competition: 89,
-    entertainment: 42,
-    risk: 70,
-    tone: 'Seasonal spectacle',
-    color: '#4d8bd5',
+    id: 'pfl', name: 'PFL', shortName: 'PFL', archetype: 'Major global challenger', region: 'North America & Global',
+    competition: 84, entertainment: 68, risk: 72, tone: 'Tournament-driven MMA', color: '#4d8bd5',
   },
   {
-    id: 'one',
-    name: 'ONE Championship',
-    shortName: 'ONE',
-    archetype: 'Asian martial-arts hybrid',
-    region: 'East & Southeast Asia',
-    competition: 83,
-    entertainment: 60,
-    risk: 72,
-    tone: 'Martial-arts prestige',
-    color: '#c5a34a',
+    id: 'one', name: 'ONE Championship', shortName: 'ONE', archetype: 'Asian MMA power', region: 'East & Southeast Asia',
+    competition: 82, entertainment: 72, risk: 70, tone: 'Martial-arts prestige', color: '#c5a34a',
   },
   {
-    id: 'wwe',
-    name: 'WWE',
-    shortName: 'WWE',
-    archetype: 'Global sports-entertainment giant',
-    region: 'Global',
-    competition: 26,
-    entertainment: 99,
-    risk: 38,
-    tone: 'Global entertainment',
-    color: '#8c62d7',
-  },
-  {
-    id: 'aew',
-    name: 'AEW',
-    shortName: 'AEW',
-    archetype: 'Athletic entertainment challenger',
-    region: 'North America',
-    competition: 47,
-    entertainment: 92,
-    risk: 52,
-    tone: 'Athletic entertainment',
-    color: '#d4933f',
-  },
-  {
-    id: 'tna',
-    name: 'TNA Wrestling',
-    shortName: 'TNA',
-    archetype: 'Story-driven wrestling alternative',
-    region: 'North America',
-    competition: 38,
-    entertainment: 88,
-    risk: 47,
-    tone: 'Chaotic drama',
-    color: '#397ac5',
-  },
-  {
-    id: 'matchroom',
-    name: 'Matchroom Boxing',
-    shortName: 'MRB',
-    archetype: 'Global boxing promotion',
-    region: 'Europe & Global',
-    competition: 93,
-    entertainment: 48,
-    risk: 82,
-    tone: 'Prizefight prestige',
-    color: '#35a56f',
-  },
-  {
-    id: 'karate',
-    name: 'Karate Combat',
-    shortName: 'KC',
-    archetype: 'Hybrid striking spectacle',
-    region: 'Global',
-    competition: 74,
-    entertainment: 73,
-    risk: 76,
-    tone: 'Underground spectacle',
-    color: '#d96d43',
+    id: 'cage', name: 'Cage Warriors', shortName: 'CW', archetype: 'Regional development feeder', region: 'Europe',
+    competition: 68, entertainment: 48, risk: 66, tone: 'Prospect proving ground', color: '#6b8f6b',
   },
 ]
 
@@ -121,73 +41,54 @@ type StarSeed = {
   overall: number
   charisma: number
   potential: number
+  weightClass?: string
 }
 
 const SIGNATURE_STARS: StarSeed[] = [
-  { firstName: 'Paul', lastName: 'Levesque', ringName: 'Triple H', gender: 'Male', nationality: 'United States', style: 'Powerhouse Wrestler', age: 28, rarity: 'Legend', overall: 91, charisma: 99, potential: 96 },
-  { firstName: 'Daniel', lastName: 'Cormier', ringName: 'DC', gender: 'Male', nationality: 'United States', style: 'Olympic Wrestling', age: 29, rarity: 'Legend', overall: 97, charisma: 91, potential: 97 },
-  { firstName: 'Ronda', lastName: 'Rousey', ringName: 'Rowdy', gender: 'Female', nationality: 'United States', style: 'Judo & Armbars', age: 27, rarity: 'Legend', overall: 95, charisma: 94, potential: 96 },
-  { firstName: 'Amanda', lastName: 'Nunes', ringName: 'The Lioness', gender: 'Female', nationality: 'Brazil', style: 'MMA All-Rounder', age: 28, rarity: 'Generational', overall: 98, charisma: 84, potential: 97 },
-  { firstName: 'Conor', lastName: 'McGregor', ringName: 'The Notorious', gender: 'Male', nationality: 'Ireland', style: 'Counter Striker', age: 27, rarity: 'Legend', overall: 93, charisma: 100, potential: 96 },
-  { firstName: 'Jon', lastName: 'Jones', ringName: 'Bones', gender: 'Male', nationality: 'United States', style: 'Creative MMA', age: 27, rarity: 'Generational', overall: 99, charisma: 88, potential: 99 },
-  { firstName: 'Georges', lastName: 'St-Pierre', ringName: 'GSP', gender: 'Male', nationality: 'Canada', style: 'MMA All-Rounder', age: 28, rarity: 'Generational', overall: 99, charisma: 91, potential: 99 },
-  { firstName: 'Khabib', lastName: 'Nurmagomedov', ringName: 'The Eagle', gender: 'Male', nationality: 'Russia', style: 'Sambo Pressure', age: 27, rarity: 'Legend', overall: 98, charisma: 87, potential: 98 },
-  { firstName: 'Anderson', lastName: 'Silva', ringName: 'The Spider', gender: 'Male', nationality: 'Brazil', style: 'Muay Thai Countering', age: 29, rarity: 'Legend', overall: 98, charisma: 92, potential: 98 },
-  { firstName: 'Fedor', lastName: 'Emelianenko', ringName: 'The Last Emperor', gender: 'Male', nationality: 'Russia', style: 'Combat Sambo', age: 28, rarity: 'Generational', overall: 98, charisma: 83, potential: 98 },
-  { firstName: 'Israel', lastName: 'Adesanya', ringName: 'The Last Stylebender', gender: 'Male', nationality: 'Nigeria / New Zealand', style: 'Kickboxing', age: 27, rarity: 'Epic', overall: 94, charisma: 97, potential: 97 },
-  { firstName: 'Francis', lastName: 'Ngannou', ringName: 'The Predator', gender: 'Male', nationality: 'Cameroon', style: 'Knockout Power', age: 29, rarity: 'Epic', overall: 95, charisma: 90, potential: 96 },
-  { firstName: 'Max', lastName: 'Holloway', ringName: 'Blessed', gender: 'Male', nationality: 'United States', style: 'Volume Boxing', age: 26, rarity: 'Epic', overall: 93, charisma: 91, potential: 96 },
-  { firstName: 'José', lastName: 'Aldo', ringName: 'The King of Rio', gender: 'Male', nationality: 'Brazil', style: 'Muay Thai', age: 28, rarity: 'Legend', overall: 97, charisma: 86, potential: 97 },
-  { firstName: 'Brock', lastName: 'Lesnar', ringName: 'The Beast', gender: 'Male', nationality: 'United States', style: 'Power Wrestling', age: 28, rarity: 'Legend', overall: 96, charisma: 96, potential: 97 },
-  { firstName: 'Kurt', lastName: 'Angle', ringName: 'The Wrestling Machine', gender: 'Male', nationality: 'United States', style: 'Olympic Wrestling', age: 27, rarity: 'Legend', overall: 96, charisma: 96, potential: 97 },
-  { firstName: 'Dwayne', lastName: 'Johnson', ringName: 'The Rock', gender: 'Male', nationality: 'United States', style: 'Showman Brawler', age: 28, rarity: 'Legend', overall: 88, charisma: 100, potential: 99 },
-  { firstName: 'John', lastName: 'Cena', ringName: 'The Franchise', gender: 'Male', nationality: 'United States', style: 'Powerhouse Showman', age: 27, rarity: 'Legend', overall: 89, charisma: 100, potential: 99 },
-  { firstName: 'Joe', lastName: 'Anoaʻi', ringName: 'Roman Reigns', gender: 'Male', nationality: 'United States / Samoa', style: 'Powerhouse Wrestler', age: 28, rarity: 'Legend', overall: 91, charisma: 99, potential: 98 },
-  { firstName: 'Cody', lastName: 'Rhodes', ringName: 'The American Nightmare', gender: 'Male', nationality: 'United States', style: 'Technical Showman', age: 28, rarity: 'Epic', overall: 88, charisma: 98, potential: 96 },
-  { firstName: 'Colby', lastName: 'Lopez', ringName: 'Seth Rollins', gender: 'Male', nationality: 'United States', style: 'Hybrid Wrestler', age: 27, rarity: 'Epic', overall: 91, charisma: 96, potential: 96 },
-  { firstName: 'Randy', lastName: 'Orton', ringName: 'The Viper', gender: 'Male', nationality: 'United States', style: 'Methodical Wrestler', age: 28, rarity: 'Legend', overall: 92, charisma: 97, potential: 97 },
-  { firstName: 'Tyson', lastName: 'Smith', ringName: 'Kenny Omega', gender: 'Male', nationality: 'Canada', style: 'Elite Hybrid Wrestling', age: 28, rarity: 'Epic', overall: 94, charisma: 94, potential: 96 },
-  { firstName: 'Maxwell', lastName: 'Friedman', ringName: 'MJF', gender: 'Male', nationality: 'United States', style: 'Technical Villain', age: 25, rarity: 'Epic', overall: 86, charisma: 100, potential: 98 },
-  { firstName: 'Phil', lastName: 'Brooks', ringName: 'CM Punk', gender: 'Male', nationality: 'United States', style: 'Submission Showman', age: 28, rarity: 'Epic', overall: 84, charisma: 99, potential: 93 },
-  { firstName: 'Kazuchika', lastName: 'Okada', ringName: 'The Rainmaker', gender: 'Male', nationality: 'Japan', style: 'Strong Style', age: 27, rarity: 'Legend', overall: 95, charisma: 94, potential: 97 },
-  { firstName: 'Tetsuya', lastName: 'Naito', ringName: 'El Ingobernable', gender: 'Male', nationality: 'Japan', style: 'Strong Style Showman', age: 28, rarity: 'Epic', overall: 91, charisma: 96, potential: 95 },
-  { firstName: 'Saúl', lastName: 'Álvarez', ringName: 'Canelo', gender: 'Male', nationality: 'Mexico', style: 'Counter Boxing', age: 27, rarity: 'Generational', overall: 98, charisma: 94, potential: 98 },
-  { firstName: 'Oleksandr', lastName: 'Usyk', ringName: 'The Cat', gender: 'Male', nationality: 'Ukraine', style: 'Technical Boxing', age: 28, rarity: 'Legend', overall: 98, charisma: 86, potential: 98 },
-  { firstName: 'Tyson', lastName: 'Fury', ringName: 'The Gypsy King', gender: 'Male', nationality: 'United Kingdom', style: 'Heavyweight Boxing', age: 28, rarity: 'Legend', overall: 96, charisma: 99, potential: 97 },
-  { firstName: 'Anthony', lastName: 'Joshua', ringName: 'AJ', gender: 'Male', nationality: 'United Kingdom', style: 'Power Boxing', age: 27, rarity: 'Epic', overall: 93, charisma: 95, potential: 96 },
-  { firstName: 'Terence', lastName: 'Crawford', ringName: 'Bud', gender: 'Male', nationality: 'United States', style: 'Switch-Hitting Boxing', age: 28, rarity: 'Legend', overall: 98, charisma: 86, potential: 98 },
-  { firstName: 'Naoya', lastName: 'Inoue', ringName: 'The Monster', gender: 'Male', nationality: 'Japan', style: 'Precision Boxing', age: 26, rarity: 'Legend', overall: 98, charisma: 87, potential: 99 },
-  { firstName: 'Valentina', lastName: 'Shevchenko', ringName: 'Bullet', gender: 'Female', nationality: 'Kyrgyzstan', style: 'Muay Thai All-Rounder', age: 27, rarity: 'Legend', overall: 97, charisma: 86, potential: 97 },
-  { firstName: 'Cris', lastName: 'Justino', ringName: 'Cyborg', gender: 'Female', nationality: 'Brazil', style: 'Pressure Striker', age: 28, rarity: 'Legend', overall: 96, charisma: 88, potential: 96 },
-  { firstName: 'Joanna', lastName: 'Jędrzejczyk', ringName: 'Joanna Champion', gender: 'Female', nationality: 'Poland', style: 'Muay Thai Volume', age: 27, rarity: 'Legend', overall: 96, charisma: 91, potential: 97 },
-  { firstName: 'Zhang', lastName: 'Weili', ringName: 'Magnum', gender: 'Female', nationality: 'China', style: 'Explosive MMA', age: 27, rarity: 'Epic', overall: 95, charisma: 86, potential: 97 },
-  { firstName: 'Rose', lastName: 'Namajunas', ringName: 'Thug Rose', gender: 'Female', nationality: 'United States', style: 'Technical Kickboxing', age: 25, rarity: 'Epic', overall: 93, charisma: 90, potential: 96 },
-  { firstName: 'Holly', lastName: 'Holm', ringName: 'The Preacher’s Daughter', gender: 'Female', nationality: 'United States', style: 'Boxing & Kicks', age: 28, rarity: 'Epic', overall: 92, charisma: 87, potential: 94 },
-  { firstName: 'Kayla', lastName: 'Harrison', ringName: 'The Olympian', gender: 'Female', nationality: 'United States', style: 'Olympic Judo', age: 27, rarity: 'Epic', overall: 94, charisma: 88, potential: 97 },
-  { firstName: 'Rebecca', lastName: 'Quin', ringName: 'Becky Lynch', gender: 'Female', nationality: 'Ireland', style: 'Technical Showman', age: 27, rarity: 'Legend', overall: 87, charisma: 100, potential: 98 },
-  { firstName: 'Mercedes', lastName: 'Varnado', ringName: 'Mercedes Moné', gender: 'Female', nationality: 'United States', style: 'Technical Wrestler', age: 26, rarity: 'Epic', overall: 89, charisma: 98, potential: 97 },
-  { firstName: 'Ashley', lastName: 'Fliehr', ringName: 'Charlotte Flair', gender: 'Female', nationality: 'United States', style: 'Athletic Wrestler', age: 28, rarity: 'Legend', overall: 92, charisma: 97, potential: 97 },
-  { firstName: 'Demi', lastName: 'Bennett', ringName: 'Rhea Ripley', gender: 'Female', nationality: 'Australia', style: 'Powerhouse Wrestler', age: 25, rarity: 'Epic', overall: 90, charisma: 98, potential: 99 },
-  { firstName: 'Bianca', lastName: 'Crawford', ringName: 'Bianca Belair', gender: 'Female', nationality: 'United States', style: 'Elite Athlete', age: 26, rarity: 'Epic', overall: 90, charisma: 96, potential: 98 },
-  { firstName: 'Pamela', lastName: 'Martinez', ringName: 'Bayley', gender: 'Female', nationality: 'United States', style: 'Technical Storyteller', age: 27, rarity: 'Epic', overall: 88, charisma: 96, potential: 96 },
-  { firstName: 'Masami', lastName: 'Odate', ringName: 'Iyo Sky', gender: 'Female', nationality: 'Japan', style: 'Aerial Wrestler', age: 26, rarity: 'Epic', overall: 92, charisma: 90, potential: 97 },
-  { firstName: 'Kanako', lastName: 'Urai', ringName: 'Asuka', gender: 'Female', nationality: 'Japan', style: 'Submission Striker', age: 28, rarity: 'Legend', overall: 93, charisma: 95, potential: 96 },
-  { firstName: 'Melissa', lastName: 'Cervantes', ringName: 'Thunder Rosa', gender: 'Female', nationality: 'Mexico / United States', style: 'Brawler Wrestler', age: 27, rarity: 'Epic', overall: 87, charisma: 94, potential: 95 },
-  { firstName: 'Brittany', lastName: 'Baker', ringName: 'Britt Baker', gender: 'Female', nationality: 'United States', style: 'Submission Showman', age: 26, rarity: 'Epic', overall: 84, charisma: 96, potential: 94 },
-  { firstName: 'Saraya', lastName: 'Bevis', ringName: 'Saraya', gender: 'Female', nationality: 'United Kingdom', style: 'Technical Rebel', age: 26, rarity: 'Epic', overall: 86, charisma: 97, potential: 95 },
-  { firstName: 'Mami', lastName: 'Yamashita', ringName: 'The Crimson Ace', gender: 'Female', nationality: 'Japan', style: 'Strong Style', age: 24, rarity: 'Epic', overall: 91, charisma: 88, potential: 98 },
-  { firstName: 'Claressa', lastName: 'Shields', ringName: 'T-Rex', gender: 'Female', nationality: 'United States', style: 'Power Boxing', age: 25, rarity: 'Legend', overall: 97, charisma: 91, potential: 98 },
-  { firstName: 'Katie', lastName: 'Taylor', ringName: 'The Bray Bomber', gender: 'Female', nationality: 'Ireland', style: 'Technical Boxing', age: 27, rarity: 'Legend', overall: 97, charisma: 90, potential: 97 },
-  { firstName: 'Amanda', lastName: 'Serrano', ringName: 'The Real Deal', gender: 'Female', nationality: 'Puerto Rico', style: 'Pressure Boxing', age: 27, rarity: 'Legend', overall: 96, charisma: 91, potential: 97 },
-  { firstName: 'Savannah', lastName: 'Marshall', ringName: 'Silent Assassin', gender: 'Female', nationality: 'United Kingdom', style: 'Long-Range Boxing', age: 26, rarity: 'Epic', overall: 92, charisma: 87, potential: 95 },
-  { firstName: 'Mikaela', lastName: 'Mayer', ringName: 'The Technician', gender: 'Female', nationality: 'United States', style: 'Technical Boxing', age: 25, rarity: 'Epic', overall: 91, charisma: 89, potential: 96 },
-  { firstName: 'Seniesa', lastName: 'Estrada', ringName: 'Super Bad', gender: 'Female', nationality: 'United States', style: 'Speed Boxing', age: 25, rarity: 'Epic', overall: 91, charisma: 92, potential: 96 },
-  { firstName: 'Stamp', lastName: 'Fairtex', ringName: 'Stamp', gender: 'Female', nationality: 'Thailand', style: 'Muay Thai', age: 24, rarity: 'Epic', overall: 92, charisma: 96, potential: 98 },
-  { firstName: 'Angela', lastName: 'Lee', ringName: 'Unstoppable', gender: 'Female', nationality: 'Singapore / Canada', style: 'Submission MMA', age: 24, rarity: 'Epic', overall: 92, charisma: 92, potential: 97 },
-  { firstName: 'Tiffany', lastName: 'Stratton', ringName: 'The Prodigy', gender: 'Female', nationality: 'United States', style: 'Athletic Showman', age: 23, rarity: 'Epic', overall: 84, charisma: 95, potential: 99 },
-  { firstName: 'Jade', lastName: 'Cargill', ringName: 'The Storm', gender: 'Female', nationality: 'United States', style: 'Powerhouse Showman', age: 26, rarity: 'Epic', overall: 85, charisma: 97, potential: 97 },
-  { firstName: 'Giulia', lastName: 'Matsudo', ringName: 'The Beautiful Madness', gender: 'Female', nationality: 'Japan / Italy', style: 'Strong Style Wrestler', age: 24, rarity: 'Epic', overall: 91, charisma: 95, potential: 98 },
-  { firstName: 'Mayu', lastName: 'Iwatani', ringName: 'The Icon', gender: 'Female', nationality: 'Japan', style: 'Elite Technical Wrestling', age: 26, rarity: 'Legend', overall: 94, charisma: 93, potential: 97 },
+  // 3 Generational: intentionally scarce. Their placement creates or removes eras of competition.
+  { firstName: 'Jon', lastName: 'Jones', ringName: 'Bones', gender: 'Male', nationality: 'United States', style: 'Creative All-Rounder', age: 27, rarity: 'Generational', overall: 99, charisma: 88, potential: 100, weightClass: 'Light Heavyweight' },
+  { firstName: 'Georges', lastName: 'St-Pierre', ringName: 'GSP', gender: 'Male', nationality: 'Canada', style: 'Elite Wrestler', age: 28, rarity: 'Generational', overall: 99, charisma: 91, potential: 100, weightClass: 'Welterweight' },
+  { firstName: 'Amanda', lastName: 'Nunes', ringName: 'The Lioness', gender: 'Female', nationality: 'Brazil', style: 'Power All-Rounder', age: 28, rarity: 'Generational', overall: 99, charisma: 86, potential: 100, weightClass: 'Bantamweight' },
+
+  // ~12 Legends.
+  { firstName: 'Khabib', lastName: 'Nurmagomedov', ringName: 'The Eagle', gender: 'Male', nationality: 'Russia', style: 'Sambo Grappler', age: 27, rarity: 'Legend', overall: 97, charisma: 87, potential: 99, weightClass: 'Lightweight' },
+  { firstName: 'Anderson', lastName: 'Silva', ringName: 'The Spider', gender: 'Male', nationality: 'Brazil', style: 'Counter Striker', age: 29, rarity: 'Legend', overall: 97, charisma: 92, potential: 98, weightClass: 'Middleweight' },
+  { firstName: 'Fedor', lastName: 'Emelianenko', ringName: 'The Last Emperor', gender: 'Male', nationality: 'Russia', style: 'Combat Sambo', age: 28, rarity: 'Legend', overall: 97, charisma: 83, potential: 98, weightClass: 'Heavyweight' },
+  { firstName: 'Demetrious', lastName: 'Johnson', ringName: 'Mighty Mouse', gender: 'Male', nationality: 'United States', style: 'Speed All-Rounder', age: 27, rarity: 'Legend', overall: 97, charisma: 85, potential: 98, weightClass: 'Flyweight' },
+  { firstName: 'José', lastName: 'Aldo', ringName: 'The King of Rio', gender: 'Male', nationality: 'Brazil', style: 'Muay Thai Wrestler', age: 28, rarity: 'Legend', overall: 96, charisma: 86, potential: 98, weightClass: 'Featherweight' },
+  { firstName: 'Conor', lastName: 'McGregor', ringName: 'The Notorious', gender: 'Male', nationality: 'Ireland', style: 'Counter Striker', age: 27, rarity: 'Legend', overall: 94, charisma: 100, potential: 97, weightClass: 'Lightweight' },
+  { firstName: 'Kamaru', lastName: 'Usman', ringName: 'The Nigerian Nightmare', gender: 'Male', nationality: 'Nigeria', style: 'Pressure Wrestler', age: 28, rarity: 'Legend', overall: 96, charisma: 88, potential: 98, weightClass: 'Welterweight' },
+  { firstName: 'Alexander', lastName: 'Volkanovski', ringName: 'The Great', gender: 'Male', nationality: 'Australia', style: 'Volume All-Rounder', age: 27, rarity: 'Legend', overall: 96, charisma: 89, potential: 98, weightClass: 'Featherweight' },
+  { firstName: 'Stipe', lastName: 'Miocic', ringName: 'Stipe', gender: 'Male', nationality: 'United States', style: 'Boxer-Wrestler', age: 29, rarity: 'Legend', overall: 96, charisma: 84, potential: 97, weightClass: 'Heavyweight' },
+  { firstName: 'Valentina', lastName: 'Shevchenko', ringName: 'Bullet', gender: 'Female', nationality: 'Kyrgyzstan', style: 'Technical Striker', age: 27, rarity: 'Legend', overall: 96, charisma: 86, potential: 98, weightClass: 'Flyweight' },
+  { firstName: 'Ronda', lastName: 'Rousey', ringName: 'Rowdy', gender: 'Female', nationality: 'United States', style: 'Judo Grappler', age: 27, rarity: 'Legend', overall: 95, charisma: 94, potential: 97, weightClass: 'Bantamweight' },
+  { firstName: 'Joanna', lastName: 'Jędrzejczyk', ringName: 'Joanna Champion', gender: 'Female', nationality: 'Poland', style: 'Volume Striker', age: 27, rarity: 'Legend', overall: 95, charisma: 91, potential: 97, weightClass: 'Strawweight' },
+
+  // 24 Epics. Strong enough to become champions; not protected from bad matchups or bad timing.
+  { firstName: 'Israel', lastName: 'Adesanya', ringName: 'The Last Stylebender', gender: 'Male', nationality: 'Nigeria / New Zealand', style: 'Kickboxer', age: 27, rarity: 'Epic', overall: 93, charisma: 97, potential: 97, weightClass: 'Middleweight' },
+  { firstName: 'Francis', lastName: 'Ngannou', ringName: 'The Predator', gender: 'Male', nationality: 'Cameroon', style: 'Power Striker', age: 29, rarity: 'Epic', overall: 94, charisma: 90, potential: 97, weightClass: 'Heavyweight' },
+  { firstName: 'Max', lastName: 'Holloway', ringName: 'Blessed', gender: 'Male', nationality: 'United States', style: 'Volume Striker', age: 26, rarity: 'Epic', overall: 93, charisma: 91, potential: 96, weightClass: 'Featherweight' },
+  { firstName: 'Charles', lastName: 'Oliveira', ringName: 'Do Bronx', gender: 'Male', nationality: 'Brazil', style: 'Submission Grappler', age: 27, rarity: 'Epic', overall: 93, charisma: 89, potential: 97, weightClass: 'Lightweight' },
+  { firstName: 'Dustin', lastName: 'Poirier', ringName: 'The Diamond', gender: 'Male', nationality: 'United States', style: 'Boxer-Wrestler', age: 28, rarity: 'Epic', overall: 92, charisma: 91, potential: 95, weightClass: 'Lightweight' },
+  { firstName: 'Justin', lastName: 'Gaethje', ringName: 'The Highlight', gender: 'Male', nationality: 'United States', style: 'Power Striker', age: 28, rarity: 'Epic', overall: 92, charisma: 93, potential: 95, weightClass: 'Lightweight' },
+  { firstName: 'Leon', lastName: 'Edwards', ringName: 'Rocky', gender: 'Male', nationality: 'United Kingdom', style: 'Technical Striker', age: 27, rarity: 'Epic', overall: 92, charisma: 85, potential: 96, weightClass: 'Welterweight' },
+  { firstName: 'Robert', lastName: 'Whittaker', ringName: 'The Reaper', gender: 'Male', nationality: 'Australia', style: 'Counter Wrestler', age: 28, rarity: 'Epic', overall: 93, charisma: 87, potential: 96, weightClass: 'Middleweight' },
+  { firstName: 'Alex', lastName: 'Pereira', ringName: 'Poatan', gender: 'Male', nationality: 'Brazil', style: 'Power Kickboxer', age: 29, rarity: 'Epic', overall: 94, charisma: 91, potential: 97, weightClass: 'Light Heavyweight' },
+  { firstName: 'Daniel', lastName: 'Cormier', ringName: 'DC', gender: 'Male', nationality: 'United States', style: 'Olympic Wrestler', age: 29, rarity: 'Epic', overall: 94, charisma: 91, potential: 96, weightClass: 'Light Heavyweight' },
+  { firstName: 'Islam', lastName: 'Makhachev', ringName: 'Islam', gender: 'Male', nationality: 'Russia', style: 'Sambo Grappler', age: 27, rarity: 'Epic', overall: 94, charisma: 84, potential: 97, weightClass: 'Lightweight' },
+  { firstName: 'Tony', lastName: 'Ferguson', ringName: 'El Cucuy', gender: 'Male', nationality: 'United States', style: 'Pressure Grappler', age: 28, rarity: 'Epic', overall: 91, charisma: 94, potential: 94, weightClass: 'Lightweight' },
+  { firstName: 'Petr', lastName: 'Yan', ringName: 'No Mercy', gender: 'Male', nationality: 'Russia', style: 'Boxer-Wrestler', age: 27, rarity: 'Epic', overall: 92, charisma: 86, potential: 96, weightClass: 'Bantamweight' },
+  { firstName: 'T.J.', lastName: 'Dillashaw', ringName: 'TJ', gender: 'Male', nationality: 'United States', style: 'Movement Striker', age: 28, rarity: 'Epic', overall: 91, charisma: 88, potential: 95, weightClass: 'Bantamweight' },
+  { firstName: 'Dominick', lastName: 'Cruz', ringName: 'The Dominator', gender: 'Male', nationality: 'United States', style: 'Movement Striker', age: 28, rarity: 'Epic', overall: 92, charisma: 87, potential: 95, weightClass: 'Bantamweight' },
+  { firstName: 'Aljamain', lastName: 'Sterling', ringName: 'Funk Master', gender: 'Male', nationality: 'United States', style: 'Submission Wrestler', age: 27, rarity: 'Epic', overall: 91, charisma: 89, potential: 95, weightClass: 'Bantamweight' },
+  { firstName: 'Brandon', lastName: 'Moreno', ringName: 'The Assassin Baby', gender: 'Male', nationality: 'Mexico', style: 'Scramble Grappler', age: 26, rarity: 'Epic', overall: 91, charisma: 91, potential: 96, weightClass: 'Flyweight' },
+  { firstName: 'Henry', lastName: 'Cejudo', ringName: 'Triple C', gender: 'Male', nationality: 'United States', style: 'Olympic Wrestler', age: 28, rarity: 'Epic', overall: 92, charisma: 93, potential: 96, weightClass: 'Flyweight' },
+  { firstName: 'Zhang', lastName: 'Weili', ringName: 'Magnum', gender: 'Female', nationality: 'China', style: 'Power All-Rounder', age: 27, rarity: 'Epic', overall: 93, charisma: 86, potential: 97, weightClass: 'Strawweight' },
+  { firstName: 'Rose', lastName: 'Namajunas', ringName: 'Thug Rose', gender: 'Female', nationality: 'United States', style: 'Technical Striker', age: 25, rarity: 'Epic', overall: 92, charisma: 90, potential: 96, weightClass: 'Strawweight' },
+  { firstName: 'Cris', lastName: 'Justino', ringName: 'Cyborg', gender: 'Female', nationality: 'Brazil', style: 'Pressure Striker', age: 28, rarity: 'Epic', overall: 93, charisma: 88, potential: 96, weightClass: 'Featherweight' },
+  { firstName: 'Holly', lastName: 'Holm', ringName: 'The Preacher’s Daughter', gender: 'Female', nationality: 'United States', style: 'Counter Striker', age: 28, rarity: 'Epic', overall: 90, charisma: 87, potential: 94, weightClass: 'Bantamweight' },
+  { firstName: 'Kayla', lastName: 'Harrison', ringName: 'The Olympian', gender: 'Female', nationality: 'United States', style: 'Judo Grappler', age: 27, rarity: 'Epic', overall: 92, charisma: 88, potential: 97, weightClass: 'Featherweight' },
+  { firstName: 'Julianna', lastName: 'Peña', ringName: 'The Venezuelan Vixen', gender: 'Female', nationality: 'United States', style: 'Pressure Grappler', age: 27, rarity: 'Epic', overall: 89, charisma: 91, potential: 94, weightClass: 'Bantamweight' },
 ]
 
 const MALE_FIRST_NAMES = [
@@ -219,9 +120,9 @@ const NATIONALITIES = [
 ]
 
 const STYLES = [
-  'MMA All-Rounder', 'Pressure Boxing', 'Counter Boxing', 'Kickboxing', 'Muay Thai', 'Olympic Wrestling', 'Sambo Pressure',
-  'Submission Grappling', 'Judo & Throws', 'Karate Countering', 'Powerhouse Wrestler', 'Technical Wrestler', 'Aerial Wrestler',
-  'Strong Style', 'Brawler', 'Showman', 'Hybrid Wrestler', 'Knockout Power', 'Volume Striking', 'Defensive Technician',
+  'MMA All-Rounder', 'Counter Striker', 'Pressure Striker', 'Volume Striker', 'Power Striker', 'Technical Striker', 'Kickboxer',
+  'Muay Thai Wrestler', 'Elite Wrestler', 'Olympic Wrestler', 'Pressure Wrestler', 'Sambo Grappler', 'Submission Grappler',
+  'Submission Wrestler', 'Judo Grappler', 'Boxer-Wrestler', 'Counter Wrestler', 'Scramble Grappler', 'Power All-Rounder', 'Movement Striker',
 ]
 
 const RING_PREFIX = ['The', 'El', 'La', 'Iron', 'Golden', 'Black', 'Crimson', 'Silent', 'Wild', 'Royal']
@@ -281,22 +182,18 @@ function clampRating(value: number): number {
   return Math.max(35, Math.min(100, Math.round(value)))
 }
 
-function inferDiscipline(style: string): Discipline {
-  const text = style.toLowerCase()
-  if (text.includes('wrestler') || text.includes('showman') || text === 'strong style' || text === 'brawler') return 'Wrestling'
-  if (text.includes('box')) return 'Boxing'
-  if (text.includes('kick') || text.includes('muay') || text.includes('karate') || text.includes('striking')) return 'Kickboxing'
+function inferDiscipline(_style: string): Discipline {
   return 'MMA'
 }
 
 function inferWeightClass(gender: Gender, key: string, style: string): string {
   const text = `${key} ${style}`.toLowerCase()
   if (gender === 'Female') {
-    const classes = ['Flyweight', 'Bantamweight', 'Featherweight']
+    const classes = ['Strawweight', 'Flyweight', 'Bantamweight', 'Featherweight']
     return classes[hashText(key) % classes.length]
   }
-  if (/(heavyweight|powerhouse|ngannou|lesnar|fury|joshua)/.test(text)) return 'Heavyweight'
-  const classes = ['Lightweight', 'Welterweight', 'Middleweight', 'Light Heavyweight', 'Heavyweight']
+  if (/(heavyweight|ngannou|miocic|fedor)/.test(text)) return 'Heavyweight'
+  const classes = ['Flyweight', 'Bantamweight', 'Featherweight', 'Lightweight', 'Welterweight', 'Middleweight', 'Light Heavyweight', 'Heavyweight']
   return classes[hashText(key) % classes.length]
 }
 
@@ -383,6 +280,8 @@ function seedToFighter(seed: StarSeed, index: number): Fighter {
     fame: 0,
     legacy: 0,
     ...enrichFighterBase(seed),
+    discipline: 'MMA',
+    weightClass: seed.weightClass ?? inferWeightClass(seed.gender, `${seed.firstName}-${seed.lastName}`, seed.style),
     promotionId: null,
     isDraftEligible: true,
     isRetired: false,
@@ -467,24 +366,16 @@ export function createFighterPool(seed: number): Fighter[] {
   const random = mulberry32(seed)
   const signatures = SIGNATURE_STARS.map(seedToFighter)
   const usedNames = new Set(signatures.map((fighter) => `${fighter.firstName}-${fighter.lastName}`))
-  const premium: Fighter[] = [...signatures]
-
-  while (premium.length < 160) {
-    const index = premium.length
-    const gender: Gender = index % 2 === 0 ? 'Male' : 'Female'
-    const rarity: Rarity = index % 7 === 0 ? 'Legend' : 'Epic'
-    premium.push(createGeneratedFighter(random, index, gender, rarity, true, usedNames))
-  }
-
-  const freeAgents: Fighter[] = []
-  for (let index = 0; index < 180; index += 1) {
-    const gender: Gender = index % 2 === 0 ? 'Female' : 'Male'
-    const roll = random()
-    const rarity: Rarity = roll < 0.22 ? 'Rare' : roll < 0.62 ? 'Uncommon' : 'Common'
-    freeAgents.push(createGeneratedFighter(random, index + 160, gender, rarity, false, usedNames))
-  }
-
-  return [...premium, ...freeAgents]
+  const lowerTier: Fighter[] = []
+  const targetCounts: Array<[Rarity, number]> = [['Rare', 34], ['Uncommon', 30], ['Common', 20]]
+  let index = 1000
+  targetCounts.forEach(([rarity, count]) => {
+    for (let i = 0; i < count; i += 1) {
+      const gender: Gender = i % 3 === 0 ? 'Female' : 'Male'
+      lowerTier.push(createGeneratedFighter(random, index++, gender, rarity, false, usedNames))
+    }
+  })
+  return [...signatures, ...lowerTier]
 }
 
 export function hydrateFighterData(fighter: Fighter): Fighter {
@@ -506,21 +397,34 @@ export function hydrateFighterData(fighter: Fighter): Fighter {
   }
 }
 
-export function createProspectClass(seed: number, year: number, existing: Fighter[], count = 12): Fighter[] {
+export function createProspectClass(seed: number, year: number, existing: Fighter[], count = 8): Fighter[] {
   const random = mulberry32(seed + year * 104729)
   const usedNames = new Set(existing.map((fighter) => `${fighter.firstName}-${fighter.lastName}`))
+  const active = existing.filter((fighter) => !fighter.isRetired)
+  const current = (rarity: Rarity) => active.filter((fighter) => fighter.rarity === rarity).length
+  let genSlots = Math.max(0, 3 - current('Generational'))
+  let legendSlots = Math.max(0, 12 - current('Legend'))
+  let epicSlots = Math.max(0, 24 - current('Epic'))
   const prospects: Fighter[] = []
   for (let index = 0; index < count; index += 1) {
-    const gender: Gender = random() < 0.48 ? 'Female' : 'Male'
+    const gender: Gender = random() < 0.34 ? 'Female' : 'Male'
     const roll = random()
-    const rarity: Rarity = roll < 0.003 ? 'Generational' : roll < 0.025 ? 'Legend' : roll < 0.11 ? 'Epic' : roll < 0.34 ? 'Rare' : roll < 0.68 ? 'Uncommon' : 'Common'
+    let rarity: Rarity
+    if (genSlots > 0 && roll < 0.018) { rarity = 'Generational'; genSlots -= 1 }
+    else if (legendSlots > 0 && roll < 0.075) { rarity = 'Legend'; legendSlots -= 1 }
+    else if (epicSlots > 0 && roll < 0.22) { rarity = 'Epic'; epicSlots -= 1 }
+    else if (roll < 0.52) rarity = 'Rare'
+    else if (roll < 0.82) rarity = 'Uncommon'
+    else rarity = 'Common'
     const fighter = createGeneratedFighter(random, year * 1000 + index, gender, rarity, false, usedNames)
     fighter.id = `prospect-${year}-${index}-${slug(`${fighter.firstName}-${fighter.lastName}`)}`
     fighter.age = between(random, 18, 22)
     fighter.overall = Math.max(45, fighter.overall - between(random, 3, 9))
     fighter.potential = Math.max(fighter.overall + 2, fighter.potential)
+    fighter.discipline = 'MMA'
     fighter.attributes = buildAttributes(fighter.overall, fighter.style, fighter.id)
     prospects.push(fighter)
   }
   return prospects
 }
+

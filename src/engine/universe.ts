@@ -61,35 +61,83 @@ function shuffle<T>(values: T[], random: () => number): T[] {
   return result
 }
 
+function initialPromotionForFighter(fighter: Fighter, random: () => number): string | null {
+  const roll = random()
+  const rarity = fighter.rarity
+  if (rarity === 'Generational') {
+    if (roll < 0.62) return 'ufc'
+    if (roll < 0.79) return 'pfl'
+    if (roll < 0.95) return 'one'
+    return 'cage'
+  }
+  if (rarity === 'Legend') {
+    if (roll < 0.55) return 'ufc'
+    if (roll < 0.75) return 'pfl'
+    if (roll < 0.93) return 'one'
+    return 'cage'
+  }
+  if (rarity === 'Epic') {
+    if (roll < 0.43) return 'ufc'
+    if (roll < 0.68) return 'pfl'
+    if (roll < 0.88) return 'one'
+    return 'cage'
+  }
+  if (rarity === 'Rare') {
+    if (roll < 0.18) return 'ufc'
+    if (roll < 0.48) return 'pfl'
+    if (roll < 0.73) return 'one'
+    if (roll < 0.94) return 'cage'
+    return null
+  }
+  if (rarity === 'Uncommon') {
+    if (roll < 0.08) return 'ufc'
+    if (roll < 0.34) return 'pfl'
+    if (roll < 0.58) return 'one'
+    if (roll < 0.88) return 'cage'
+    return null
+  }
+  if (roll < 0.04) return 'ufc'
+  if (roll < 0.2) return 'pfl'
+  if (roll < 0.38) return 'one'
+  if (roll < 0.78) return 'cage'
+  return null
+}
+
 export function createUniverse(slotId: number, universeName?: string): GameState {
   const seed = Math.floor(Date.now() % 2_000_000_000) + slotId * 7919
   const promotions = createPromotions()
   const random = mulberry32(seed)
-  const order = shuffle(
-    promotions.map((promotion) => promotion.id),
-    random,
-  )
+  const fighters = createFighterPool(seed + 101)
+  fighters.forEach((fighter) => {
+    fighter.promotionId = initialPromotionForFighter(fighter, random)
+    fighter.isDraftEligible = false
+  })
 
   return {
-    version: 3,
+    version: 4,
     id: `universe-${seed}-${slotId}`,
     slotId,
-    universeName: universeName?.trim() || `Combat Universe ${slotId}`,
+    universeName: universeName?.trim() || `MMA World ${slotId}`,
     createdAt: new Date().toISOString(),
-    phase: 'draft',
-    currentYear: 2026,
+    phase: 'universe',
+    currentYear: 1,
     currentMonth: 0,
     currentWeek: 1,
     seed,
     promotions,
-    fighters: createFighterPool(seed + 101),
-    draft: {
-      rounds: 20,
-      order,
-      currentPickIndex: 0,
-      picks: [],
-    },
-    chronicles: [],
+    fighters,
+    draft: { rounds: 0, order: [], currentPickIndex: 0, picks: [] },
+    chronicles: [{
+      id: `chronicle-foundation-${seed}`,
+      year: 1,
+      month: 0,
+      type: 'structural',
+      headline: 'The MMA world begins',
+      body: 'UFC sits at the global apex, while PFL, ONE Championship and Cage Warriors form the challenger and feeder ecosystem. Only three Generational fighters exist at the start; their weight-class placement will define the first era.',
+      promotionIds: promotions.map((promotion) => promotion.id),
+      fighterIds: fighters.filter((fighter) => fighter.rarity === 'Generational').map((fighter) => fighter.id),
+      importance: 100,
+    }],
     rivalries: [],
     events: [],
     awards: [],
@@ -101,7 +149,7 @@ export function createUniverse(slotId: number, universeName?: string): GameState
 
 export function upgradeGameState(input: GameState): GameState {
   const state = structuredClone(input)
-  state.version = 3
+  state.version = 4
   state.rivalries = state.rivalries ?? []
   state.events = state.events ?? []
   state.awards = state.awards ?? []

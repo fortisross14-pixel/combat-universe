@@ -74,16 +74,45 @@ function isWrestlingPromotion(promotion: Promotion): boolean {
   return promotion.id === 'wwe' || promotion.id === 'aew' || promotion.id === 'tna'
 }
 
+function styleFamily(style: string): 'grappler' | 'wrestler' | 'striker' | 'power-striker' | 'all-rounder' {
+  const s = style.toLowerCase()
+  if (s.includes('all-rounder') || s.includes('boxer-wrestler')) return 'all-rounder'
+  if (s.includes('submission') || s.includes('sambo') || s.includes('judo') || s.includes('grappler') || s.includes('scramble')) return 'grappler'
+  if (s.includes('wrestler') || s.includes('wrestling')) return 'wrestler'
+  if (s.includes('power') || s.includes('knockout')) return 'power-striker'
+  return 'striker'
+}
+
 function styleAffinity(style: string, opponentStyle: string): number {
+  const a = styleFamily(style)
+  const b = styleFamily(opponentStyle)
+  let edge = 0
+  if ((a === 'grappler' || a === 'wrestler') && (b === 'striker' || b === 'power-striker')) edge += a === 'grappler' ? 6.5 : 5.2
+  if ((a === 'striker' || a === 'power-striker') && (b === 'grappler' || b === 'wrestler')) edge -= b === 'grappler' ? 3.8 : 2.8
+  if (a === 'grappler' && b === 'wrestler') edge += 1.8
+  if (a === 'wrestler' && b === 'grappler') edge += 0.5
+  if (a === 'all-rounder') edge += 1.5
   const styleText = style.toLowerCase()
   const opponentText = opponentStyle.toLowerCase()
-  let edge = 0
-  if ((styleText.includes('wrestl') || styleText.includes('sambo')) && opponentText.includes('box')) edge += 3.5
-  if (styleText.includes('submission') && opponentText.includes('wrestl')) edge += 2.5
-  if ((styleText.includes('kick') || styleText.includes('muay')) && opponentText.includes('powerhouse')) edge += 2
-  if (styleText.includes('counter') && opponentText.includes('pressure')) edge += 3
-  if (styleText.includes('brawler') && opponentText.includes('technical')) edge -= 2
+  if (styleText.includes('counter') && opponentText.includes('pressure')) edge += 3.2
+  if (styleText.includes('movement') && opponentText.includes('power')) edge += 2.4
+  if (styleText.includes('volume') && opponentText.includes('movement')) edge += 1.6
   return edge
+}
+
+function careerFitMultiplier(fighter: Fighter): number {
+  const distance = fighter.age - fighter.primeAge
+  const primeHalfWindow = fighter.rarity === 'Generational' ? 1 : fighter.rarity === 'Legend' ? 1.5 : fighter.careerArc === 'Evergreen' ? 2 : 1.5
+  const peak = fighter.rarity === 'Generational' ? 1.045 : fighter.rarity === 'Legend' ? 1.025 : fighter.rarity === 'Epic' ? 1.01 : 1.0
+  if (Math.abs(distance) <= primeHalfWindow) return peak
+  if (distance < -primeHalfWindow) {
+    const yearsEarly = Math.abs(distance) - primeHalfWindow
+    const growthSlope = fighter.careerArc === 'Prodigy' ? 0.015 : fighter.careerArc === 'Late Bloomer' ? 0.032 : 0.023
+    return Math.max(0.88, peak - yearsEarly * growthSlope)
+  }
+  const yearsLate = distance - primeHalfWindow
+  const declineSlope = fighter.careerArc === 'Evergreen' ? 0.018 : fighter.careerArc === 'Late Bloomer' ? 0.024 : fighter.careerArc === 'Early Peak' ? 0.045 : 0.032
+  return Math.max(0.82, peak - yearsLate * declineSlope)
 }
 
 function ensureBrandStats(fighter: Fighter, promotion: Promotion): BrandStatLine {
@@ -152,30 +181,33 @@ function competitivePower(fighter: Fighter, opponent: Fighter, promotion: Promot
   } else {
     skill = a.power * 0.12 + a.speed * 0.11 + a.technique * 0.18 + a.wrestling * 0.15 + a.submissions * 0.12 + a.chin * 0.1 + a.cardio * 0.12 + a.athleticism * 0.1
   }
-  return skill + fighter.form * 0.12 + styleAffinity(fighter.style, opponent.style) + personalityFightEdge(fighter, opponent, titleBout, importance)
+  return skill * careerFitMultiplier(fighter) + fighter.form * 0.12 + styleAffinity(fighter.style, opponent.style) + personalityFightEdge(fighter, opponent, titleBout, importance)
 }
 
 function chooseWinner(first: Fighter, second: Fighter, promotion: Promotion, titleBout: boolean, importance: number): Fighter {
-  const firstPower = competitivePower(first, second, promotion, titleBout, importance) + randomBetween(-9.5, 9.5)
-  const secondPower = competitivePower(second, first, promotion, titleBout, importance) + randomBetween(-9.5, 9.5)
+  const firstPower = competitivePower(first, second, promotion, titleBout, importance) + randomBetween(-6.5, 6.5)
+  const secondPower = competitivePower(second, first, promotion, titleBout, importance) + randomBetween(-6.5, 6.5)
   const difference = firstPower - secondPower
-  const firstChance = 1 / (1 + Math.exp(-difference / 11.5))
+  const firstChance = 1 / (1 + Math.exp(-difference / 9.5))
   return Math.random() < firstChance ? first : second
 }
 
 function fightMethod(winner: Fighter, loser: Fighter, promotion: Promotion): string {
-  if (isWrestlingPromotion(promotion)) {
-    const roll = Math.random()
-    return roll < 0.72 ? 'Pinfall' : roll < 0.94 ? 'Submission' : 'Count-out'
-  }
-  const submissionEdge = winner.attributes.submissions - loser.attributes.wrestling * 0.45
-  const koEdge = winner.attributes.power - loser.attributes.chin * 0.55
-  const risk = promotion.risk / 100
+  const winnerFamily = styleFamily(winner.style)
+  const loserFamily = styleFamily(loser.style)
+  const submissionEdge = winner.attributes.submissions - loser.attributes.wrestling * 0.42
+  const koEdge = winner.attributes.power - loser.attributes.chin * 0.52
+  let submissionChance = Math.max(0.05, Math.min(0.38, 0.11 + submissionEdge / 165))
+  let koChance = Math.max(0.12, Math.min(0.5, 0.24 + koEdge / 145 + promotion.risk / 100 * 0.06))
+  if (winnerFamily === 'grappler') submissionChance += loserFamily === 'striker' || loserFamily === 'power-striker' ? 0.18 : 0.08
+  if (winnerFamily === 'wrestler') submissionChance += loserFamily === 'striker' || loserFamily === 'power-striker' ? 0.07 : 0.02
+  if (winnerFamily === 'power-striker') koChance += 0.15
+  if (winnerFamily === 'striker') koChance += 0.06
+  submissionChance = Math.min(0.58, submissionChance)
+  koChance = Math.min(0.62, koChance)
   const roll = Math.random()
-  const submissionChance = Math.max(0.04, Math.min(0.34, 0.1 + submissionEdge / 180))
-  const koChance = Math.max(0.12, Math.min(0.5, 0.24 + koEdge / 150 + risk * 0.08))
-  if (roll < submissionChance && promotion.id !== 'matchroom' && promotion.id !== 'karate') return 'Submission'
-  if (roll < submissionChance + koChance) return Math.random() < 0.62 ? 'KO' : 'TKO'
+  if (roll < submissionChance) return 'Submission'
+  if (roll < submissionChance + koChance) return Math.random() < 0.58 ? 'KO' : 'TKO'
   return 'Decision'
 }
 
@@ -607,17 +639,20 @@ function updatePromotionBusiness(state: GameState, promotion: Promotion, event: 
 
 function marketFit(promotion: Promotion, fighter: Fighter): number {
   const identity = fighter.overall * (promotion.competition / 100) + fighter.charisma * (promotion.entertainment / 100)
-  const style = fighter.style.toLowerCase()
-  let styleBonus = 0
-  if (promotion.id === 'matchroom' && style.includes('box')) styleBonus += 22
-  if (promotion.id === 'karate' && (style.includes('karate') || style.includes('kick') || style.includes('muay'))) styleBonus += 17
-  if ((promotion.id === 'wwe' || promotion.id === 'aew' || promotion.id === 'tna') && (fighter.discipline === 'Wrestling' || style.includes('wrestler'))) styleBonus += 18
-  if ((promotion.id === 'ufc' || promotion.id === 'pfl') && (fighter.discipline === 'MMA' || style.includes('grappl') || style.includes('sambo'))) styleBonus += 15
-  if (fighter.competitivePersonality === 'Legacy-Driven') styleBonus += promotion.competition * 0.11
-  if (fighter.competitivePersonality === 'Money-Driven') styleBonus += promotion.entertainment * 0.1 + promotion.fame * 0.15
-  if (fighter.competitivePersonality === 'Loyal') styleBonus += 5
-  return identity + styleBonus + promotion.fame * 0.12 + Math.random() * 14
+  let bonus = 0
+  if (promotion.id === 'ufc') {
+    bonus += fighter.rarity === 'Generational' ? 34 : fighter.rarity === 'Legend' ? 24 : fighter.rarity === 'Epic' ? 14 : 2
+    bonus += Math.max(0, fighter.currentStreak) * 2.5 + fighter.stats.titleDefenses * 2
+  }
+  if (promotion.id === 'pfl') bonus += fighter.rarity === 'Epic' || fighter.rarity === 'Legend' ? 10 : 6
+  if (promotion.id === 'one') bonus += fighter.nationality.includes('Japan') || fighter.nationality.includes('China') || fighter.nationality.includes('Thailand') || fighter.nationality.includes('Philippines') ? 12 : 5
+  if (promotion.id === 'cage') bonus += fighter.age <= 25 ? 14 : fighter.rarity === 'Rare' || fighter.rarity === 'Uncommon' ? 8 : -4
+  if (fighter.competitivePersonality === 'Legacy-Driven') bonus += promotion.competition * 0.12
+  if (fighter.competitivePersonality === 'Money-Driven') bonus += promotion.entertainment * 0.08 + promotion.fame * 0.12
+  if (fighter.competitivePersonality === 'Loyal') bonus += fighter.promotionId === promotion.id ? 8 : -2
+  return identity + bonus + promotion.fame * 0.1 + Math.random() * 10
 }
+
 
 export function runSigningWindow(input: GameState, count = 8): GameState {
   if (input.phase !== 'universe') return input
@@ -875,8 +910,12 @@ function runOffseasonMoves(state: GameState): PromotionMove[] {
       const bestTarget = [...state.promotions]
         .filter((promotion) => promotion.id !== current.id)
         .sort((a, b) => (marketFit(b, fighter) + promotionPower(b) * 0.12) - (marketFit(a, fighter) + promotionPower(a) * 0.12))[0]
-      const opportunity = bestTarget ? (promotionPower(bestTarget) - currentPower) * 0.08 : 0
-      return { fighter, current, bestTarget, score: personality + opportunity + fighter.fame * 0.025 + Math.random() * 12 }
+      const opportunity = bestTarget ? (promotionPower(bestTarget) - currentPower) * 0.11 : 0
+      const rarityPressure = fighter.rarity === 'Generational' ? 18 : fighter.rarity === 'Legend' ? 11 : fighter.rarity === 'Epic' ? 6 : 0
+      const recent = fighter.yearStats[String(state.currentYear)]
+      const performancePressure = (recent?.wins ?? 0) * 2.5 + (recent?.titles ?? 0) * 8 + (recent?.titleDefenses ?? 0) * 4 + Math.max(0, fighter.currentStreak) * 1.5
+      const ufcPull = bestTarget?.id === 'ufc' && current.id !== 'ufc' ? 8 : 0
+      return { fighter, current, bestTarget, score: personality + opportunity + rarityPressure + performancePressure + ufcPull + fighter.fame * 0.025 + Math.random() * 8 }
     })
     .filter((entry) => entry.bestTarget && entry.score >= 11)
     .sort((a, b) => b.score - a.score)
@@ -938,10 +977,10 @@ function weekToMonth(week: number): number {
 }
 
 function eventCadenceWeeks(promotion: Promotion): number {
-  if (isWrestlingPromotion(promotion)) return 3
-  if (promotion.id === 'matchroom') return 5
-  if (promotion.id === 'karate') return 5
-  return 4
+  if (promotion.id === 'ufc') return 4
+  if (promotion.id === 'pfl') return 5
+  if (promotion.id === 'one') return 5
+  return 6
 }
 
 function promotionRunsThisWeek(promotion: Promotion, promotionIndex: number, week: number): boolean {

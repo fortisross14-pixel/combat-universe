@@ -1,887 +1,364 @@
 {
-  "version": "2.2-realistic-cleanup-pass",
+  "version": "3.0-gender-and-tone-assets",
   "canvas": [
     120,
     120
   ],
-  "format": "png-layers",
-  "notes": "Cleaner realistic portrait asset library with stronger family-linked skin variation, female-safe bases, lighter facial shading, and expanded hair-color variety.",
+  "families": [
+    "east-asian",
+    "southeast-asian",
+    "west-african",
+    "european",
+    "south-asian",
+    "latin-american",
+    "mixed"
+  ],
   "bases": [
     {
       "id": "ea-m-rect",
       "family": "east-asian",
       "gender": "Male",
-      "file": "bases/ea-m-rect.png"
+      "tones": [
+        "porcelain-warm",
+        "light-warm",
+        "golden-light"
+      ]
     },
     {
       "id": "ea-m-oval",
       "family": "east-asian",
       "gender": "Male",
-      "file": "bases/ea-m-oval.png"
+      "tones": [
+        "porcelain-warm",
+        "light-warm",
+        "golden-light"
+      ]
     },
     {
       "id": "ea-f-heart",
       "family": "east-asian",
       "gender": "Female",
-      "file": "bases/ea-f-heart.png"
+      "tones": [
+        "porcelain-warm",
+        "light-warm",
+        "golden-light"
+      ]
     },
     {
       "id": "ea-f-round",
       "family": "east-asian",
       "gender": "Female",
-      "file": "bases/ea-f-round.png"
+      "tones": [
+        "porcelain-warm",
+        "light-warm",
+        "golden-light"
+      ]
+    },
+    {
+      "id": "sea-m-rect",
+      "family": "southeast-asian",
+      "gender": "Male",
+      "tones": [
+        "golden-tan",
+        "medium-warm",
+        "deep-tan"
+      ]
+    },
+    {
+      "id": "sea-m-oval",
+      "family": "southeast-asian",
+      "gender": "Male",
+      "tones": [
+        "golden-tan",
+        "medium-warm",
+        "deep-tan"
+      ]
+    },
+    {
+      "id": "sea-f-heart",
+      "family": "southeast-asian",
+      "gender": "Female",
+      "tones": [
+        "golden-tan",
+        "medium-warm",
+        "deep-tan"
+      ]
+    },
+    {
+      "id": "sea-f-round",
+      "family": "southeast-asian",
+      "gender": "Female",
+      "tones": [
+        "golden-tan",
+        "medium-warm",
+        "deep-tan"
+      ]
     },
     {
       "id": "wa-m-square",
       "family": "west-african",
       "gender": "Male",
-      "file": "bases/wa-m-square.png"
+      "tones": [
+        "deep",
+        "dark",
+        "ebony"
+      ]
     },
     {
       "id": "wa-m-softrect",
       "family": "west-african",
       "gender": "Male",
-      "file": "bases/wa-m-softrect.png"
+      "tones": [
+        "deep",
+        "dark",
+        "ebony"
+      ]
     },
     {
       "id": "wa-f-heart",
       "family": "west-african",
       "gender": "Female",
-      "file": "bases/wa-f-heart.png"
+      "tones": [
+        "deep",
+        "dark",
+        "ebony"
+      ]
     },
     {
       "id": "wa-f-diamond",
       "family": "west-african",
       "gender": "Female",
-      "file": "bases/wa-f-diamond.png"
+      "tones": [
+        "deep",
+        "dark",
+        "ebony"
+      ]
     },
     {
       "id": "eu-m-rect",
       "family": "european",
       "gender": "Male",
-      "file": "bases/eu-m-rect.png"
+      "tones": [
+        "porcelain",
+        "fair",
+        "light-olive",
+        "olive"
+      ]
     },
     {
       "id": "eu-m-pear",
       "family": "european",
       "gender": "Male",
-      "file": "bases/eu-m-pear.png"
+      "tones": [
+        "porcelain",
+        "fair",
+        "light-olive",
+        "olive"
+      ]
     },
     {
       "id": "eu-f-oval",
       "family": "european",
       "gender": "Female",
-      "file": "bases/eu-f-oval.png"
+      "tones": [
+        "porcelain",
+        "fair",
+        "light-olive",
+        "olive"
+      ]
     },
     {
       "id": "eu-f-softrect",
       "family": "european",
       "gender": "Female",
-      "file": "bases/eu-f-softrect.png"
+      "tones": [
+        "porcelain",
+        "fair",
+        "light-olive",
+        "olive"
+      ]
     },
     {
       "id": "sa-m-oval",
       "family": "south-asian",
       "gender": "Male",
-      "file": "bases/sa-m-oval.png"
+      "tones": [
+        "golden-medium",
+        "brown",
+        "deep-brown"
+      ]
     },
     {
       "id": "sa-m-square",
       "family": "south-asian",
       "gender": "Male",
-      "file": "bases/sa-m-square.png"
+      "tones": [
+        "golden-medium",
+        "brown",
+        "deep-brown"
+      ]
     },
     {
       "id": "sa-f-heart",
       "family": "south-asian",
       "gender": "Female",
-      "file": "bases/sa-f-heart.png"
+      "tones": [
+        "golden-medium",
+        "brown",
+        "deep-brown"
+      ]
     },
     {
       "id": "sa-f-round",
       "family": "south-asian",
       "gender": "Female",
-      "file": "bases/sa-f-round.png"
+      "tones": [
+        "golden-medium",
+        "brown",
+        "deep-brown"
+      ]
     },
     {
       "id": "la-m-softrect",
       "family": "latin-american",
       "gender": "Male",
-      "file": "bases/la-m-softrect.png"
+      "tones": [
+        "fair-tan",
+        "tan",
+        "medium-brown",
+        "deep-brown"
+      ]
     },
     {
       "id": "la-m-diamond",
       "family": "latin-american",
       "gender": "Male",
-      "file": "bases/la-m-diamond.png"
+      "tones": [
+        "fair-tan",
+        "tan",
+        "medium-brown",
+        "deep-brown"
+      ]
     },
     {
       "id": "la-f-oval",
       "family": "latin-american",
       "gender": "Female",
-      "file": "bases/la-f-oval.png"
+      "tones": [
+        "fair-tan",
+        "tan",
+        "medium-brown",
+        "deep-brown"
+      ]
     },
     {
       "id": "la-f-diamond",
       "family": "latin-american",
       "gender": "Female",
-      "file": "bases/la-f-diamond.png"
+      "tones": [
+        "fair-tan",
+        "tan",
+        "medium-brown",
+        "deep-brown"
+      ]
     },
     {
       "id": "mx-m-rect",
       "family": "mixed",
       "gender": "Male",
-      "file": "bases/mx-m-rect.png"
+      "tones": [
+        "fair",
+        "tan",
+        "medium-brown",
+        "deep-brown",
+        "dark"
+      ]
     },
     {
       "id": "mx-m-oval",
       "family": "mixed",
       "gender": "Male",
-      "file": "bases/mx-m-oval.png"
+      "tones": [
+        "fair",
+        "tan",
+        "medium-brown",
+        "deep-brown",
+        "dark"
+      ]
     },
     {
       "id": "mx-f-heart",
       "family": "mixed",
       "gender": "Female",
-      "file": "bases/mx-f-heart.png"
+      "tones": [
+        "fair",
+        "tan",
+        "medium-brown",
+        "deep-brown",
+        "dark"
+      ]
     },
     {
       "id": "mx-f-softrect",
       "family": "mixed",
       "gender": "Female",
-      "file": "bases/mx-f-softrect.png"
+      "tones": [
+        "fair",
+        "tan",
+        "medium-brown",
+        "deep-brown",
+        "dark"
+      ]
     }
   ],
   "eyes": [
-    {
-      "id": "eyes-almond-soft",
-      "family": "east-asian",
-      "file": "eyes/east-asian/eyes-almond-soft.png"
-    },
-    {
-      "id": "eyes-round-open",
-      "family": "east-asian",
-      "file": "eyes/east-asian/eyes-round-open.png"
-    },
-    {
-      "id": "eyes-hooded-serious",
-      "family": "east-asian",
-      "file": "eyes/east-asian/eyes-hooded-serious.png"
-    },
-    {
-      "id": "eyes-narrow-focused",
-      "family": "east-asian",
-      "file": "eyes/east-asian/eyes-narrow-focused.png"
-    },
-    {
-      "id": "eyes-monolid-clean",
-      "family": "east-asian",
-      "file": "eyes/east-asian/eyes-monolid-clean.png"
-    },
-    {
-      "id": "eyes-almond-soft",
-      "family": "west-african",
-      "file": "eyes/west-african/eyes-almond-soft.png"
-    },
-    {
-      "id": "eyes-round-open",
-      "family": "west-african",
-      "file": "eyes/west-african/eyes-round-open.png"
-    },
-    {
-      "id": "eyes-hooded-serious",
-      "family": "west-african",
-      "file": "eyes/west-african/eyes-hooded-serious.png"
-    },
-    {
-      "id": "eyes-narrow-focused",
-      "family": "west-african",
-      "file": "eyes/west-african/eyes-narrow-focused.png"
-    },
-    {
-      "id": "eyes-monolid-clean",
-      "family": "west-african",
-      "file": "eyes/west-african/eyes-monolid-clean.png"
-    },
-    {
-      "id": "eyes-almond-soft",
-      "family": "european",
-      "file": "eyes/european/eyes-almond-soft.png"
-    },
-    {
-      "id": "eyes-round-open",
-      "family": "european",
-      "file": "eyes/european/eyes-round-open.png"
-    },
-    {
-      "id": "eyes-hooded-serious",
-      "family": "european",
-      "file": "eyes/european/eyes-hooded-serious.png"
-    },
-    {
-      "id": "eyes-narrow-focused",
-      "family": "european",
-      "file": "eyes/european/eyes-narrow-focused.png"
-    },
-    {
-      "id": "eyes-monolid-clean",
-      "family": "european",
-      "file": "eyes/european/eyes-monolid-clean.png"
-    },
-    {
-      "id": "eyes-almond-soft",
-      "family": "south-asian",
-      "file": "eyes/south-asian/eyes-almond-soft.png"
-    },
-    {
-      "id": "eyes-round-open",
-      "family": "south-asian",
-      "file": "eyes/south-asian/eyes-round-open.png"
-    },
-    {
-      "id": "eyes-hooded-serious",
-      "family": "south-asian",
-      "file": "eyes/south-asian/eyes-hooded-serious.png"
-    },
-    {
-      "id": "eyes-narrow-focused",
-      "family": "south-asian",
-      "file": "eyes/south-asian/eyes-narrow-focused.png"
-    },
-    {
-      "id": "eyes-monolid-clean",
-      "family": "south-asian",
-      "file": "eyes/south-asian/eyes-monolid-clean.png"
-    },
-    {
-      "id": "eyes-almond-soft",
-      "family": "latin-american",
-      "file": "eyes/latin-american/eyes-almond-soft.png"
-    },
-    {
-      "id": "eyes-round-open",
-      "family": "latin-american",
-      "file": "eyes/latin-american/eyes-round-open.png"
-    },
-    {
-      "id": "eyes-hooded-serious",
-      "family": "latin-american",
-      "file": "eyes/latin-american/eyes-hooded-serious.png"
-    },
-    {
-      "id": "eyes-narrow-focused",
-      "family": "latin-american",
-      "file": "eyes/latin-american/eyes-narrow-focused.png"
-    },
-    {
-      "id": "eyes-monolid-clean",
-      "family": "latin-american",
-      "file": "eyes/latin-american/eyes-monolid-clean.png"
-    },
-    {
-      "id": "eyes-almond-soft",
-      "family": "mixed",
-      "file": "eyes/mixed/eyes-almond-soft.png"
-    },
-    {
-      "id": "eyes-round-open",
-      "family": "mixed",
-      "file": "eyes/mixed/eyes-round-open.png"
-    },
-    {
-      "id": "eyes-hooded-serious",
-      "family": "mixed",
-      "file": "eyes/mixed/eyes-hooded-serious.png"
-    },
-    {
-      "id": "eyes-narrow-focused",
-      "family": "mixed",
-      "file": "eyes/mixed/eyes-narrow-focused.png"
-    },
-    {
-      "id": "eyes-monolid-clean",
-      "family": "mixed",
-      "file": "eyes/mixed/eyes-monolid-clean.png"
-    }
+    "eyes-almond-soft",
+    "eyes-round-open",
+    "eyes-hooded-serious",
+    "eyes-narrow-focused",
+    "eyes-monolid-clean"
   ],
   "noses": [
-    {
-      "id": "nose-straight",
-      "file": "noses/nose-straight.png"
-    },
-    {
-      "id": "nose-narrow",
-      "file": "noses/nose-narrow.png"
-    },
-    {
-      "id": "nose-broad",
-      "file": "noses/nose-broad.png"
-    },
-    {
-      "id": "nose-aquiline",
-      "file": "noses/nose-aquiline.png"
-    },
-    {
-      "id": "nose-soft",
-      "file": "noses/nose-soft.png"
-    }
+    "nose-straight",
+    "nose-narrow",
+    "nose-broad",
+    "nose-aquiline",
+    "nose-soft"
   ],
   "mouths": [
-    {
-      "id": "mouth-firm",
-      "file": "mouths/mouth-firm.png"
-    },
-    {
-      "id": "mouth-neutral",
-      "file": "mouths/mouth-neutral.png"
-    },
-    {
-      "id": "mouth-full",
-      "file": "mouths/mouth-full.png"
-    },
-    {
-      "id": "mouth-smirk",
-      "file": "mouths/mouth-smirk.png"
-    },
-    {
-      "id": "mouth-thin",
-      "file": "mouths/mouth-thin.png"
-    }
+    "mouth-firm",
+    "mouth-neutral",
+    "mouth-full",
+    "mouth-smirk",
+    "mouth-thin"
   ],
-  "ears": [
-    {
-      "id": "ears-compact",
-      "file": "ears/ears-compact.png"
-    },
-    {
-      "id": "ears-medium",
-      "file": "ears/ears-medium.png"
-    },
-    {
-      "id": "ears-pronounced",
-      "file": "ears/ears-pronounced.png"
-    },
-    {
-      "id": "ears-high",
-      "file": "ears/ears-high.png"
-    },
-    {
-      "id": "ears-wide",
-      "file": "ears/ears-wide.png"
-    }
+  "hairStyles": [
+    "buzz",
+    "crop",
+    "quiff",
+    "side-part",
+    "messy",
+    "curly-top",
+    "afro-short",
+    "bob",
+    "ponytail",
+    "waves",
+    "updo",
+    "braids"
   ],
-  "hair": [
-    {
-      "style": "buzz",
-      "color": "black",
-      "file": "hair/buzz-black.png"
-    },
-    {
-      "style": "buzz",
-      "color": "dark-brown",
-      "file": "hair/buzz-dark-brown.png"
-    },
-    {
-      "style": "buzz",
-      "color": "brown",
-      "file": "hair/buzz-brown.png"
-    },
-    {
-      "style": "buzz",
-      "color": "light-brown",
-      "file": "hair/buzz-light-brown.png"
-    },
-    {
-      "style": "buzz",
-      "color": "blonde",
-      "file": "hair/buzz-blonde.png"
-    },
-    {
-      "style": "buzz",
-      "color": "auburn",
-      "file": "hair/buzz-auburn.png"
-    },
-    {
-      "style": "crop",
-      "color": "black",
-      "file": "hair/crop-black.png"
-    },
-    {
-      "style": "crop",
-      "color": "dark-brown",
-      "file": "hair/crop-dark-brown.png"
-    },
-    {
-      "style": "crop",
-      "color": "brown",
-      "file": "hair/crop-brown.png"
-    },
-    {
-      "style": "crop",
-      "color": "light-brown",
-      "file": "hair/crop-light-brown.png"
-    },
-    {
-      "style": "crop",
-      "color": "blonde",
-      "file": "hair/crop-blonde.png"
-    },
-    {
-      "style": "crop",
-      "color": "auburn",
-      "file": "hair/crop-auburn.png"
-    },
-    {
-      "style": "quiff",
-      "color": "black",
-      "file": "hair/quiff-black.png"
-    },
-    {
-      "style": "quiff",
-      "color": "dark-brown",
-      "file": "hair/quiff-dark-brown.png"
-    },
-    {
-      "style": "quiff",
-      "color": "brown",
-      "file": "hair/quiff-brown.png"
-    },
-    {
-      "style": "quiff",
-      "color": "light-brown",
-      "file": "hair/quiff-light-brown.png"
-    },
-    {
-      "style": "quiff",
-      "color": "blonde",
-      "file": "hair/quiff-blonde.png"
-    },
-    {
-      "style": "quiff",
-      "color": "auburn",
-      "file": "hair/quiff-auburn.png"
-    },
-    {
-      "style": "side-part",
-      "color": "black",
-      "file": "hair/side-part-black.png"
-    },
-    {
-      "style": "side-part",
-      "color": "dark-brown",
-      "file": "hair/side-part-dark-brown.png"
-    },
-    {
-      "style": "side-part",
-      "color": "brown",
-      "file": "hair/side-part-brown.png"
-    },
-    {
-      "style": "side-part",
-      "color": "light-brown",
-      "file": "hair/side-part-light-brown.png"
-    },
-    {
-      "style": "side-part",
-      "color": "blonde",
-      "file": "hair/side-part-blonde.png"
-    },
-    {
-      "style": "side-part",
-      "color": "auburn",
-      "file": "hair/side-part-auburn.png"
-    },
-    {
-      "style": "messy",
-      "color": "black",
-      "file": "hair/messy-black.png"
-    },
-    {
-      "style": "messy",
-      "color": "dark-brown",
-      "file": "hair/messy-dark-brown.png"
-    },
-    {
-      "style": "messy",
-      "color": "brown",
-      "file": "hair/messy-brown.png"
-    },
-    {
-      "style": "messy",
-      "color": "light-brown",
-      "file": "hair/messy-light-brown.png"
-    },
-    {
-      "style": "messy",
-      "color": "blonde",
-      "file": "hair/messy-blonde.png"
-    },
-    {
-      "style": "messy",
-      "color": "auburn",
-      "file": "hair/messy-auburn.png"
-    },
-    {
-      "style": "curly-top",
-      "color": "black",
-      "file": "hair/curly-top-black.png"
-    },
-    {
-      "style": "curly-top",
-      "color": "dark-brown",
-      "file": "hair/curly-top-dark-brown.png"
-    },
-    {
-      "style": "curly-top",
-      "color": "brown",
-      "file": "hair/curly-top-brown.png"
-    },
-    {
-      "style": "curly-top",
-      "color": "light-brown",
-      "file": "hair/curly-top-light-brown.png"
-    },
-    {
-      "style": "curly-top",
-      "color": "blonde",
-      "file": "hair/curly-top-blonde.png"
-    },
-    {
-      "style": "curly-top",
-      "color": "auburn",
-      "file": "hair/curly-top-auburn.png"
-    },
-    {
-      "style": "afro-short",
-      "color": "black",
-      "file": "hair/afro-short-black.png"
-    },
-    {
-      "style": "afro-short",
-      "color": "dark-brown",
-      "file": "hair/afro-short-dark-brown.png"
-    },
-    {
-      "style": "afro-short",
-      "color": "brown",
-      "file": "hair/afro-short-brown.png"
-    },
-    {
-      "style": "afro-short",
-      "color": "light-brown",
-      "file": "hair/afro-short-light-brown.png"
-    },
-    {
-      "style": "afro-short",
-      "color": "blonde",
-      "file": "hair/afro-short-blonde.png"
-    },
-    {
-      "style": "afro-short",
-      "color": "auburn",
-      "file": "hair/afro-short-auburn.png"
-    },
-    {
-      "style": "bob",
-      "color": "black",
-      "file": "hair/bob-black.png"
-    },
-    {
-      "style": "bob",
-      "color": "dark-brown",
-      "file": "hair/bob-dark-brown.png"
-    },
-    {
-      "style": "bob",
-      "color": "brown",
-      "file": "hair/bob-brown.png"
-    },
-    {
-      "style": "bob",
-      "color": "light-brown",
-      "file": "hair/bob-light-brown.png"
-    },
-    {
-      "style": "bob",
-      "color": "blonde",
-      "file": "hair/bob-blonde.png"
-    },
-    {
-      "style": "bob",
-      "color": "auburn",
-      "file": "hair/bob-auburn.png"
-    },
-    {
-      "style": "ponytail",
-      "color": "black",
-      "file": "hair/ponytail-black.png"
-    },
-    {
-      "style": "ponytail",
-      "color": "dark-brown",
-      "file": "hair/ponytail-dark-brown.png"
-    },
-    {
-      "style": "ponytail",
-      "color": "brown",
-      "file": "hair/ponytail-brown.png"
-    },
-    {
-      "style": "ponytail",
-      "color": "light-brown",
-      "file": "hair/ponytail-light-brown.png"
-    },
-    {
-      "style": "ponytail",
-      "color": "blonde",
-      "file": "hair/ponytail-blonde.png"
-    },
-    {
-      "style": "ponytail",
-      "color": "auburn",
-      "file": "hair/ponytail-auburn.png"
-    },
-    {
-      "style": "waves",
-      "color": "black",
-      "file": "hair/waves-black.png"
-    },
-    {
-      "style": "waves",
-      "color": "dark-brown",
-      "file": "hair/waves-dark-brown.png"
-    },
-    {
-      "style": "waves",
-      "color": "brown",
-      "file": "hair/waves-brown.png"
-    },
-    {
-      "style": "waves",
-      "color": "light-brown",
-      "file": "hair/waves-light-brown.png"
-    },
-    {
-      "style": "waves",
-      "color": "blonde",
-      "file": "hair/waves-blonde.png"
-    },
-    {
-      "style": "waves",
-      "color": "auburn",
-      "file": "hair/waves-auburn.png"
-    },
-    {
-      "style": "updo",
-      "color": "black",
-      "file": "hair/updo-black.png"
-    },
-    {
-      "style": "updo",
-      "color": "dark-brown",
-      "file": "hair/updo-dark-brown.png"
-    },
-    {
-      "style": "updo",
-      "color": "brown",
-      "file": "hair/updo-brown.png"
-    },
-    {
-      "style": "updo",
-      "color": "light-brown",
-      "file": "hair/updo-light-brown.png"
-    },
-    {
-      "style": "updo",
-      "color": "blonde",
-      "file": "hair/updo-blonde.png"
-    },
-    {
-      "style": "updo",
-      "color": "auburn",
-      "file": "hair/updo-auburn.png"
-    },
-    {
-      "style": "braids",
-      "color": "black",
-      "file": "hair/braids-black.png"
-    },
-    {
-      "style": "braids",
-      "color": "dark-brown",
-      "file": "hair/braids-dark-brown.png"
-    },
-    {
-      "style": "braids",
-      "color": "brown",
-      "file": "hair/braids-brown.png"
-    },
-    {
-      "style": "braids",
-      "color": "light-brown",
-      "file": "hair/braids-light-brown.png"
-    },
-    {
-      "style": "braids",
-      "color": "blonde",
-      "file": "hair/braids-blonde.png"
-    },
-    {
-      "style": "braids",
-      "color": "auburn",
-      "file": "hair/braids-auburn.png"
-    }
+  "hairColors": [
+    "black",
+    "dark-brown",
+    "brown",
+    "light-brown",
+    "blonde",
+    "auburn"
   ],
   "beards": [
-    {
-      "style": "stubble",
-      "color": "black",
-      "file": "beards/stubble-black.png"
-    },
-    {
-      "style": "stubble",
-      "color": "dark-brown",
-      "file": "beards/stubble-dark-brown.png"
-    },
-    {
-      "style": "stubble",
-      "color": "brown",
-      "file": "beards/stubble-brown.png"
-    },
-    {
-      "style": "stubble",
-      "color": "light-brown",
-      "file": "beards/stubble-light-brown.png"
-    },
-    {
-      "style": "stubble",
-      "color": "blonde",
-      "file": "beards/stubble-blonde.png"
-    },
-    {
-      "style": "stubble",
-      "color": "auburn",
-      "file": "beards/stubble-auburn.png"
-    },
-    {
-      "style": "short",
-      "color": "black",
-      "file": "beards/short-black.png"
-    },
-    {
-      "style": "short",
-      "color": "dark-brown",
-      "file": "beards/short-dark-brown.png"
-    },
-    {
-      "style": "short",
-      "color": "brown",
-      "file": "beards/short-brown.png"
-    },
-    {
-      "style": "short",
-      "color": "light-brown",
-      "file": "beards/short-light-brown.png"
-    },
-    {
-      "style": "short",
-      "color": "blonde",
-      "file": "beards/short-blonde.png"
-    },
-    {
-      "style": "short",
-      "color": "auburn",
-      "file": "beards/short-auburn.png"
-    },
-    {
-      "style": "full",
-      "color": "black",
-      "file": "beards/full-black.png"
-    },
-    {
-      "style": "full",
-      "color": "dark-brown",
-      "file": "beards/full-dark-brown.png"
-    },
-    {
-      "style": "full",
-      "color": "brown",
-      "file": "beards/full-brown.png"
-    },
-    {
-      "style": "full",
-      "color": "light-brown",
-      "file": "beards/full-light-brown.png"
-    },
-    {
-      "style": "full",
-      "color": "blonde",
-      "file": "beards/full-blonde.png"
-    },
-    {
-      "style": "full",
-      "color": "auburn",
-      "file": "beards/full-auburn.png"
-    },
-    {
-      "style": "goatee",
-      "color": "black",
-      "file": "beards/goatee-black.png"
-    },
-    {
-      "style": "goatee",
-      "color": "dark-brown",
-      "file": "beards/goatee-dark-brown.png"
-    },
-    {
-      "style": "goatee",
-      "color": "brown",
-      "file": "beards/goatee-brown.png"
-    },
-    {
-      "style": "goatee",
-      "color": "light-brown",
-      "file": "beards/goatee-light-brown.png"
-    },
-    {
-      "style": "goatee",
-      "color": "blonde",
-      "file": "beards/goatee-blonde.png"
-    },
-    {
-      "style": "goatee",
-      "color": "auburn",
-      "file": "beards/goatee-auburn.png"
-    },
-    {
-      "style": "moustache",
-      "color": "black",
-      "file": "beards/moustache-black.png"
-    },
-    {
-      "style": "moustache",
-      "color": "dark-brown",
-      "file": "beards/moustache-dark-brown.png"
-    },
-    {
-      "style": "moustache",
-      "color": "brown",
-      "file": "beards/moustache-brown.png"
-    },
-    {
-      "style": "moustache",
-      "color": "light-brown",
-      "file": "beards/moustache-light-brown.png"
-    },
-    {
-      "style": "moustache",
-      "color": "blonde",
-      "file": "beards/moustache-blonde.png"
-    },
-    {
-      "style": "moustache",
-      "color": "auburn",
-      "file": "beards/moustache-auburn.png"
-    }
+    "stubble",
+    "short",
+    "full",
+    "goatee",
+    "moustache"
   ]
 }

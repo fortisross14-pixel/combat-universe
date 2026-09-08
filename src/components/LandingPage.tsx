@@ -47,12 +47,11 @@ export default function LandingPage({ summaries, onCreate, onLoad, onDelete }: L
         <p className="eyebrow">A living combat history simulator</p>
         <h1>Combat Universe</h1>
         <p className="landing-copy">
-          Eight promotions. One limited pool of stars. Every championship, defection, rise, collapse,
-          merger, and legendary career begins at zero.
+          One MMA world. UFC at the apex, PFL and ONE as major challengers, and Cage Warriors as a feeder. Every title reign, rivalry, upset, rise, and decline becomes permanent history.
         </p>
         <div className="landing-pills" aria-label="Game highlights">
-          <span>20-round snake draft</span>
-          <span>Male &amp; female histories</span>
+          <span>UFC + 3 challenger/feeder promotions</span>
+          <span>Traditional MMA weight classes</span>
           <span>Persistent Almanac</span>
           <span>Full universe control</span>
         </div>
@@ -104,8 +103,7 @@ export default function LandingPage({ summaries, onCreate, onLoad, onDelete }: L
                 </div>
                 <h2>Create a new history</h2>
                 <p>
-                  Begin with the Founding Draft. All fighters and promotions start with zero fame, zero
-                  revenue, and no champions.
+                  Begin in Year 1 with a seeded MMA ecosystem. Only three Generational fighters exist, and where they land can define an era.
                 </p>
                 <button className="button primary wide" type="button" onClick={() => beginCreation(summary.slotId)}>
                   New universe
@@ -127,7 +125,7 @@ export default function LandingPage({ summaries, onCreate, onLoad, onDelete }: L
           >
             <p className="eyebrow">Slot {newSlot}</p>
             <h2 id="new-universe-title">Name your universe</h2>
-            <p>The name can be changed later. The draft order and full fighter pool are regenerated now.</p>
+            <p>The name can be changed later. A fresh MMA world, fighter pool, career curves, and promotion placement are generated now.</p>
             <label className="field-label" htmlFor="universe-name">
               Universe name
             </label>
@@ -146,7 +144,7 @@ export default function LandingPage({ summaries, onCreate, onLoad, onDelete }: L
                 Cancel
               </button>
               <button className="button primary" type="button" onClick={confirmCreation} disabled={!universeName.trim()}>
-                Enter the Founding Draft
+                Create MMA World
               </button>
             </div>
           </section>

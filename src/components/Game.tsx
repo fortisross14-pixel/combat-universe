@@ -742,7 +742,7 @@ export default function Game({ game, onChange, onExit }: GameProps) {
         <div>
           <p className="eyebrow">Promotions fight for limited resources</p>
           <h1>Talent Market</h1>
-          <p>Rare, Uncommon, and Common talent begins outside the draft. Promotions compete based on identity fit, opportunity, fame, and momentum.</p>
+          <p>Prospects and free agents move through the MMA ecosystem. UFC has the strongest pull, while PFL, ONE, and Cage Warriors can develop stars before they are poached.</p>
         </div>
         <button className="button primary" type="button" onClick={() => onChange(runSigningWindow(game, 8))} disabled={freeAgentList.length === 0}>
           Run eight-player signing window
@@ -751,7 +751,7 @@ export default function Game({ game, onChange, onExit }: GameProps) {
 
       <section className="metric-grid market-metrics">
         <article className="metric-card"><span>Free agents</span><strong>{freeAgentList.length}</strong><small>Limited pool remaining</small></article>
-        <article className="metric-card"><span>Rare</span><strong>{freeAgentList.filter((fighter) => fighter.rarity === 'Rare').length}</strong><small>Highest non-draft tier</small></article>
+        <article className="metric-card"><span>Rare</span><strong>{freeAgentList.filter((fighter) => fighter.rarity === 'Rare').length}</strong><small>Highest development tier</small></article>
         <article className="metric-card"><span>Uncommon</span><strong>{freeAgentList.filter((fighter) => fighter.rarity === 'Uncommon').length}</strong><small>Development talent</small></article>
         <article className="metric-card"><span>Common</span><strong>{freeAgentList.filter((fighter) => fighter.rarity === 'Common').length}</strong><small>Depth and surprises</small></article>
       </section>
@@ -789,7 +789,7 @@ export default function Game({ game, onChange, onExit }: GameProps) {
             {game.chronicles.filter((entry) => entry.type === 'signing').slice(0, 12).map((entry) => (
               <article key={entry.id}><span>{monthName(entry.month)} {entry.year}</span><strong>{entry.headline}</strong><p>{entry.body}</p></article>
             ))}
-            {game.chronicles.every((entry) => entry.type !== 'signing') && <p className="empty-copy">No post-draft signings yet.</p>}
+            {game.chronicles.every((entry) => entry.type !== 'signing') && <p className="empty-copy">No market signings yet.</p>}
           </div>
         </article>
       </section>
