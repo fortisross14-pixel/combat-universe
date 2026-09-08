@@ -5362,3 +5362,70 @@ body::after {
     text-align: left;
   }
 }
+
+/* Portrait engine v3: rarity owns the card background and frame. */
+.fighter-portrait {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid color-mix(in srgb, var(--portrait-accent) 76%, rgba(255,255,255,0.18));
+  background:
+    radial-gradient(circle at 42% 24%, color-mix(in srgb, var(--portrait-rarity-halo) 20%, transparent), transparent 56%),
+    linear-gradient(145deg, var(--portrait-rarity-top), var(--portrait-rarity-mid) 48%, var(--portrait-rarity-bottom));
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.30),
+    0 0 19px color-mix(in srgb, var(--portrait-accent) 17%, transparent),
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    inset 0 -10px 22px rgba(0,0,0,0.12);
+}
+
+.fighter-portrait::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.035);
+}
+
+.fighter-portrait.rarity-portrait-common {
+  box-shadow: 0 9px 24px rgba(0,0,0,0.29), 0 0 14px rgba(137,147,163,0.10), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.fighter-portrait.rarity-portrait-uncommon {
+  box-shadow: 0 10px 26px rgba(0,0,0,0.29), 0 0 17px rgba(88,185,122,0.15), inset 0 1px 0 rgba(255,255,255,0.09);
+}
+
+.fighter-portrait.rarity-portrait-rare {
+  box-shadow: 0 10px 28px rgba(0,0,0,0.30), 0 0 19px rgba(90,162,232,0.17), inset 0 1px 0 rgba(255,255,255,0.09);
+}
+
+.fighter-portrait.rarity-portrait-epic {
+  box-shadow: 0 11px 30px rgba(0,0,0,0.31), 0 0 21px rgba(152,113,232,0.20), inset 0 1px 0 rgba(255,255,255,0.10);
+}
+
+.fighter-portrait.rarity-portrait-generational {
+  box-shadow:
+    0 12px 32px rgba(0,0,0,0.34),
+    0 0 26px rgba(217,80,80,0.28),
+    0 0 7px rgba(240,107,114,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.11);
+}
+
+.fighter-portrait.rarity-portrait-legend {
+  box-shadow:
+    0 12px 32px rgba(0,0,0,0.34),
+    0 0 25px rgba(226,179,84,0.26),
+    0 0 7px rgba(240,204,112,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.11);
+}
+
+.fighter-portrait.is-champion {
+  border-color: rgba(244, 210, 124, 0.86);
+  box-shadow:
+    0 0 0 1px rgba(231,189,103,0.34),
+    0 14px 36px rgba(0,0,0,0.34),
+    0 0 27px rgba(231,189,103,0.24),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+}
+

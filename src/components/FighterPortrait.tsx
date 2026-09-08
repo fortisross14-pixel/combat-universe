@@ -1,4 +1,5 @@
 import type { Fighter } from '../types'
+import { createPortraitProfile } from './portraitModel'
 
 interface FighterPortraitProps {
   fighter: Fighter
@@ -8,156 +9,207 @@ interface FighterPortraitProps {
   champion?: boolean
 }
 
-const SIZE_MAP = {
-  xs: 34,
-  sm: 52,
-  md: 84,
-  lg: 132,
+const SIZE_MAP = { xs: 34, sm: 52, md: 84, lg: 132 } as const
+
+const RARITY_BACKDROPS = {
+  Common: {
+    top: '#596474',
+    mid: '#29313D',
+    bottom: '#10151D',
+    halo: '#A7B0BE',
+    rim: '#8993A3',
+    pattern: '#C2C9D3',
+  },
+  Uncommon: {
+    top: '#3D8C5C',
+    mid: '#173B29',
+    bottom: '#0A1711',
+    halo: '#68D492',
+    rim: '#58B97A',
+    pattern: '#8AE0A8',
+  },
+  Rare: {
+    top: '#397FC5',
+    mid: '#163B62',
+    bottom: '#091624',
+    halo: '#73B7F4',
+    rim: '#5AA2E8',
+    pattern: '#8BC8FF',
+  },
+  Epic: {
+    top: '#7654BF',
+    mid: '#38225F',
+    bottom: '#140C24',
+    halo: '#B190F4',
+    rim: '#9871E8',
+    pattern: '#C3A7FF',
+  },
+  Legend: {
+    top: '#C89539',
+    mid: '#5A3C13',
+    bottom: '#1E1408',
+    halo: '#F0CC70',
+    rim: '#E2B354',
+    pattern: '#F4D58B',
+  },
+  Generational: {
+    top: '#B53E49',
+    mid: '#5A1C25',
+    bottom: '#200A0E',
+    halo: '#F06B72',
+    rim: '#D95050',
+    pattern: '#FF8B8B',
+  },
 } as const
 
-const SKIN_TONES = ['#F6D7C3', '#E8C2A8', '#D8A17A', '#C57F54', '#A9653F', '#7D4A2F']
-const HAIR_COLORS = ['#16181d', '#302824', '#503728', '#7e532f', '#cfaa66', '#8a1f1f']
-const EYE_COLORS = ['#4B4037', '#6a4d2a', '#334960', '#476037', '#2f2f38']
-const BG_TINTS = ['#2A3140', '#2E253A', '#133343', '#242C3A', '#3B2719', '#1D2432']
-
-function hashString(value: string): number {
-  let hash = 0
-  for (let index = 0; index < value.length; index += 1) {
-    hash = (hash * 31 + value.charCodeAt(index)) >>> 0
-  }
-  return hash
+function assetUrl(path: string): string {
+  const base = import.meta.env.BASE_URL || '/'
+  return `${base}${base.endsWith('/') ? '' : '/'}portraits/${path}`
 }
 
-function pick<T>(items: readonly T[], seed: number, offset = 0): T {
-  return items[(Math.floor(seed / (offset + 1)) + offset) % items.length]
-}
-
-function feature(seed: number, min: number, max: number, divisor: number): number {
-  return min + ((Math.floor(seed / divisor) % 100) / 100) * (max - min)
+function layer(path: string, key: string) {
+  return <image key={key} href={assetUrl(path)} x="0" y="0" width="120" height="120" preserveAspectRatio="xMidYMid meet" />
 }
 
 export default function FighterPortrait({ fighter, size = 'md', accent, className = '', champion = false }: FighterPortraitProps) {
   const px = SIZE_MAP[size]
-  const seed = hashString(`${fighter.id}:${fighter.firstName}:${fighter.lastName}:${fighter.rarity}:${fighter.style}`)
-  const skin = pick(SKIN_TONES, seed, 3)
-  const hair = pick(HAIR_COLORS, seed, 7)
-  const eyes = pick(EYE_COLORS, seed, 11)
-  const bg = pick(BG_TINTS, seed, 13)
-  const useAccent = accent ?? (fighter.rarity === 'Generational'
-    ? '#d15454'
-    : fighter.rarity === 'Legend'
-      ? '#d8a14a'
-      : fighter.rarity === 'Epic'
-        ? '#8f74e8'
-        : fighter.rarity === 'Rare'
-          ? '#5e9fe7'
-          : fighter.rarity === 'Uncommon'
-            ? '#59c28a'
-            : '#79808f')
+  const profile = createPortraitProfile(fighter, accent ?? '')
+  const rarityClass = `rarity-portrait-${fighter.rarity.toLowerCase()}`
+  const rarityTheme = RARITY_BACKDROPS[fighter.rarity]
+  const svgId = `portrait-${fighter.id}-${size}`.replace(/[^a-zA-Z0-9_-]/g, '')
 
-  const faceShape = Math.floor(seed % 4)
-  const hairStyle = Math.floor(seed % 7)
-  const browLift = feature(seed, -1.5, 1.5, 17)
-  const eyeGap = feature(seed, 10.5, 12.5, 19)
-  const noseW = feature(seed, 4, 7.5, 23)
-  const mouthCurve = feature(seed, -3, 3, 29)
-  const jaw = feature(seed, 27, 33, 31)
-  const beard = fighter.gender === 'Male' && seed % 3 !== 0
-  const moustache = fighter.gender === 'Male' && seed % 5 === 0
-  const accessory = seed % 9
-  const facialMark = seed % 6 === 0
-  const ageFactor = Math.max(0, (fighter.age - 31) / 12)
-  const older = fighter.age >= 35
-  const primeGlow = fighter.rarity === 'Generational' || fighter.rarity === 'Legend'
-  const clothingColor = fighter.discipline === 'Boxing'
-    ? '#822d2f'
-    : fighter.discipline === 'Kickboxing'
-      ? '#365281'
-      : fighter.discipline === 'Wrestling'
-        ? '#4d2f65'
-        : '#2d644a'
-  const neckline = fighter.discipline === 'Wrestling'
-    ? 'M26 92 Q38 72 50 72 Q62 72 74 92 L26 92Z'
-    : fighter.discipline === 'Boxing'
-      ? 'M22 92 Q31 73 50 73 Q69 73 78 92 L22 92Z'
-      : 'M24 92 Q36 74 50 74 Q64 74 76 92 L24 92Z'
+  const layers = [
+    layer(`bases/${profile.baseId}.png`, 'base'),
+    layer(`ears/${profile.earSetId}.png`, 'ears'),
+    layer(`eyes/${profile.family}/${profile.eyeSetId}.png`, 'eyes'),
+    layer(`noses/${profile.noseSetId}.png`, 'nose'),
+    layer(`mouths/${profile.mouthSetId}.png`, 'mouth'),
+  ]
 
-  const face = faceShape === 0
-    ? <ellipse cx="50" cy="45" rx="22" ry="25" fill={skin} />
-    : faceShape === 1
-      ? <path d={`M29 32 Q50 20 71 32 L68 ${jaw + 22} Q50 76 32 ${jaw + 22} Z`} fill={skin} />
-      : faceShape === 2
-        ? <rect x="29" y="22" width="42" height="49" rx="18" fill={skin} />
-        : <path d="M32 28 Q50 18 68 28 Q72 54 61 70 Q50 78 39 70 Q28 54 32 28Z" fill={skin} />
+  if (profile.beardStyle !== 'none') {
+    layers.push(layer(`beards/${profile.beardStyle}-${profile.hairColorName}.png`, 'beard'))
+  }
 
-  const hairFront = hairStyle === 0
-    ? <path d="M29 37 Q34 18 50 17 Q67 18 71 37 Q63 30 50 30 Q36 30 29 37Z" fill={hair} />
-    : hairStyle === 1
-      ? <path d="M27 41 Q28 19 50 16 Q70 19 73 41 Q65 34 50 35 Q36 34 27 41Z" fill={hair} />
-      : hairStyle === 2
-        ? <path d="M30 36 Q35 16 50 15 Q65 16 70 36 L70 28 Q58 22 50 22 Q42 22 30 28Z" fill={hair} />
-        : hairStyle === 3
-          ? <path d="M28 39 C28 20 71 20 72 39 Q60 29 50 30 Q38 30 28 39Z" fill={hair} />
-          : hairStyle === 4
-            ? <path d="M27 40 Q31 15 50 15 Q69 15 73 40 Q67 31 50 33 Q34 31 27 40Z" fill={hair} />
-            : hairStyle === 5
-              ? <path d="M42 12 L58 12 L55 38 L45 38 Z" fill={hair} />
-              : null
+  layers.push(layer(`hair/${profile.hairStyle}-${profile.hairColorName}.png`, 'hair'))
 
-  const hairBack = hairStyle === 6
-    ? null
-    : <path d="M29 40 Q29 18 50 16 Q71 18 71 40 L71 46 Q64 35 50 35 Q36 35 29 46Z" fill={hair} opacity="0.95" />
-
-  const beardShape = beard ? <path d="M34 54 Q50 66 66 54 Q64 70 50 73 Q36 70 34 54Z" fill={hair} opacity="0.9" /> : null
-  const moustacheShape = moustache ? <path d="M42 57 Q46 54 50 57 Q54 54 58 57" stroke={hair} strokeWidth="2.4" strokeLinecap="round" fill="none" /> : null
+  if (profile.accessory !== 'none') {
+    layers.push(layer(`accessories/${profile.accessory}.svg`, 'accessory'))
+  }
 
   return (
     <div
-      className={`fighter-portrait portrait-${size} ${champion ? 'is-champion' : ''} ${className}`.trim()}
-      style={{ '--portrait-size': `${px}px`, '--portrait-accent': useAccent, '--portrait-bg': bg } as React.CSSProperties}
+      className={`fighter-portrait ${rarityClass} portrait-${size} ${champion ? 'is-champion' : ''} ${className}`.trim()}
+      style={{
+        '--portrait-size': `${px}px`,
+        '--portrait-accent': rarityTheme.rim,
+        '--portrait-bg': rarityTheme.bottom,
+        '--portrait-rarity-top': rarityTheme.top,
+        '--portrait-rarity-mid': rarityTheme.mid,
+        '--portrait-rarity-bottom': rarityTheme.bottom,
+        '--portrait-rarity-halo': rarityTheme.halo,
+      } as React.CSSProperties}
       aria-hidden="true"
+      data-portrait-engine="realistic-layer-library-v2"
+      data-portrait-family={profile.family}
+      data-portrait-base={profile.baseId}
+      data-portrait-eyes={profile.eyeSetId}
+      data-portrait-nose={profile.noseSetId}
+      data-portrait-mouth={profile.mouthSetId}
+      data-portrait-hair={`${profile.hairStyle}-${profile.hairColorName}`}
+      data-portrait-expression={profile.expression}
+      data-rarity={fighter.rarity}
     >
-      <svg viewBox="0 0 100 100" role="img">
+      <svg viewBox="0 0 120 120" role="img">
         <defs>
-          <linearGradient id={`bg-${seed}`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor={useAccent} stopOpacity="0.32" />
-            <stop offset="100%" stopColor={bg} stopOpacity="1" />
+          <linearGradient id={`${svgId}-bg`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={rarityTheme.top} />
+            <stop offset="43%" stopColor={rarityTheme.mid} />
+            <stop offset="100%" stopColor={rarityTheme.bottom} />
           </linearGradient>
-          <linearGradient id={`robe-${seed}`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor={clothingColor} />
-            <stop offset="100%" stopColor="#151922" />
+
+          <radialGradient id={`${svgId}-halo`} cx="50%" cy="34%" r="58%">
+            <stop offset="0%" stopColor={rarityTheme.halo} stopOpacity="0.3" />
+            <stop offset="42%" stopColor={rarityTheme.halo} stopOpacity="0.1" />
+            <stop offset="100%" stopColor={rarityTheme.halo} stopOpacity="0" />
+          </radialGradient>
+
+          <linearGradient id={`${svgId}-vignette`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#000" stopOpacity="0.02" />
+            <stop offset="60%" stopColor="#000" stopOpacity="0.03" />
+            <stop offset="100%" stopColor="#000" stopOpacity="0.34" />
           </linearGradient>
+
+          <linearGradient id={`${svgId}-sheen`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#fff" stopOpacity="0.13" />
+            <stop offset="26%" stopColor="#fff" stopOpacity="0.035" />
+            <stop offset="55%" stopColor="#fff" stopOpacity="0" />
+          </linearGradient>
+
+          <pattern id={`${svgId}-pattern`} width="13" height="13" patternUnits="userSpaceOnUse" patternTransform="rotate(38)">
+            <line x1="0" y1="0" x2="0" y2="13" stroke={rarityTheme.pattern} strokeWidth="0.7" opacity="0.09" />
+          </pattern>
+
+          <filter id={`${svgId}-portrait-depth`} x="-20%" y="-20%" width="140%" height="150%">
+            <feDropShadow dx="0" dy="2.1" stdDeviation="1.7" floodColor="#000000" floodOpacity="0.35" />
+          </filter>
+
+          <filter id={`${svgId}-rim-glow`} x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation={fighter.rarity === 'Generational' ? '2.4' : fighter.rarity === 'Legend' ? '2.0' : '1.2'} result="blur" />
+          </filter>
+
+          <clipPath id={`${svgId}-clip`}>
+            <rect x="0" y="0" width="120" height="120" rx="22" />
+          </clipPath>
         </defs>
-        <rect x="0" y="0" width="100" height="100" rx="24" fill={`url(#bg-${seed})`} />
-        <circle cx="50" cy="34" r="26" fill="rgba(255,255,255,0.08)" />
-        <path d={neckline} fill={`url(#robe-${seed})`} opacity="0.95" />
-        {fighter.discipline === 'Boxing' ? <path d="M16 88 Q20 77 30 75 Q24 83 27 92 Z" fill="#8a3234" opacity="0.95" /> : null}
-        {fighter.discipline === 'Boxing' ? <path d="M84 88 Q80 77 70 75 Q76 83 73 92 Z" fill="#8a3234" opacity="0.95" /> : null}
-        {fighter.discipline === 'Wrestling' ? <path d="M36 76 H64 V91 H36 Z" fill="#242935" opacity="0.7" /> : null}
-        {hairBack}
-        {face}
-        <rect x="44" y="64" width="12" height="12" rx="5" fill={skin} />
-        {hairFront}
-        <path d={`M38 ${41 + browLift} Q43 ${38 + browLift} 46 ${41 + browLift}`} stroke={hair} strokeWidth="2.4" strokeLinecap="round" fill="none" />
-        <path d={`M54 ${41 - browLift} Q57 ${38 - browLift} 62 ${41 - browLift}`} stroke={hair} strokeWidth="2.4" strokeLinecap="round" fill="none" />
-        <ellipse cx={50 - eyeGap / 2} cy="46" rx="3.2" ry="2.6" fill={eyes} />
-        <ellipse cx={50 + eyeGap / 2} cy="46" rx="3.2" ry="2.6" fill={eyes} />
-        <circle cx={50 - eyeGap / 2} cy="45.6" r="0.8" fill="#fff" opacity="0.9" />
-        <circle cx={50 + eyeGap / 2} cy="45.6" r="0.8" fill="#fff" opacity="0.9" />
-        <path d={`M50 48 L${50 - noseW / 2} 57 Q50 59 ${50 + noseW / 2} 57`} stroke="#9a6a4e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.7" />
-        <path d={`M40 61 Q50 ${64 + mouthCurve} 60 61`} stroke="#7b3f36" strokeWidth="2.2" strokeLinecap="round" fill="none" />
-        {beardShape}
-        {moustacheShape}
-        {facialMark ? <path d="M33 54 L38 50" stroke="rgba(255,255,255,0.4)" strokeWidth="1.2" strokeLinecap="round" /> : null}
-        {older ? <path d="M41 42 Q43 43 46 42" stroke="rgba(255,255,255,0.2)" strokeWidth="0.9" fill="none" /> : null}
-        {older ? <path d="M54 42 Q57 43 60 42" stroke="rgba(255,255,255,0.2)" strokeWidth="0.9" fill="none" /> : null}
-        {ageFactor > 0 ? <path d="M43 63 Q50 66 57 63" stroke="rgba(80,40,40,0.22)" strokeWidth={0.8 + ageFactor * 0.4} fill="none" /> : null}
-        {accessory === 2 ? <path d="M34 45 H66" stroke="rgba(255,255,255,0.2)" strokeWidth="7" strokeLinecap="round" /> : null}
-        {accessory === 2 ? <circle cx="39" cy="46" r="6.5" stroke="#dbe3f2" strokeWidth="1.5" fill="none" opacity="0.7" /> : null}
-        {accessory === 2 ? <circle cx="61" cy="46" r="6.5" stroke="#dbe3f2" strokeWidth="1.5" fill="none" opacity="0.7" /> : null}
-        {accessory === 5 ? <path d="M24 22 Q50 6 76 22" stroke={useAccent} strokeWidth="4" strokeLinecap="round" fill="none" opacity="0.8" /> : null}
-        {primeGlow ? <rect x="3" y="3" width="94" height="94" rx="21" stroke={useAccent} strokeWidth="2" opacity="0.4" fill="none" /> : null}
-        {champion ? <g transform="translate(70 8)"><path d="M6 0 L8.3 4.4 L13 5.1 L9.6 8.3 L10.4 13 L6 10.6 L1.6 13 L2.4 8.3 L-1 5.1 L3.7 4.4Z" fill="#f7d98d" /><path d="M-1 14 H13 V18 H-1 Z" fill="#d8a14a" /></g> : null}
+
+        <g clipPath={`url(#${svgId}-clip)`}>
+          <rect width="120" height="120" fill={`url(#${svgId}-bg)`} />
+          <rect width="120" height="120" fill={`url(#${svgId}-pattern)`} />
+          <ellipse cx="60" cy="43" rx="49" ry="46" fill={`url(#${svgId}-halo)`} />
+
+          <ellipse cx="60" cy="109" rx="39" ry="10" fill="#000" opacity="0.16" />
+          <g filter={`url(#${svgId}-portrait-depth)`}>{layers}</g>
+
+          <rect width="120" height="120" fill={`url(#${svgId}-vignette)`} pointerEvents="none" />
+          <path d="M0 0 H78 Q44 20 18 70 Q7 87 0 93Z" fill={`url(#${svgId}-sheen)`} opacity="0.5" pointerEvents="none" />
+          <path d="M5 96 Q14 110 32 117" stroke={rarityTheme.rim} strokeWidth="2" opacity="0.22" fill="none" />
+          <path d="M89 4 Q108 19 116 42" stroke={rarityTheme.halo} strokeWidth="1.1" opacity="0.14" fill="none" />
+        </g>
+
+        <rect
+          x="2.5"
+          y="2.5"
+          width="115"
+          height="115"
+          rx="20.5"
+          fill="none"
+          stroke={rarityTheme.rim}
+          strokeWidth={fighter.rarity === 'Generational' || fighter.rarity === 'Legend' ? '2.35' : '1.45'}
+          opacity={fighter.rarity === 'Generational' || fighter.rarity === 'Legend' ? '0.78' : '0.55'}
+        />
+
+        {(fighter.rarity === 'Legend' || fighter.rarity === 'Generational') ? (
+          <rect
+            x="4.5"
+            y="4.5"
+            width="111"
+            height="111"
+            rx="18.8"
+            fill="none"
+            stroke={rarityTheme.halo}
+            strokeWidth="2.7"
+            opacity="0.2"
+            filter={`url(#${svgId}-rim-glow)`}
+          />
+        ) : null}
+
+        {champion ? (
+          <g transform="translate(91 10)">
+            <circle cx="8" cy="8" r="10.5" fill="#14100A" opacity="0.58" />
+            <path d="M8 0 L10.5 5.1 L16 5.9 L12 9.8 L12.9 15.3 L8 12.7 L3.1 15.3 L4 9.8 L0 5.9 L5.5 5.1Z" fill="#F4D27C" />
+            <path d="M1 17 H15 V20 H1Z" fill="#D5A33D" />
+          </g>
+        ) : null}
       </svg>
     </div>
   )
