@@ -22,37 +22,55 @@ const ELITE_PORTRAITS: PortraitAsset[] = [
   { id: 'eu_f_01', tier: 'elite', family: 'european', gender: 'Female', file: 'elite/european/female/eu_f_01.png', tags: ['fair','focused','athletic','clean'], accessories: ['scar-brow','glasses','headband-black','face-tape'] },
   { id: 'eu_f_02', tier: 'elite', family: 'european', gender: 'Female', file: 'elite/european/female/eu_f_02.png', tags: ['intense','fighter','braids','blonde'], accessories: ['scar-brow','headband-red','face-tape'] },
   { id: 'eu_f_03', tier: 'elite', family: 'european', gender: 'Female', file: 'elite/european/female/eu_f_03.png', tags: ['tough','scarred','blonde','fighter'], accessories: ['scar-cheek','headband-black'] },
+  { id: 'eu_f_04', tier: 'elite', family: 'european', gender: 'Female', file: 'elite/european/female/eu_f_04.png', tags: ['platinum-hair','focused','cold','distinctive'], accessories: ['scar-cheek','headband-black','face-tape','glasses'] },
+  { id: 'eu_f_05', tier: 'elite', family: 'european', gender: 'Female', file: 'elite/european/female/eu_f_05.png', tags: ['platinum-hair','pixie','ice-blue','veteran'], accessories: ['scar-cheek','glasses','face-tape'] },
   { id: 'eu_m_01', tier: 'elite', family: 'european', gender: 'Male', file: 'elite/european/male/eu_m_01.png', tags: ['veteran','stoic','bearded','gray-hair'], accessories: ['scar-cheek','headband-black'] },
   { id: 'eu_m_02', tier: 'elite', family: 'european', gender: 'Male', file: 'elite/european/male/eu_m_02.png', tags: ['villain','intense','tattoo','bearded'], accessories: ['scar-brow','sunglasses','face-tape'] },
   { id: 'eu_m_03', tier: 'elite', family: 'european', gender: 'Male', file: 'elite/european/male/eu_m_03.png', tags: ['wild','veteran','headband','long-hair'], accessories: ['scar-cheek','sunglasses'] },
+  { id: 'eu_m_04', tier: 'elite', family: 'european', gender: 'Male', file: 'elite/european/male/eu_m_04.png', tags: ['rugged','veteran','auburn','scarred'], accessories: ['scar-cheek','headband-black'] },
 
   { id: 'wa_f_01', tier: 'elite', family: 'west-african', gender: 'Female', file: 'elite/west-african/female/wa_f_01.png', tags: ['deep','confident','braids','intense'], accessories: ['scar-cheek','headband-red','face-tape'] },
   { id: 'wa_f_02', tier: 'elite', family: 'west-african', gender: 'Female', file: 'elite/west-african/female/wa_f_02.png', tags: ['deep','calm','braids','classy'], accessories: ['scar-brow','headband-black','glasses'] },
   { id: 'wa_f_03', tier: 'elite', family: 'west-african', gender: 'Female', file: 'elite/west-african/female/wa_f_03.png', tags: ['calm','confident','platinum-hair','clean','showman'], accessories: ['glasses','sunglasses','scar-cheek'] },
   { id: 'wa_f_04', tier: 'elite', family: 'west-african', gender: 'Female', file: 'elite/west-african/female/wa_f_04.png', tags: ['graceful','confident','braids','classy'], accessories: ['scar-brow','headband-black'] },
+  { id: 'wa_f_05', tier: 'elite', family: 'west-african', gender: 'Female', file: 'elite/west-african/female/wa_f_05.png', tags: ['showman','pink-hair','distinctive','confident'], accessories: ['glasses','sunglasses','face-tape'] },
+  { id: 'wa_f_06', tier: 'elite', family: 'west-african', gender: 'Female', file: 'elite/west-african/female/wa_f_06.png', tags: ['braids','focused','power','clean'], accessories: ['scar-cheek','headband-red','face-tape'] },
   { id: 'wa_m_01', tier: 'elite', family: 'west-african', gender: 'Male', file: 'elite/west-african/male/wa_m_01.png', tags: ['power','intense','bearded','tattoo','fearless'], accessories: ['scar-cheek','headband-red','face-tape'] },
   { id: 'wa_m_02', tier: 'elite', family: 'west-african', gender: 'Male', file: 'elite/west-african/male/wa_m_02.png', tags: ['legacy','focused','headband','stoic'], accessories: ['scar-brow','face-tape'] },
+  { id: 'wa_m_03', tier: 'elite', family: 'west-african', gender: 'Male', file: 'elite/west-african/male/wa_m_03.png', tags: ['power','stoic','platinum-hair','distinctive'], accessories: ['scar-brow','headband-black','face-tape'] },
 
   { id: 'ea_m_01', tier: 'elite', family: 'east-asian', gender: 'Male', file: 'elite/east-asian/male/ea_m_01.png', tags: ['light-warm','focused','clean','black-hair'], accessories: ['scar-cheek','headband-black','face-tape'] },
   { id: 'ea_m_02', tier: 'elite', family: 'east-asian', gender: 'Male', file: 'elite/east-asian/male/ea_m_02.png', tags: ['warm','rugged','bearded','fighter'], accessories: ['scar-brow','sunglasses','headband-red'] },
   { id: 'ea_m_03', tier: 'elite', family: 'east-asian', gender: 'Male', file: 'elite/east-asian/male/ea_m_03.png', tags: ['stoic','focused','scarred','black-hair'], accessories: ['scar-cheek','headband-black'] },
   { id: 'ea_m_04', tier: 'elite', family: 'east-asian', gender: 'Male', file: 'elite/east-asian/male/ea_m_04.png', tags: ['veteran','stoic','buzz','legacy'], accessories: ['scar-brow','face-tape'] },
   { id: 'ea_m_05', tier: 'elite', family: 'east-asian', gender: 'Male', file: 'elite/east-asian/male/ea_m_05.png', tags: ['white-hair','showman','cold','distinctive'], accessories: ['sunglasses','scar-brow'] },
+  { id: 'ea_m_06', tier: 'elite', family: 'east-asian', gender: 'Male', file: 'elite/east-asian/male/ea_m_06.png', tags: ['white-hair','stoic','scarred','distinctive'], accessories: ['scar-brow','face-tape'] },
+  { id: 'ea_m_07', tier: 'elite', family: 'east-asian', gender: 'Male', file: 'elite/east-asian/male/ea_m_07.png', tags: ['spiky-hair','scarred','stoic','technical'], accessories: ['scar-cheek','headband-black'] },
+  { id: 'ea_m_08', tier: 'elite', family: 'east-asian', gender: 'Male', file: 'elite/east-asian/male/ea_m_08.png', tags: ['blonde-hair','face-tape','cocky','showman'], accessories: ['face-tape','scar-cheek','sunglasses'] },
   { id: 'ea_f_01', tier: 'elite', family: 'east-asian', gender: 'Female', file: 'elite/east-asian/female/ea_f_01.png', tags: ['calm','technical','clean','black-hair'], accessories: ['glasses','scar-brow'] },
   { id: 'ea_f_02', tier: 'elite', family: 'east-asian', gender: 'Female', file: 'elite/east-asian/female/ea_f_02.png', tags: ['clean','calm','focused','black-hair'], accessories: ['headband-black','scar-cheek'] },
+  { id: 'ea_f_03', tier: 'elite', family: 'east-asian', gender: 'Female', file: 'elite/east-asian/female/ea_f_03.png', tags: ['classy','technical','focused','ponytail'], accessories: ['glasses','scar-brow','headband-black'] },
 
   { id: 'sea_f_01', tier: 'elite', family: 'southeast-asian', gender: 'Female', file: 'elite/southeast-asian/female/sea_f_01.png', tags: ['medium-warm','calm','classy','clean'], accessories: ['scar-cheek','glasses','headband-black'] },
   { id: 'sea_f_02', tier: 'elite', family: 'southeast-asian', gender: 'Female', file: 'elite/southeast-asian/female/sea_f_02.png', tags: ['rebel','showman','pink-hair','freckles','distinctive'], accessories: ['sunglasses','scar-brow','face-tape'] },
+  { id: 'sea_f_03', tier: 'elite', family: 'southeast-asian', gender: 'Female', file: 'elite/southeast-asian/female/sea_f_03.png', tags: ['classy','calm','focused','brown-hair'], accessories: ['scar-cheek','glasses','headband-black'] },
+  { id: 'sea_f_04', tier: 'elite', family: 'southeast-asian', gender: 'Female', file: 'elite/southeast-asian/female/sea_f_04.png', tags: ['calm','determined','bun','technical'], accessories: ['glasses','headband-black'] },
   { id: 'sea_m_01', tier: 'elite', family: 'southeast-asian', gender: 'Male', file: 'elite/southeast-asian/male/sea_m_01.png', tags: ['focused','tattoo','black-hair','fearless'], accessories: ['scar-cheek','headband-red'] },
+  { id: 'sea_m_02', tier: 'elite', family: 'southeast-asian', gender: 'Male', file: 'elite/southeast-asian/male/sea_m_02.png', tags: ['rebel','distinctive','blonde','face-tape'], accessories: ['face-tape','scar-brow','sunglasses'] },
 
   { id: 'sa_f_01', tier: 'elite', family: 'south-asian', gender: 'Female', file: 'elite/south-asian/female/sa_f_01.png', tags: ['classy','calm','glasses','technical'], accessories: ['scar-brow','headband-black'] },
   { id: 'sa_m_01', tier: 'elite', family: 'south-asian', gender: 'Male', file: 'elite/south-asian/male/sa_m_01.png', tags: ['rugged','intense','bearded','fighter'], accessories: ['scar-cheek','face-tape'] },
+  { id: 'sa_m_02', tier: 'elite', family: 'south-asian', gender: 'Male', file: 'elite/south-asian/male/sa_m_02.png', tags: ['villain','intense','bearded','long-hair'], accessories: ['scar-cheek','headband-black','face-tape'] },
+  { id: 'sa_m_03', tier: 'elite', family: 'south-asian', gender: 'Male', file: 'elite/south-asian/male/sa_m_03.png', tags: ['bearded','warrior','intense','long-hair'], accessories: ['scar-cheek','headband-black'] },
 
   { id: 'la_m_01', tier: 'elite', family: 'latin-mixed', gender: 'Male', file: 'elite/latin-mixed/male/la_m_01.png', tags: ['tan','intense','clean','fighter'], accessories: ['scar-brow','sunglasses','headband-red','face-tape'] },
   { id: 'la_m_02', tier: 'elite', family: 'latin-mixed', gender: 'Male', file: 'elite/latin-mixed/male/la_m_02.png', tags: ['tan','focused','classy'], accessories: ['scar-cheek','glasses','headband-black'] },
   { id: 'la_m_03', tier: 'elite', family: 'latin-mixed', gender: 'Male', file: 'elite/latin-mixed/male/la_m_03.png', tags: ['young','cocky','curly','technical'], accessories: ['sunglasses','scar-brow'] },
   { id: 'la_m_04', tier: 'elite', family: 'latin-mixed', gender: 'Male', file: 'elite/latin-mixed/male/la_m_04.png', tags: ['young','calm','curly','clean'], accessories: ['glasses','headband-black'] },
+  { id: 'la_m_05', tier: 'elite', family: 'latin-mixed', gender: 'Male', file: 'elite/latin-mixed/male/la_m_05.png', tags: ['clean','sharp','technical','veteran'], accessories: ['scar-cheek','headband-black'] },
   { id: 'la_f_01', tier: 'elite', family: 'latin-mixed', gender: 'Female', file: 'elite/latin-mixed/female/la_f_01.png', tags: ['intense','tattoo','dark-hair','fighter'], accessories: ['scar-cheek','headband-red'] },
+  { id: 'la_f_02', tier: 'elite', family: 'latin-mixed', gender: 'Female', file: 'elite/latin-mixed/female/la_f_02.png', tags: ['intense','freckles','curly','fighter'], accessories: ['scar-brow','headband-red','face-tape'] },
+  { id: 'la_f_03', tier: 'elite', family: 'latin-mixed', gender: 'Female', file: 'elite/latin-mixed/female/la_f_03.png', tags: ['curly','focused','freckled','rebel'], accessories: ['scar-cheek','glasses'] },
 ]
 
 const STANDARD_PORTRAITS: PortraitAsset[] = [
@@ -227,6 +245,6 @@ export function assignPortrait(fighter: Fighter): AssignedPortrait {
 export const PORTRAIT_LIBRARY_STATS = {
   eliteAvailable: ELITE_PORTRAITS.length,
   standardAvailable: STANDARD_PORTRAITS.length,
-  eliteTargetFirstExpansion: 48,
+  eliteTargetFirstExpansion: 56,
   standardTarget: 24,
 }
