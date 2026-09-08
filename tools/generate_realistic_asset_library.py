@@ -12,12 +12,12 @@ SRC = {
 SIZE = (120, 120)
 
 BASES = [
-    ('ea-m-rect','east-asian','Male','ea_m'),('ea-m-oval','east-asian','Male','ea_m'),('ea-f-heart','east-asian','Female','ea_m'),('ea-f-round','east-asian','Female','ea_m'),
+    ('ea-m-rect','east-asian','Male','ea_m'),('ea-m-oval','east-asian','Male','ea_m'),('ea-f-heart','east-asian','Female','wa_f'),('ea-f-round','east-asian','Female','wa_f'),
     ('wa-m-square','west-african','Male','wa_f'),('wa-m-softrect','west-african','Male','wa_f'),('wa-f-heart','west-african','Female','wa_f'),('wa-f-diamond','west-african','Female','wa_f'),
-    ('eu-m-rect','european','Male','la_m'),('eu-m-pear','european','Male','la_m'),('eu-f-oval','european','Female','la_m'),('eu-f-softrect','european','Female','la_m'),
-    ('sa-m-oval','south-asian','Male','la_m'),('sa-m-square','south-asian','Male','la_m'),('sa-f-heart','south-asian','Female','la_m'),('sa-f-round','south-asian','Female','la_m'),
-    ('la-m-softrect','latin-american','Male','la_m'),('la-m-diamond','latin-american','Male','la_m'),('la-f-oval','latin-american','Female','la_m'),('la-f-diamond','latin-american','Female','la_m'),
-    ('mx-m-rect','mixed','Male','la_m'),('mx-m-oval','mixed','Male','la_m'),('mx-f-heart','mixed','Female','la_m'),('mx-f-softrect','mixed','Female','la_m'),
+    ('eu-m-rect','european','Male','la_m'),('eu-m-pear','european','Male','la_m'),('eu-f-oval','european','Female','wa_f'),('eu-f-softrect','european','Female','wa_f'),
+    ('sa-m-oval','south-asian','Male','la_m'),('sa-m-square','south-asian','Male','la_m'),('sa-f-heart','south-asian','Female','wa_f'),('sa-f-round','south-asian','Female','wa_f'),
+    ('la-m-softrect','latin-american','Male','la_m'),('la-m-diamond','latin-american','Male','la_m'),('la-f-oval','latin-american','Female','wa_f'),('la-f-diamond','latin-american','Female','wa_f'),
+    ('mx-m-rect','mixed','Male','la_m'),('mx-m-oval','mixed','Male','la_m'),('mx-f-heart','mixed','Female','wa_f'),('mx-f-softrect','mixed','Female','wa_f'),
 ]
 
 FAMILIES = ['east-asian','west-african','european','south-asian','latin-american','mixed']
@@ -181,17 +181,17 @@ def make_base(img: Image.Image, family: str, gender: str, variant_index: int) ->
     out = ImageEnhance.Color(out).enhance(0.94)
     out = ImageEnhance.Contrast(out).enhance(0.95)
     # Slightly cleaner busts / less muddy shadows.
-    out = brightness_lift(out, region_mask('shadow_lift'), amount=0.08 if gender == 'Male' else 0.11)
-    out = soften_region(out, region_mask('shadow_lift'), blur=1.2, amount=0.20 if gender == 'Male' else 0.28)
+    out = brightness_lift(out, region_mask('shadow_lift'), amount=0.04 if gender == 'Male' else 0.05)
+    out = soften_region(out, region_mask('shadow_lift'), blur=1.0, amount=0.12 if gender == 'Male' else 0.18)
 
     # Stronger family-linked skin rendering.
     family_tones = {
-        'east-asian': ((247, 224, 206, 255), 0.16),
-        'west-african': ((110, 75, 53, 255), 0.18),
-        'european': ((244, 226, 214, 255), 0.12),
-        'south-asian': ((205, 158, 125, 255), 0.16),
-        'latin-american': ((220, 180, 145, 255), 0.15),
-        'mixed': ((214, 172, 140, 255), 0.12),
+        'east-asian': ((244, 226, 205, 255), 0.22),
+        'west-african': ((95, 63, 44, 255), 0.28),
+        'european': ((247, 233, 221, 255), 0.18),
+        'south-asian': ((185, 136, 101, 255), 0.26),
+        'latin-american': ((205, 157, 118, 255), 0.24),
+        'mixed': ((214, 172, 140, 255), 0.18),
     }
     skin_mask = composite_mask(feather_ellipse((12, 16, 108, 112), blur=10), feather_box((22, 76, 98, 119), blur=8))
     color, opacity = family_tones[family]
@@ -200,16 +200,13 @@ def make_base(img: Image.Image, family: str, gender: str, variant_index: int) ->
     # Reduce embedded feature dominance but do not fully remove realism.
     out = alpha_multiply(out, 1.0)
     if gender == 'Female':
-        out = brightness_lift(out, region_mask('female_soften'), amount=0.10)
-        out = soften_region(out, region_mask('female_soften'), blur=1.5, amount=0.36)
+        out = brightness_lift(out, region_mask('female_soften'), amount=0.05)
+        out = soften_region(out, region_mask('female_soften'), blur=1.2, amount=0.24)
 
     # Lower opacity where modular assets will sit, especially hair/beard.
     removal = composite_mask(
-        scaled_mask(region_mask('hair_messy' if gender == 'Male' else 'hair_bob'), 0.78),
-        scaled_mask(region_mask('eyes'), 0.40),
-        scaled_mask(region_mask('nose'), 0.30),
-        scaled_mask(region_mask('mouth'), 0.38),
-        scaled_mask(region_mask('beard'), 0.86 if gender == 'Male' else 0.56),
+        scaled_mask(region_mask('hair_messy' if gender == 'Male' else 'hair_bob'), 0.52),
+        scaled_mask(region_mask('beard'), 0.28 if gender == 'Male' else 0.12),
     )
     alpha = out.getchannel('A')
     alpha = ImageChops.subtract(alpha, removal)
@@ -329,10 +326,10 @@ for style in BEARDS:
         recolor_hair(base, color_name).save(ROOT / 'beards' / f'{style}-{color_name}.png')
 
 manifest = {
-    'version': '2.1-realistic-expanded',
+    'version': '2.2-realistic-cleanup-pass',
     'canvas': [120, 120],
     'format': 'png-layers',
-    'notes': 'Expanded realistic portrait asset library with cleaner bases, stronger region-linked skin variety, more hair colors, and stricter gender-linked beard usage.',
+    'notes': 'Cleaner realistic portrait asset library with stronger family-linked skin variation, female-safe bases, lighter facial shading, and expanded hair-color variety.',
     'bases': [{'id': i, 'family': f, 'gender': g, 'file': f'bases/{i}.png'} for i, f, g, _ in BASES],
     'eyes': [{'id': eye, 'family': fam, 'file': f'eyes/{fam}/{eye}.png'} for fam in FAMILIES for eye in EYE_IDS],
     'noses': [{'id': k, 'file': f'noses/{k}.png'} for k in NOSE_IDS],

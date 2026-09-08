@@ -1,11 +1,11 @@
 {
-  "version": "2.1-realistic-expanded",
+  "version": "2.2-realistic-cleanup-pass",
   "canvas": [
     120,
     120
   ],
   "format": "png-layers",
-  "notes": "Expanded realistic portrait asset library with cleaner bases, stronger region-linked skin variety, more hair colors, and stricter gender-linked beard usage.",
+  "notes": "Cleaner realistic portrait asset library with stronger family-linked skin variation, female-safe bases, lighter facial shading, and expanded hair-color variety.",
   "bases": [
     {
       "id": "ea-m-rect",

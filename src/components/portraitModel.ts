@@ -550,10 +550,16 @@ export function createPortraitProfile(fighter: Fighter, brandAccent = ''): Portr
   }
   const noseSet = weightedPool(seed, 'noseset', NOSE_SETS, noseWeights)
 
-  const mouthSet = weightedPool(seed, 'mouthset', MOUTH_SETS, {
+  const mouthSet = weightedPool(seed, 'mouthset', MOUTH_SETS, fighter.gender === 'Female' ? {
+    'mouth-firm': 0,
+    'mouth-neutral': 4,
+    'mouth-full': 5,
+    'mouth-smirk': fighter.socialPersonality === 'Showman' || fighter.socialPersonality === 'Rebel' ? 3 : 1,
+    'mouth-thin': fighter.socialPersonality === 'Classy' ? 2 : 0,
+  } : {
     'mouth-firm': fighter.socialPersonality === 'Fighter' || fighter.socialPersonality === 'Villain' ? 3 : 1,
     'mouth-neutral': 3,
-    'mouth-full': fighter.gender === 'Female' ? 3 : 2,
+    'mouth-full': 2,
     'mouth-smirk': fighter.socialPersonality === 'Showman' || fighter.socialPersonality === 'Rebel' ? 4 : 1,
     'mouth-thin': fighter.socialPersonality === 'Classy' ? 2 : 1,
   })
