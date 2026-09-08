@@ -1,5 +1,5 @@
 {
-  "version": "0.11.3",
+  "version": "0.11.4",
   "strategy": "hybrid-curated-library",
   "rules": {
     "eliteRarities": [
@@ -19,10 +19,10 @@
     "hairColorRule": "Hair color is baked into curated faces; unusual elite looks such as pink, platinum and white hair are allowed."
   },
   "starter": {
-    "elitePortraits": 47,
+    "elitePortraits": 60,
     "standardPortraits": 12,
     "accessories": 7,
-    "firstExpansionEliteTarget": 48,
-    "longTermEliteTarget": 96
+    "firstExpansionEliteTarget": 64,
+    "longTermEliteTarget": 128
   }
 }
