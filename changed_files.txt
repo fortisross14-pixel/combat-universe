@@ -1,0 +1,16 @@
+changed_files.txt
+public/portraits-v11/catalog.json
+public/portraits-v11/elite/east-asian/male/ea_m_09.png
+public/portraits-v11/elite/east-asian/male/ea_m_10.png
+public/portraits-v11/elite/east-asian/male/ea_m_11.png
+public/portraits-v11/elite/european/female/eu_f_06.png
+public/portraits-v11/elite/european/male/eu_m_05.png
+public/portraits-v11/elite/latin-mixed/female/la_f_04.png
+public/portraits-v11/elite/latin-mixed/male/la_m_06.png
+public/portraits-v11/elite/latin-mixed/male/la_m_07.png
+public/portraits-v11/elite/southeast-asian/female/sea_f_05.png
+public/portraits-v11/elite/west-african/female/wa_f_07.png
+public/portraits-v11/elite/west-african/female/wa_f_08.png
+public/portraits-v11/elite/west-african/male/wa_m_04.png
+public/portraits-v11/elite/west-african/male/wa_m_05.png
+src/data/portraitLibrary.ts

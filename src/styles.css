@@ -5476,3 +5476,103 @@ body::after {
     width: 100%;
   }
 }
+
+
+/* v0.11.5 portrait/full-package layout + centered headshot hotfix */
+.fighter-card-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.fighter-card-grid .fighter-card {
+  display: grid !important;
+  grid-template-columns: 6px 84px minmax(0, 1fr) minmax(210px, 230px) !important;
+  gap: 16px;
+  align-items: center;
+  min-height: 126px;
+  padding: 18px;
+}
+
+.fighter-card-grid .fighter-rarity-stripe {
+  position: static;
+  width: 6px;
+  min-height: 84px;
+  height: 100%;
+  grid-column: 1;
+}
+
+.fighter-card-grid .fighter-card-avatar {
+  grid-column: 2;
+  width: 84px;
+  height: 84px;
+  align-self: center;
+  justify-self: start;
+  border-radius: 18px;
+}
+
+.fighter-card-grid .fighter-card-content {
+  grid-column: 3;
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  align-self: center;
+}
+
+.fighter-card-grid .fighter-card-tags {
+  margin-bottom: 2px;
+}
+
+.fighter-card-grid .fighter-card-content > strong.fighter-real-name {
+  font-size: 16px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.fighter-card-grid .fighter-card-content > small.fighter-nickname {
+  font-size: 12px;
+  font-weight: 650;
+  color: #d0d3db;
+}
+
+.fighter-card-grid .fighter-style-line,
+.fighter-card-grid .fighter-personality-line {
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.fighter-card-grid .fighter-card-stats {
+  grid-column: 4;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 210px;
+  align-self: stretch;
+}
+
+.fighter-card-grid .fighter-card-stats b {
+  min-width: 0;
+  padding: 10px 8px;
+}
+
+@media (max-width: 1180px) {
+  .fighter-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .fighter-card-grid .fighter-card {
+    grid-template-columns: 6px 74px minmax(0, 1fr) !important;
+    gap: 12px;
+  }
+
+  .fighter-card-grid .fighter-card-avatar {
+    width: 74px;
+    height: 74px;
+  }
+
+  .fighter-card-grid .fighter-card-stats {
+    grid-column: 2 / -1;
+    min-width: 0;
+  }
+}

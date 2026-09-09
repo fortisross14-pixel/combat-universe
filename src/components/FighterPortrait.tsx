@@ -9,7 +9,7 @@ interface FighterPortraitProps {
   champion?: boolean
 }
 
-const SIZE_MAP = { xs: 34, sm: 52, md: 84, lg: 132 } as const
+const SIZE_MAP = { xs: 34, sm: 52, md: 84, lg: 128 } as const
 
 const RARITY_BACKDROPS = {
   Common: { top: '#596474', mid: '#29313D', bottom: '#10151D', halo: '#A7B0BE', rim: '#8993A3', pattern: '#C2C9D3' },
@@ -87,7 +87,7 @@ export default function FighterPortrait({ fighter, size = 'md', className = '', 
             y="0"
             width="120"
             height="120"
-            preserveAspectRatio="xMidYMid meet"
+            preserveAspectRatio="xMidYMid slice"
             filter={`url(#${svgId}-depth)`}
           />
 
